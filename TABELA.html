@@ -28,7 +28,7 @@
     }
 
     body {
-	  font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
       background: var(--bg-color);
@@ -38,7 +38,7 @@
       animation: fadeIn 1s forwards;
       min-height: 100vh;
       overflow: auto;
-	   align-items: stretch;
+      align-items: stretch;
     }
 
     @keyframes fadeIn {
@@ -51,7 +51,6 @@
       margin: 0 auto;
       padding: 0 2rem;
       margin-top: 0;
-	  
     }
 
     .top-button, .buttons {
@@ -160,6 +159,17 @@
       display: flex;
       align-items: center;
       text-align: left;
+      position: relative;
+      padding-left: 1.8rem; /* espaço para o ícone */
+    }
+
+    .player-info .icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      margin-right: 4px;
     }
 
     .highlight-points {
@@ -184,19 +194,19 @@
     }
 
     .last-place-row {
-      background-color: rgba(231, 76, 60, 0.0675) !important; /* Último colocado com maior transparência */
+      background-color: rgba(231, 76, 60, 0.0675) !important;
     }
 
     .penultimate-place-row {
-      background-color: rgba(231, 76, 60, 0.0506) !important; /* Penúltimo colocado com 25% a menos de transparência */
+      background-color: rgba(231, 76, 60, 0.0506) !important;
     }
 
     .eighteenth-place-row {
-      background-color: rgba(231, 76, 60, 0.03795) !important; /* Jogador da posição 18 com 25% a menos de transparência que o penúltimo */
+      background-color: rgba(231, 76, 60, 0.03795) !important;
     }
 
     .seventeenth-place-row {
-      background-color: rgba(231, 76, 60, 0.02846) !important; /* Jogador da posição 17 com 25% a menos de transparência que o da posição 18 */
+      background-color: rgba(231, 76, 60, 0.02846) !important;
     }
 
     table {
@@ -233,6 +243,11 @@
       vertical-align: middle;
     }
 
+    .table-responsive {
+      overflow-x: auto;                /* 🆕 habilita scroll horizontal */
+      -webkit-overflow-scrolling: touch; /* 🆕 momentum no iOS */
+    }
+
     @media screen and (max-width: 768px) {
       .container {
         margin: 1rem;
@@ -247,10 +262,14 @@
         margin: 8px 0;
         width: 100%;
       }
-    }
 
-    .table-responsive {
-      overflow-y: auto;
+      table {
+        min-width: 600px;  /* 🆕 largura mínima para manter colunas legíveis */
+      }
+
+      th, td {
+        padding: 8px;      /* 🆕 padding reduzido em mobile */
+      }
     }
   </style>
 </head>
@@ -318,15 +337,10 @@
 
       tabelaCorpo.innerHTML = jogadoresOrdenados.map((jogador, index) => {
         const ranking = index + 1;
-        const isTop3 = ranking <= 3;
-        const isBottom4 = ranking >= jogadores.length - 3;
         const isFirst = index === 0;
         const isSecond = index === 1;
         const isThird = index === 2;
         const isLast = index === jogadoresOrdenados.length - 1;
-        const isPenultimate = index === jogadoresOrdenados.length - 2;
-        const isEighteenth = index === 17;
-        const isSeventeenth = index === 16;
 
         let avatarClass = 'avatar';
         if (isFirst) avatarClass += ' first-place-avatar';
@@ -337,15 +351,28 @@
           isSecond ? 'second-place-row' : '',
           isThird ? 'third-place-row' : '',
           isLast ? 'last-place-row' : '',
-          isPenultimate ? 'penultimate-place-row' : '',
-          isEighteenth ? 'eighteenth-place-row' : '',
-          isSeventeenth ? 'seventeenth-place-row' : ''
+          index === jogadoresOrdenados.length - 2 ? 'penultimate-place-row' : '',
+          index === 17 ? 'eighteenth-place-row' : '',
+          index === 16 ? 'seventeenth-place-row' : ''
         ].filter(Boolean).join(' ');
+
+        const icon = isFirst
+          ? '<span class="icon">🏆</span>'
+          : isSecond
+            ? '<span class="icon">🥈</span>'
+            : isThird
+              ? '<span class="icon">🥉</span>'
+              : isLast
+                ? '<span class="icon">💀</span>'
+                : '';
 
         return `<tr class="${rowClass}">
           <td class="player-info">
+            ${icon}
             <span class="ranking">${ranking}</span>
-            <img src="https://randomuser.me/api/portraits/men/${index + 1}.jpg" alt="Avatar de ${jogador.nome}" class="${avatarClass}" />
+            <img src="https://randomuser.me/api/portraits/men/${index + 1}.jpg"
+                 alt="Avatar de ${jogador.nome}"
+                 class="${avatarClass}" />
             ${jogador.nome}
           </td>
           <td>${jogador.pontos}</td>
