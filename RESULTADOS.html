@@ -18,7 +18,7 @@
       padding: 0;
       margin: 0;
       min-height: 100vh;
-      gap: 20px; /* Adicionando espaço entre os cards */
+      gap: 20px;
     }
 
     .scoreboard {
@@ -36,18 +36,12 @@
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 0.8s forwards;
-      margin-bottom: 20px; /* Espaço entre os cards */
+      margin-bottom: 20px;
     }
 
-    .scoreboard:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-    .scoreboard:nth-child(2) {
-      animation-delay: 0.4s;
-    }
-    .scoreboard:nth-child(3) {
-      animation-delay: 0.6s;
-    }
+    .scoreboard:nth-child(1) { animation-delay: 0.2s; }
+    .scoreboard:nth-child(2) { animation-delay: 0.4s; }
+    .scoreboard:nth-child(3) { animation-delay: 0.6s; }
 
     @keyframes fadeInUp {
       to {
@@ -77,17 +71,9 @@
       transform: scale(1.05);
     }
 
-    .winner {
-      border-color: #00ff88 !important;
-    }
-
-    .loser {
-      border-color: #ff4444 !important;
-    }
-
-    .draw {
-      border-color: #888 !important;
-    }
+    .winner { border-color: #00ff88 !important; }
+    .loser  { border-color: #ff4444 !important; }
+    .draw   { border-color: #888 !important; }
 
     .team-name {
       color: #eee;
@@ -136,13 +122,11 @@
       color: #ccc;
     }
 
+    /* Media query ajustada: apenas reduz padding em celular, mantendo flex-direction row */
     @media (max-width: 768px) {
       .scoreboard {
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
+        padding: 15px 20px;
       }
-
       .scores {
         gap: 20px;
       }
