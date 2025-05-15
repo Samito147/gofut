@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Tabela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="tabela.html" as="document">
+  <link rel="preload" href="resultados.html" as="document">
+  <link rel="preload" href="cronograma.html" as="document">
+  <link rel="preload" href="apostas.html" as="document">
+  <link rel="preload" href="ranking.html" as="document">
+  <link rel="preload" href="noticias.html" as="document">
+  <link rel="preload" href="regulamento.html" as="document">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html, body {
+      background: #0f0f0f;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100%;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+	   }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #0f0f0f;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      padding: 15px 0;
+      width: 100%;
+    }
+
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #00bcd4;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #00bcd4;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    .navbar a.active {
+      color: #00bcd4;
+      font-weight: 600;
+    }
+
+    #loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 15, 15, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #loader-overlay.mostrar {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      color: #00bcd4;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid transparent;
+      border-top: 5px solid #00bcd4;
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    iframe {
+      width: 100%;
+      height: 150vh; /* Garantir que o iframe ocupe toda a altura da tela */
+      border: none;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    iframe.fade {
+      opacity: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .navbar {
+        gap: 15px;
+        padding: 12px 0;
+      }
+
+      .navbar a {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        gap: 10px;
+        padding: 10px 0;
+      }
+
+      .navbar a {
+        font-size: 13px;
+      }
+
+      iframe {
+        min-height: 100vh;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        gap: 8px;
+        font-size: 12px;
+      }
+
+      iframe {
+        min-height: 120vh;
+      }
+    }
+
+    .navbar a:focus {
+      outline: 3px solid #00bcd4;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="active" data-page="tabela.html" aria-label="Visualize a Tabela" title="Visualize a Tabela">📊 Tabela</a>
+    <a data-page="resultados.html" aria-label="Veja os Resultados" title="Veja os Resultados">📈 Resultados</a>
+    <a data-page="cronograma.html" aria-label="Confira o Cronograma" title="Confira o Cronograma">📅 Cronograma</a>
+    <a data-page="apostas.html" aria-label="Acesse a Área de Apostas" title="Acesse a Área de Apostas">⚽ Apostas</a>
+    <a data-page="ranking.html" aria-label="Veja o Ranking" title="Veja o Ranking">🏆 Ranking</a>
+    <a data-page="noticias.html" aria-label="Leia as Últimas Notícias" title="Leia as Últimas Notícias">📰 Notícias</a>
+    <a data-page="regulamento.html" aria-label="Veja o Regulamento" title="Veja o Regulamento">📜 Regulamento</a>
+  </nav>
+
+  <div id="loader-overlay">
+    <div id="loader">
+      <div class="spinner" role="status" aria-live="polite"></div>
+      <span id="loader-texto">Carregando...</span>
+    </div>
+  </div>
+
+  <iframe id="iframe-conteudo" class="fade" src="tabela.html" title="Conteúdo carregado dinamicamente" loading="lazy" scrolling="no"></iframe>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navbarLinks = document.querySelectorAll('.navbar a');
+
+      navbarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navbarLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          const page = link.getAttribute('data-page');
+          const iframe = document.getElementById('iframe-conteudo');
+          iframe.src = page;
+          
+          // Mostrar loader enquanto o conteúdo carrega
+          document.getElementById('loader-overlay').classList.add('mostrar');
+          iframe.classList.remove('fade');
+          
+          iframe.onload = () => {
+            document.getElementById('loader-overlay').classList.remove('mostrar');
+            iframe.classList.add('fade');
+          };
+        });
+      });
+    });
+  </script>
+</body>
+</html>

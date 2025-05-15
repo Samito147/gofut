@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regulamento - Campeonato eFootball</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/framer-motion@10.12.16/dist/framer-motion.umd.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.312.0/icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="p-6">
+  <header class="text-center mb-10">
+    <h1 class="text-4xl font-bold tracking-wide fade-in">🏆 Regulamento do Campeonato eFootball</h1>
+    <p class="text-lg text-gray-300 mt-2 fade-in">Prepare-se para competir no mais alto nível!</p>
+  </header>
+
+  <main class="max-w-4xl mx-auto space-y-10">
+    <!-- Seção 1 -->
+    <section class="bg-gray-800/80 p-6 rounded-2xl shadow-lg fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i data-lucide="calendar" class="text-blue-400 w-6 h-6"></i>
+        <h2 class="text-2xl font-semibold">1. Duração e Formato</h2>
+      </div>
+      <ul class="list-disc list-inside text-gray-300 leading-relaxed">
+        <li>O campeonato terá duração de 4 semanas.</li>
+        <li>Serão 20 jogadores participantes em sistema de pontos corridos.</li>
+        <li>Cada vitória vale 3 pontos, empate 1 ponto e derrota 0 pontos.</li>
+      </ul>
+    </section>
+
+    <!-- Seção 2 -->
+    <section class="bg-gray-800/80 p-6 rounded-2xl shadow-lg fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i data-lucide="gamepad-2" class="text-green-400 w-6 h-6"></i>
+        <h2 class="text-2xl font-semibold">2. Plataforma e Partidas</h2>
+      </div>
+      <ul class="list-disc list-inside text-gray-300 leading-relaxed">
+        <li>Todos os jogos devem ser realizados no eFootball (PS5, PS4 ou PC).</li>
+        <li>As partidas terão 10 minutos de duração, com prorrogação e pênaltis desativados.</li>
+        <li>O host será definido conforme tabela semanal.</li>
+      </ul>
+    </section>
+
+    <!-- Seção 3 -->
+    <section class="bg-gray-800/80 p-6 rounded-2xl shadow-lg fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i data-lucide="shield-check" class="text-yellow-400 w-6 h-6"></i>
+        <h2 class="text-2xl font-semibold">3. Regras de Conduta</h2>
+      </div>
+      <ul class="list-disc list-inside text-gray-300 leading-relaxed">
+        <li>É proibido ofender adversários ou usar linguagem imprópria.</li>
+        <li>Desistências frequentes podem resultar em banimento do torneio.</li>
+        <li>É obrigatório salvar os replays das partidas em caso de disputa.</li>
+      </ul>
+    </section>
+
+    <!-- Seção 4 -->
+    <section class="bg-gray-800/80 p-6 rounded-2xl shadow-lg fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i data-lucide="trophy" class="text-purple-400 w-6 h-6"></i>
+        <h2 class="text-2xl font-semibold">4. Premiação</h2>
+      </div>
+      <ul class="list-disc list-inside text-gray-300 leading-relaxed">
+        <li>1º lugar: Troféu digital + prêmio em dinheiro.</li>
+        <li>2º lugar: Medalha + item exclusivo no jogo.</li>
+        <li>3º lugar: Reconhecimento nas redes sociais do torneio.</li>
+      </ul>
+    </section>
+
+    <!-- Seção 5 -->
+    <section class="bg-gray-800/80 p-6 rounded-2xl shadow-lg fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i data-lucide="help-circle" class="text-pink-400 w-6 h-6"></i>
+        <h2 class="text-2xl font-semibold">5. Suporte e Contato</h2>
+      </div>
+      <p class="text-gray-300 leading-relaxed">
+        Qualquer problema técnico ou dúvida deve ser encaminhado à organização via grupo oficial no WhatsApp ou Discord.
+      </p>
+    </section>
+  </main>
+
+  <footer class="text-center mt-10 text-sm text-gray-400 fade-in">
+    <p>&copy; 2025 Campeonato eFootball | Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

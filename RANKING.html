@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranking de Gols</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Variáveis para tema escuro */
+    :root {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --thead-bg: rgba(31, 31, 31, 0.8);
+      --row-bg: rgba(44, 44, 44, 0.6);
+      --row-hover: rgba(58, 58, 58, 0.8);
+      --border-color: #fff;
+      --highlight-color: #1e88e5;
+    }
+
+    /* Corpo da página */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Contêiner da tabela */
+    .container {
+      width: 100%;
+      max-width: 400px; /* Largura reduzida em 50% */
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    /* Tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--row-bg);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    thead {
+      background-color: var(--thead-bg);
+      color: var(--text-color);
+    }
+
+    th, td {
+      padding: 6px 12px; /* Ajustado o padding para reduzir o espaço */
+      text-align: center; /* Alinha os títulos e dados no centro */
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody tr:hover {
+      background-color: var(--row-hover);
+    }
+
+    /* Estilos para a coluna de jogadores */
+    img.avatar {
+      width: 30px; /* Reduzido o tamanho dos avatares */
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    /* Destaque para os primeiros lugares */
+    .first-place-row {
+      background-color: rgba(144, 238, 144, 0.2);
+    }
+
+    .second-place-row {
+      background-color: rgba(255, 215, 0, 0.2);
+    }
+
+    .third-place-row {
+      background-color: rgba(192, 192, 192, 0.2);
+    }
+
+    .ranking {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--highlight-color);
+    }
+
+    /* Melhorias na responsividade */
+    @media (max-width: 768px) {
+      th, td {
+        padding: 6px 10px; /* Ajustado padding */
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      img.avatar {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      th, td {
+        padding: 5px 8px; /* Ajustado padding */
+      }
+
+      table {
+        font-size: 0.8rem;
+      }
+
+      img.avatar {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    /* Melhorando a flexibilidade */
+    table, th, td {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="ranking-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Jogador</th>
+          <th>Gols</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    // Gerar jogadores com avatares e gols
+    const jogadores = [];
+    for (let i = 0; i < 29; i++) {
+      jogadores.push({
+        nome: `Jogador ${i + 1}`,
+        gols: Math.floor(Math.random() * 40), // Gols aleatórios
+        avatar: `https://i.pravatar.cc/150?img=${i + 1}`, // URL corrigida para avatares aleatórios
+      });
+    }
+
+    // Ordena os jogadores pela quantidade de gols
+    const jogadoresOrdenados = jogadores.sort((a, b) => b.gols - a.gols);
+
+    // Função para renderizar a tabela de ranking
+    function renderizarTabela() {
+      const rankingBody = document.getElementById("ranking-body");
+
+      rankingBody.innerHTML = jogadoresOrdenados.map((jogador, index) => {
+        let rowClass = '';
+        if (index === 0) rowClass = 'first-place-row';
+        if (index === 1) rowClass = 'second-place-row';
+        if (index === 2) rowClass = 'third-place-row';
+
+        return `
+          <tr class="${rowClass}">
+            <td>
+              <img src="${jogador.avatar}" alt="Avatar de ${jogador.nome}" class="avatar" />
+              ${jogador.nome}
+            </td>
+            <td>${jogador.gols}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Inicializar a renderização
+    renderizarTabela();
+  </script>
+</body>
+</html>

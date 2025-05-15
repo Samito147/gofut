@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Apostas</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: transparent;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      opacity: 0;
+      transform: scale(0.95);
+      animation: fadeIn 1s forwards; /* Animação suave de entrada */
+    }
+
+    /* Animação de fade-in */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .container-cards {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      .container-cards {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+      }
+    }
+
+    .card {
+      background: transparent;
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #3b82f6;
+      box-shadow: 0 0 10px rgba(59,130,246,0.5);
+    }
+
+    .btn {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
+
+    .vs-box {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #facc15, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.75;
+      }
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .date-title {
+      font-size: 1.2rem;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      text-align: center;
+      margin-bottom: 1rem;
+      width: 100%; /* Garante que o título ocupe toda a largura do card */
+      white-space: nowrap; /* Impede quebra de linha */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .countdown {
+      font-size: 1rem;
+      color: #f59e0b;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    .card-content {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-cards">
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="date-title" id="date-title-1"></div>
+      <div class="countdown" id="countdown-1"></div>
+      <div class="card-content">
+        <div class="flex flex-col items-center text-center space-y-0">
+          <img src="https://i.pravatar.cc/100?img=1" alt="Avatar Jogador 1" class="avatar">
+          <h2 class="text-xl font-semibold">Jogador 1</h2>
+          <p class="text-gray-300">Odd: 2.0</p>
+          <div class="input-container">
+            <input type="number" id="aposta1" placeholder="Valor" class="p-2 rounded text-black w-32 text-center">
+            <button onclick="apostar(1, 2.0)" class="btn">BET</button>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center h-full space-y-4">
+          <div class="vs-box">VS</div>
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-0">
+          <img src="https://i.pravatar.cc/100?img=2" alt="Avatar Jogador 2" class="avatar">
+          <h2 class="text-xl font-semibold">Jogador 2</h2>
+          <p class="text-gray-300">Odd: 1.7</p>
+          <div class="input-container">
+            <input type="number" id="aposta2" placeholder="Valor" class="p-2 rounded text-black w-32 text-center">
+            <button onclick="apostar(2, 1.7)" class="btn">BET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="date-title" id="date-title-2"></div>
+      <div class="countdown" id="countdown-2"></div>
+      <div class="card-content">
+        <div class="flex flex-col items-center text-center space-y-0">
+          <img src="https://i.pravatar.cc/100?img=3" alt="Avatar Jogador 3" class="avatar">
+          <h2 class="text-xl font-semibold">Jogador 3</h2>
+          <p class="text-gray-300">Odd: 2.2</p>
+          <div class="input-container">
+            <input type="number" id="aposta3" placeholder="Valor" class="p-2 rounded text-black w-32 text-center">
+            <button onclick="apostar(3, 2.2)" class="btn">BET</button>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center h-full space-y-4">
+          <div class="vs-box">VS</div>
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-0">
+          <img src="https://i.pravatar.cc/100?img=4" alt="Avatar Jogador 4" class="avatar">
+          <h2 class="text-xl font-semibold">Jogador 4</h2>
+          <p class="text-gray-300">Odd: 1.9</p>
+          <div class="input-container">
+            <input type="number" id="aposta4" placeholder="Valor" class="p-2 rounded text-black w-32 text-center">
+            <button onclick="apostar(4, 1.9)" class="btn">BET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-bet" src="https://www.soundjay.com/button/sounds/button-4.mp3" preload="auto"></audio>
+
+  <script>
+    let saldo = 100.0;
+    let apostas = [];
+    let apostaId = 0;
+
+    function gerarDataAleatoria() {
+      const diasDaSemana = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
+      const dataAtual = new Date();
+      const diasDeAdicao = Math.floor(Math.random() * 7) + 1; // Adiciona entre 1 a 7 dias
+      const dataFutura = new Date(dataAtual.getTime() + diasDeAdicao * 24 * 60 * 60 * 1000);
+      
+      const dia = dataFutura.getDate();
+      const mes = dataFutura.toLocaleString('default', { month: 'long' });
+      const hora = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+      const minuto = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+      const diaSemana = diasDaSemana[dataFutura.getDay()];
+
+      return {
+        dataFutura,
+        formattedDate: `${dia} de ${mes} - ${hora}:${minuto} (${diaSemana})`
+      };
+    }
+
+    // Atribui a data aleatória aos cards
+    const data1 = gerarDataAleatoria();
+    document.getElementById("date-title-1").textContent = data1.formattedDate;
+    const data2 = gerarDataAleatoria();
+    document.getElementById("date-title-2").textContent = data2.formattedDate;
+
+    function atualizarContagemRegressiva(id, dataFutura) {
+      const intervalo = setInterval(function() {
+        const agora = new Date();
+        const distancia = dataFutura - agora;
+
+        if (distancia <= 0) {
+          document.getElementById(id).textContent = "Tempo esgotado!";
+          clearInterval(intervalo);
+        } else {
+          const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+          const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+          const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+          document.getElementById(id).textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+        }
+      }, 1000);
+    }
+
+    // Atualiza a contagem regressiva para cada card
+    atualizarContagemRegressiva("countdown-1", data1.dataFutura);
+    atualizarContagemRegressiva("countdown-2", data2.dataFutura);
+
+    function apostar(jogadorId, odd) {
+      const valor = document.getElementById(`aposta${jogadorId}`).value;
+      if (valor > 0 && saldo >= valor) {
+        saldo -= valor;
+        apostas.push({ jogadorId, valor, odd, apostaId: apostaId++ });
+        document.getElementById("audio-bet").play();
+        alert(`Aposta de ${valor} feita no Jogador ${jogadorId}!`);
+        // Atualizar o saldo
+        console.log("Saldo atualizado:", saldo);
+      } else {
+        alert("Saldo insuficiente ou valor inválido!");
+      }
+    }
+  </script>
+</body>
+</html>

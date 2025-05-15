@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background-color: transparent;
+      font-family: 'Segoe UI', sans-serif;
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0; /* Remove padding */
+      margin: 0; /* Remove margin */
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #f1f1f1;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: 1400px;
+      margin-top: 0; /* Remove space at the top */
+      padding-top: 0; /* Ensure no padding on top */
+    }
+
+    .card {
+      background-color: transparent;
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: auto;
+      min-width: 300px;
+      max-width: 350px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.8s ease;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .players {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid #666;
+      background-color: #1a1a1a;
+      object-fit: cover;
+      transition: border 0.3s ease;
+    }
+
+    .card:hover .avatar {
+      border-color: #999;
+    }
+
+    .vs {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .ranking-index {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 3px 6px; /* Ajustado para acompanhar o tamanho */
+      border-radius: 50%;
+      font-size: 0.5rem; /* Reduzido em 50% */
+      font-weight: bold;
+      animation: none;
+    }
+
+    .ranking-index.rank-1 {
+      border: 3px solid #28a745;
+      color: #ffd700;
+      animation: blinkGreen 2s infinite;
+    }
+
+    .ranking-index.rank-20 {
+      border: 3px solid #dc3545;
+      color: #8b0000;
+      animation: blinkRed 2s infinite;
+    }
+
+    @keyframes blinkGreen {
+      0% {
+        border-color: #28a745;
+      }
+      50% {
+        border-color: transparent;
+      }
+      100% {
+        border-color: #28a745;
+      }
+    }
+
+    @keyframes blinkRed {
+      0% {
+        border-color: #dc3545;
+      }
+      50% {
+        border-color: transparent;
+      }
+      100% {
+        border-color: #dc3545;
+      }
+    }
+
+    .event-title {
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .player div {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 100%;
+      display: block;
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 100%;
+        height: auto;
+      }
+
+      .players {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .vs {
+        margin: 10px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .avatar {
+        width: 60px;
+        height: 60px;
+      }
+
+      .vs {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="event-title" id="event-1">12 de Abril - 19:00 (Segunda-Feira)</div>
+      <div class="players">
+        <div class="player">
+          <span class="ranking-index rank-1">1</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jogador 1" />
+          <div>Jogador 1</div>
+        </div>
+        <div class="vs">Vs</div>
+        <div class="player">
+          <span class="ranking-index">12</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jogador 2" />
+          <div>Jogador 2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="event-title" id="event-2">13 de Abril - 14:00 (Terça-Feira)</div>
+      <div class="players">
+        <div class="player">
+          <span class="ranking-index">18</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Jogador 3" />
+          <div>Jogador 3</div>
+        </div>
+        <div class="vs">Vs</div>
+        <div class="player">
+          <span class="ranking-index">8</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Jogador 4" />
+          <div>Jogador 4</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="event-title" id="event-3">14 de Abril - 16:00 (Quarta-Feira)</div>
+      <div class="players">
+        <div class="player">
+          <span class="ranking-index rank-1">1</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Jogador 5" />
+          <div>Jogador 5</div>
+        </div>
+        <div class="vs">Vs</div>
+        <div class="player">
+          <span class="ranking-index">15</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jogador 6" />
+          <div>Jogador 6</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="event-title" id="event-4">15 de Abril - 18:00 (Quinta-Feira)</div>
+      <div class="players">
+        <div class="player">
+          <span class="ranking-index">10</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Jogador 7" />
+          <div>Jogador 7</div>
+        </div>
+        <div class="vs">Vs</div>
+        <div class="player">
+          <span class="ranking-index rank-20">20</span>
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Jogador 8" />
+          <div>Jogador 8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

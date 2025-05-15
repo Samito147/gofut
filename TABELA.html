@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classificação</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --bg-color: transparent;
+      --text-color: #e0e0e0;
+      --thead-bg: rgba(31, 31, 31, 0.8);
+      --row-bg: rgba(44, 44, 44, 0.6);
+      --row-hover: rgba(58, 58, 58, 0.8);
+      --border-color: white;
+    }
+
+    body.light-mode {
+      --bg-color: transparent;
+      --text-color: #222;
+      --thead-bg: rgba(221, 221, 221, 0.9);
+      --row-bg: rgba(248, 248, 248, 0.7);
+      --row-hover: rgba(224, 224, 224, 0.9);
+      --border-color: black;
+    }
+
+    body {
+	  font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      min-height: 100vh;
+      overflow: auto;
+	   align-items: stretch;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      margin-top: 0;
+	  
+    }
+
+    .top-button, .buttons {
+      text-align: center;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-button button,
+    button {
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+      transform: scale(1.05);
+    }
+
+    .top-bar {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .top-bar h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .top-bar p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 0;
+    }
+
+    .toggle-theme {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--text-color);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    img.avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+      border: 2px solid #fff;
+    }
+
+    img.first-place-avatar {
+      border-color: #90ee90 !important;
+      box-shadow: 0 0 4px #90ee90;
+      animation: pulse-green 2s infinite;
+    }
+
+    img.last-place-avatar {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 4px #e74c3c;
+      animation: pulse-red 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 4px #90ee90; }
+      50% { box-shadow: 0 0 12px #90ee90; }
+      100% { box-shadow: 0 0 4px #90ee90; }
+    }
+
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 4px #e74c3c; }
+      50% { box-shadow: 0 0 12px #e74c3c; }
+      100% { box-shadow: 0 0 4px #e74c3c; }
+    }
+
+    .ranking {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      margin-right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      text-align: left;
+    }
+
+    .highlight-points {
+      font-weight: bold;
+      color: #f1c232;
+    }
+
+    .highlight-vermelhos {
+      color: #e74c3c;
+    }
+
+    .first-place-row {
+      background-color: rgba(144, 238, 144, 0.15) !important;
+    }
+
+    .second-place-row {
+      background-color: rgba(144, 238, 144, 0.1125) !important;
+    }
+
+    .third-place-row {
+      background-color: rgba(144, 238, 144, 0.075) !important;
+    }
+
+    .last-place-row {
+      background-color: rgba(231, 76, 60, 0.0675) !important; /* Último colocado com maior transparência */
+    }
+
+    .penultimate-place-row {
+      background-color: rgba(231, 76, 60, 0.0506) !important; /* Penúltimo colocado com 25% a menos de transparência */
+    }
+
+    .eighteenth-place-row {
+      background-color: rgba(231, 76, 60, 0.03795) !important; /* Jogador da posição 18 com 25% a menos de transparência que o penúltimo */
+    }
+
+    .seventeenth-place-row {
+      background-color: rgba(231, 76, 60, 0.02846) !important; /* Jogador da posição 17 com 25% a menos de transparência que o da posição 18 */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: transparent;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      margin-top: 1rem;
+    }
+
+    thead {
+      background-color: var(--thead-bg);
+      color: var(--text-color);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      color: var(--text-color);
+    }
+
+    tbody tr {
+      transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: var(--row-hover);
+    }
+
+    tbody td {
+      vertical-align: middle;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .buttons button {
+        margin: 8px 0;
+        width: 100%;
+      }
+    }
+
+    .table-responsive {
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="export-container">
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>JOGADOR</th>
+            <th>P</th>
+            <th>J</th>
+            <th>V</th>
+            <th>E</th>
+            <th>D</th>
+            <th>GP</th>
+            <th>GC</th>
+            <th>SG</th>
+            <th><span style="color: #f39c12">A</span></th>
+            <th><span style="color: #e74c3c">V</span></th>
+          </tr>
+        </thead>
+        <tbody id="tabela-corpo"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const nomesJogadores = [
+      "Samuel", "Fernando", "Vinicius", "Cauã", "Douglas",
+      "Ericles", "Michel", "Danilo A", "Danilo P", "Wagner",
+      "Roger", "Caio", "Breno", "Tone", "Davi",
+      "Jhon", "Isaac", "Diego", "Antonio", "Roberio"
+    ];
+
+    const jogosPorJogador = 10;
+
+    const jogadores = nomesJogadores.map((nome, index) => {
+      const vitorias = Math.floor(Math.random() * (jogosPorJogador + 1));
+      const empates = Math.floor(Math.random() * (jogosPorJogador - vitorias + 1));
+      const derrotas = jogosPorJogador - vitorias - empates;
+      const pontos = (vitorias * 3) + empates;
+      const golsPro = Math.floor(Math.random() * 40);
+      const golsContra = Math.floor(Math.random() * 30);
+      const saldoGols = golsPro - golsContra;
+
+      return {
+        nome,
+        jogos: jogosPorJogador,
+        vitorias,
+        empates,
+        derrotas,
+        pontos,
+        golsPro,
+        golsContra,
+        saldoGols,
+        amarelos: Math.floor(Math.random() * 4),
+        vermelhos: Math.floor(Math.random() * 2)
+      };
+    });
+
+    function renderizarTabela() {
+      const tabelaCorpo = document.getElementById("tabela-corpo");
+      const jogadoresOrdenados = jogadores.sort((a, b) => b.pontos - a.pontos);
+
+      tabelaCorpo.innerHTML = jogadoresOrdenados.map((jogador, index) => {
+        const ranking = index + 1;
+        const isTop3 = ranking <= 3;
+        const isBottom4 = ranking >= jogadores.length - 3;
+        const isFirst = index === 0;
+        const isSecond = index === 1;
+        const isThird = index === 2;
+        const isLast = index === jogadoresOrdenados.length - 1;
+        const isPenultimate = index === jogadoresOrdenados.length - 2;
+        const isEighteenth = index === 17;
+        const isSeventeenth = index === 16;
+
+        let avatarClass = 'avatar';
+        if (isFirst) avatarClass += ' first-place-avatar';
+        if (isLast) avatarClass += ' last-place-avatar';
+
+        const rowClass = [
+          isFirst ? 'first-place-row' : '',
+          isSecond ? 'second-place-row' : '',
+          isThird ? 'third-place-row' : '',
+          isLast ? 'last-place-row' : '',
+          isPenultimate ? 'penultimate-place-row' : '',
+          isEighteenth ? 'eighteenth-place-row' : '',
+          isSeventeenth ? 'seventeenth-place-row' : ''
+        ].filter(Boolean).join(' ');
+
+        return `<tr class="${rowClass}">
+          <td class="player-info">
+            <span class="ranking">${ranking}</span>
+            <img src="https://randomuser.me/api/portraits/men/${index + 1}.jpg" alt="Avatar de ${jogador.nome}" class="${avatarClass}" />
+            ${jogador.nome}
+          </td>
+          <td>${jogador.pontos}</td>
+          <td>${jogador.jogos}</td>
+          <td>${jogador.vitorias}</td>
+          <td>${jogador.empates}</td>
+          <td>${jogador.derrotas}</td>
+          <td>${jogador.golsPro}</td>
+          <td>${jogador.golsContra}</td>
+          <td>${jogador.saldoGols}</td>
+          <td class="highlight-points">${jogador.amarelos}</td>
+          <td class="highlight-vermelhos">${jogador.vermelhos}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    renderizarTabela();
+  </script>
+</body>
+</html>

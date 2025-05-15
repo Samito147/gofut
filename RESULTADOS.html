@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Placar de Partida</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: transparent;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      gap: 20px; /* Adicionando espaço entre os cards */
+    }
+
+    .scoreboard {
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px 40px;
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+      margin-bottom: 20px; /* Espaço entre os cards */
+    }
+
+    .scoreboard:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    .scoreboard:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    .scoreboard:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .team-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 4px solid transparent;
+      transition: transform 0.3s;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .winner {
+      border-color: #00ff88 !important;
+    }
+
+    .loser {
+      border-color: #ff4444 !important;
+    }
+
+    .draw {
+      border-color: #888 !important;
+    }
+
+    .team-name {
+      color: #eee;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-width: 100px;
+    }
+
+    .scores {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .score {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .score.winner {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    }
+
+    .score.loser {
+      color: #ff4444;
+      text-shadow: 0 0 10px rgba(255, 68, 68, 0.6);
+    }
+
+    .score.draw {
+      color: #888;
+      text-shadow: 0 0 8px rgba(136, 136, 136, 0.5);
+    }
+
+    .vs {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    @media (max-width: 768px) {
+      .scoreboard {
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .scores {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scoreboard" data-team1-score="2" data-team2-score="1">
+    <div class="team-block team1">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/10.jpg" alt="Time 1">
+      <div class="team-name">Time 1</div>
+    </div>
+    <div class="middle">
+      <div class="scores">
+        <div class="score team1-score">2</div>
+        <div class="vs">VS</div>
+        <div class="score team2-score">1</div>
+      </div>
+    </div>
+    <div class="team-block team2">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Time 2">
+      <div class="team-name">Time 2</div>
+    </div>
+  </div>
+
+  <div class="scoreboard" data-team1-score="3" data-team2-score="4">
+    <div class="team-block team1">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Time 3">
+      <div class="team-name">Time 3</div>
+    </div>
+    <div class="middle">
+      <div class="scores">
+        <div class="score team1-score">3</div>
+        <div class="vs">VS</div>
+        <div class="score team2-score">4</div>
+      </div>
+    </div>
+    <div class="team-block team2">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Time 4">
+      <div class="team-name">Time 4</div>
+    </div>
+  </div>
+
+  <div class="scoreboard" data-team1-score="1" data-team2-score="1">
+    <div class="team-block team1">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Time 5">
+      <div class="team-name">Time 5</div>
+    </div>
+    <div class="middle">
+      <div class="scores">
+        <div class="score team1-score">1</div>
+        <div class="vs">VS</div>
+        <div class="score team2-score">1</div>
+      </div>
+    </div>
+    <div class="team-block team2">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Time 6">
+      <div class="team-name">Time 6</div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.scoreboard').forEach(board => {
+      const score1 = parseInt(board.dataset.team1Score);
+      const score2 = parseInt(board.dataset.team2Score);
+
+      const avatar1 = board.querySelector('.team1 .avatar');
+      const avatar2 = board.querySelector('.team2 .avatar');
+      const scoreEl1 = board.querySelector('.team1-score');
+      const scoreEl2 = board.querySelector('.team2-score');
+
+      if (score1 > score2) {
+        avatar1.classList.add('winner');
+        avatar2.classList.add('loser');
+        scoreEl1.classList.add('winner');
+        scoreEl2.classList.add('loser');
+      } else if (score2 > score1) {
+        avatar2.classList.add('winner');
+        avatar1.classList.add('loser');
+        scoreEl2.classList.add('winner');
+        scoreEl1.classList.add('loser');
+      } else {
+        avatar1.classList.add('draw');
+        avatar2.classList.add('draw');
+        scoreEl1.classList.add('draw');
+        scoreEl2.classList.add('draw');
+      }
+    });
+  </script>
+
+</body>
+</html>
