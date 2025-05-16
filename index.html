@@ -29,7 +29,7 @@
       padding: 0;
       width: 100%;
       overflow-x: hidden;
-	   }
+    }
 
     .navbar {
       position: sticky;
@@ -124,7 +124,7 @@
 
     iframe {
       width: 100%;
-      height: 150vh; /* Garantir que o iframe ocupe toda a altura da tela */
+      height: 150vh;
       border: none;
       display: block;
       opacity: 0;
@@ -199,6 +199,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const navbarLinks = document.querySelectorAll('.navbar a');
+      const iframe = document.getElementById('iframe-conteudo');
 
       navbarLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -206,8 +207,8 @@
           link.classList.add('active');
 
           const page = link.getAttribute('data-page');
-          const iframe = document.getElementById('iframe-conteudo');
-          iframe.src = page;
+          // → Cache-busting seguro: adiciona timestamp à URL
+          iframe.src = page + '?v=' + Date.now();
           
           // Mostrar loader enquanto o conteúdo carrega
           document.getElementById('loader-overlay').classList.add('mostrar');
