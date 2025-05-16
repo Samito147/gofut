@@ -34,10 +34,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center;   /* centraliza os cards */
+      justify-content: center;   /* <-- centralização ajustada */
       width: 100%;
       max-width: 1400px;
-      margin-top: 0;
+      margin: 0 auto;            /* <-- garante container centralizado */
       padding-top: 0;
     }
 
@@ -95,7 +95,7 @@
     .vs {
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 0 10px;
+      margin: 10px 0;
     }
 
     .ranking-index {
@@ -128,7 +128,6 @@
       50% { border-color: transparent; }
       100% { border-color: #28a745; }
     }
-
     @keyframes blinkRed {
       0% { border-color: #dc3545; }
       50% { border-color: transparent; }
@@ -163,21 +162,18 @@
       }
     }
 
-    /* --- RESPONSIVIDADE AJUSTADA --- */
     @media (max-width: 768px) {
       .card {
         width: 100%;
         height: auto;
       }
-
       .players {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
       }
-
       .vs {
-        margin: 0 10px;
+        margin: 10px 0;
       }
     }
 
@@ -186,7 +182,6 @@
         width: 60px;
         height: 60px;
       }
-
       .vs {
         font-size: 1rem;
       }
