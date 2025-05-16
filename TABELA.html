@@ -424,13 +424,14 @@
 
     renderizarTabela();
 
-    /* === Modal functions: usa iframe + resize automático === */
+    /* === Modal functions: usa iframe srcdoc com override e resize === */
     function resizeIframe(iframe) {
       try {
-        const doc = iframe.contentDocument || iframe.contentWindow.document;
-        iframe.style.height = doc.documentElement.scrollHeight + 'px';
+        const doc = iframe.contentDocument;
+        const h = doc.documentElement.scrollHeight;
+        iframe.style.height = h + 'px';
       } catch (e) {
-        console.error('Não foi possível redimensionar iframe', e);
+        console.error(e);
       }
     }
 
@@ -438,10 +439,35 @@
       const modal = document.getElementById('modal');
       const body  = document.getElementById('modal-body');
       modal.style.display = 'flex';
-      body.innerHTML = `<iframe
-        src="${page}"
-        onload="resizeIframe(this)"
-      ></iframe>`;
+      fetch(page)
+        .then(res => {
+          if (!res.ok) throw new Error('Perfil não encontrado');
+          return res.text();
+        })
+        .then(html => {
+          const srcdoc = `
+            <base href="./" />
+            <!-- override para altura automática e remoção de flex centering -->
+            <style>
+              html, body {
+                height: auto !important;
+                display: block !important;
+                overflow: visible !important;
+                background: transparent !important;
+              }
+              .card-wrapper {
+                transform: scale(0.75) !important;
+                transform-origin: top center !important;
+              }
+            </style>
+            ${html}
+          `;
+          body.innerHTML = `<iframe srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
+                                   onload="resizeIframe(this)"></iframe>`;
+        })
+        .catch(() => {
+          body.innerHTML = '<p>Perfil não encontrado.</p>';
+        });
     }
 
     function closeModal() {
