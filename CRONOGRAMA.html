@@ -22,19 +22,11 @@
       margin: 0;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #f1f1f1;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
     .card-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center;   /* <-- centralização */
+      justify-content: center;   /* centraliza os cards */
       width: 100%;
       max-width: 1400px;
       margin: 0 auto;
@@ -62,12 +54,13 @@
       transform: translateY(-10px);
     }
 
+    /* Aproximação dos jogadores ao “Vs” */
     .players {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;   /* centraliza o conjunto */
       align-items: center;
       width: 100%;
-      gap: 10px;               /* ↓ reduzido para aproximar */
+      gap: 10px;                 /* gap reduzido para aproximar */
     }
 
     .player {
@@ -95,7 +88,7 @@
     .vs {
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 10px 5px;        /* ↓ margem horizontal adicionada */
+      margin: 0 5px;            /* margem ajustada */
     }
 
     .ranking-index {
@@ -149,6 +142,7 @@
       width: 100%;
       display: block;
       font-size: 1rem;
+      text-align: center;       /* adicionada centralização */
     }
 
     @keyframes fadeIn {
@@ -169,12 +163,12 @@
       }
       .players {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;  /* mantém centralização no mobile */
         align-items: center;
-        gap: 10px;             /* mantém proporção no mobile */
+        gap: 10px;                /* mantém proximidade */
       }
       .vs {
-        margin: 10px 5px;
+        margin: 0 5px;
       }
     }
 
@@ -193,35 +187,47 @@
   <div class="card-container">
     <!-- Card 1 -->
     <div class="card">
-      <div class="event-title" id="event-1">12 de Abril - 19:00 (Segunda-Feira)</div>
+      <div class="event-title" id="event-1">
+        12 de Abril - 19:00 (Segunda-Feira)
+      </div>
       <div class="players">
         <div class="player">
           <span class="ranking-index rank-1">1</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jogador 1" />
-          <div>Ericles</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/32.jpg"
+               alt="Jogador 1" />
+          <div>Jogador 1</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">12</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jogador 2" />
-          <div>Wagner</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/women/44.jpg"
+               alt="Jogador 2" />
+          <div>Jogador 2</div>
         </div>
       </div>
     </div>
 
     <!-- Card 2 -->
     <div class="card">
-      <div class="event-title" id="event-2">13 de Abril - 14:00 (Terça-Feira)</div>
+      <div class="event-title" id="event-2">
+        13 de Abril - 14:00 (Terça-Feira)
+      </div>
       <div class="players">
         <div class="player">
           <span class="ranking-index">18</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Jogador 3" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/15.jpg"
+               alt="Jogador 3" />
           <div>Samuel</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">8</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Jogador 4" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/women/25.jpg"
+               alt="Jogador 4" />
           <div>Fernando</div>
         </div>
       </div>
@@ -229,17 +235,23 @@
 
     <!-- Card 3 -->
     <div class="card">
-      <div class="event-title" id="event-3">14 de Abril - 16:00 (Quarta-Feira)</div>
+      <div class="event-title" id="event-3">
+        14 de Abril - 16:00 (Quarta-Feira)
+      </div>
       <div class="players">
         <div class="player">
           <span class="ranking-index rank-1">1</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Jogador 5" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/45.jpg"
+               alt="Jogador 5" />
           <div>Vinicius</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">15</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jogador 6" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/women/33.jpg"
+               alt="Jogador 6" />
           <div>Michel</div>
         </div>
       </div>
@@ -247,17 +259,23 @@
 
     <!-- Card 4 -->
     <div class="card">
-      <div class="event-title" id="event-4">15 de Abril - 18:00 (Quinta-Feira)</div>
+      <div class="event-title" id="event-4">
+        15 de Abril - 18:00 (Quinta-Feira)
+      </div>
       <div class="players">
         <div class="player">
           <span class="ranking-index">10</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Jogador 7" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/27.jpg"
+               alt="Jogador 7" />
           <div>Douglas</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index rank-20">20</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Jogador 8" />
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/women/18.jpg"
+               alt="Jogador 8" />
           <div>Danilo</div>
         </div>
       </div>
