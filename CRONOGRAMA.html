@@ -71,9 +71,10 @@
       position: relative;
     }
 
+    /* Avatar 50% maior (70→105) menos 10% → 94.5px */
     .avatar {
-      width: 70px;
-      height: 70px;
+      width: 94.5px;
+      height: 94.5px;
       border-radius: 50%;
       border: 3px solid #666;
       background-color: #1a1a1a;
@@ -85,10 +86,11 @@
       border-color: #999;
     }
 
+    /* “Vs” 50% maior (1.2rem→1.8rem) menos 10% → 1.62rem */
     .vs {
-      font-size: 1.2rem;
+      font-size: 1.62rem;
       font-weight: bold;
-      margin: 0 5px;            /* margem ajustada */
+      margin: 0 5px;
     }
 
     .ranking-index {
@@ -135,14 +137,15 @@
       margin-bottom: 15px;
     }
 
+    /* Nome do jogador 50% maior (1rem→1.5rem) menos 10% → 1.35rem */
     .player div {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       width: 100%;
       display: block;
-      font-size: 1rem;
-      text-align: center;       /* adicionada centralização */
+      font-size: 1.35rem;
+      text-align: center;
     }
 
     @keyframes fadeIn {
@@ -167,18 +170,28 @@
         align-items: center;
         gap: 10px;                /* mantém proximidade */
       }
+      .avatar {
+        width: 85.5px;            /* 90px menos 10% → 81px, mas original mobile was 90, so: 90*0.9=81 */
+        height: 85.5px;          /* porém mantendo 10% reduction from desktop: 94.5→85.05 arredondei para 85.5 */
+      }
       .vs {
-        margin: 0 5px;
+        font-size: 1.62rem;
+      }
+      .player div {
+        font-size: 1.35rem;
       }
     }
 
     @media (max-width: 480px) {
       .avatar {
-        width: 60px;
-        height: 60px;
+        width: 85.5px;
+        height: 85.5px;
       }
       .vs {
-        font-size: 1rem;
+        font-size: 1.62rem;
+      }
+      .player div {
+        font-size: 1.35rem;
       }
     }
   </style>
