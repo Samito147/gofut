@@ -27,13 +27,11 @@
       padding: 20px 30px;
       max-width: 700px;
       width: 100%;
-      /* === CSS GRID === */
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       column-gap: 40px;
       overflow-x: auto;
-      /* animação e sombra */
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
       transition: transform 0.3s ease, opacity 0.5s ease;
       opacity: 0;
@@ -41,7 +39,6 @@
       animation: fadeInUp 0.8s forwards;
     }
 
-    /* scrollbar slim */
     .scoreboard::-webkit-scrollbar {
       height: 6px;
     }
@@ -65,7 +62,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* impede encolher demais */
       min-width: 80px;
     }
 
@@ -130,7 +126,11 @@
 
   <div class="scoreboard" data-team1-score="2" data-team2-score="1">
     <div class="team-block team1">
-      <img class="avatar" src="Samito.png" alt="Samuel">
+      <img
+        class="avatar"
+        src="Samito.png"
+        alt="Samuel"
+      >
       <div class="team-name">Samuel</div>
     </div>
     <div class="middle">
@@ -183,11 +183,39 @@
   </div>
 
   <script>
+    // Substitui o <img> de Samuel por um <canvas> redimensionado com alta qualidade de smoothing
+    window.addEventListener('load', () => {
+      const img = document.querySelector('img.avatar[src="Samito.png"]');
+      if (!img) return;
+
+      const cssW = img.width;
+      const cssH = img.height;
+      const dpr = window.devicePixelRatio || 1;
+
+      // cria canvas em alta resolução
+      const canvas = document.createElement('canvas');
+      canvas.width = cssW * dpr;
+      canvas.height = cssH * dpr;
+      canvas.style.width = cssW + 'px';
+      canvas.style.height = cssH + 'px';
+      canvas.className = img.className;
+
+      // desenha com qualidade alta
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, cssW, cssH);
+
+      img.replaceWith(canvas);
+    });
+
+    // Lógica de winner/loser/draw continua a mesma
     document.querySelectorAll('.scoreboard').forEach(board => {
       const s1 = +board.dataset.team1Score;
       const s2 = +board.dataset.team2Score;
-      const a1 = board.querySelector('.team1 .avatar');
-      const a2 = board.querySelector('.team2 .avatar');
+      const a1 = board.querySelector('.team1 .avatar, .team1 canvas');
+      const a2 = board.querySelector('.team2 .avatar, .team2 canvas');
       const sc1 = board.querySelector('.team1-score');
       const sc2 = board.querySelector('.team2-score');
       if (s1 > s2) {
