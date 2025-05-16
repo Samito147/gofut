@@ -54,140 +54,9 @@
       margin-top: 0;
     }
 
-    .top-button, .buttons {
-      text-align: center;
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .top-button button,
-    button {
-      background-color: #1e88e5;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background-color: #1565c0;
-      transform: scale(1.05);
-    }
-
-    .toggle-theme {
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--text-color);
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-
-    img.avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      margin-right: 10px;
-      vertical-align: middle;
-      border: 2px solid #fff;
-    }
-
-    img.first-place-avatar {
-      border-color: #90ee90 !important;
-      box-shadow: 0 0 4px #90ee90;
-      animation: pulse-green 2s infinite;
-    }
-
-    img.last-place-avatar {
-      border-color: #e74c3c !important;
-      box-shadow: 0 0 4px #e74c3c;
-      animation: pulse-red 2s infinite;
-    }
-
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 4px #90ee90; }
-      50% { box-shadow: 0 0 12px #90ee90; }
-      100% { box-shadow: 0 0 4px #90ee90; }
-    }
-
-    @keyframes pulse-red {
-      0% { box-shadow: 0 0 4px #e74c3c; }
-      50% { box-shadow: 0 0 12px #e74c3c; }
-      100% { box-shadow: 0 0 4px #e74c3c; }
-    }
-
-    .ranking {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #fff;
-      margin-right: 8px;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      text-align: center;
-      line-height: 28px;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-
-    .player-info {
-      display: flex;
-      align-items: center;
-      text-align: left;
-      position: relative;
-      padding-left: 1.8rem;
-    }
-
-    .player-info .icon {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      margin-right: 4px;
-    }
-
-    .highlight-points {
-      font-weight: bold;
-      color: #f1c232;
-    }
-
-    .highlight-vermelhos {
-      color: #e74c3c;
-    }
-
-    .first-place-row {
-      background-color: rgba(144, 238, 144, 0.15) !important;
-    }
-
-    .second-place-row {
-      background-color: rgba(144, 238, 144, 0.1125) !important;
-    }
-
-    .third-place-row {
-      background-color: rgba(144, 238, 144, 0.075) !important;
-    }
-
-    .last-place-row {
-      background-color: rgba(231, 76, 60, 0.0675) !important;
-    }
-
-    .penultimate-place-row {
-      background-color: rgba(231, 76, 60, 0.0506) !important;
-    }
-
-    .eighteenth-place-row {
-      background-color: rgba(231, 76, 60, 0.03795) !important;
-    }
-
-    .seventeenth-place-row {
-      background-color: rgba(231, 76, 60, 0.02846) !important;
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -220,34 +89,74 @@
       background-color: var(--row-hover);
     }
 
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    img.avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+      border: 2px solid #fff;
+    }
+    img.first-place-avatar {
+      border-color: #90ee90 !important;
+      box-shadow: 0 0 4px #90ee90;
+      animation: pulse-green 2s infinite;
+    }
+    img.last-place-avatar {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 4px #e74c3c;
+      animation: pulse-red 2s infinite;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 4px #90ee90; }
+      50% { box-shadow: 0 0 12px #90ee90; }
+      100% { box-shadow: 0 0 4px #90ee90; }
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 4px #e74c3c; }
+      50% { box-shadow: 0 0 12px #e74c3c; }
+      100% { box-shadow: 0 0 4px #e74c3c; }
     }
 
-    @media screen and (max-width: 768px) {
-      .container {
-        margin: 1rem;
-        padding: 1rem;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-
-      .buttons button {
-        margin: 8px 0;
-        width: 100%;
-      }
-
-      table {
-        min-width: 600px;
-      }
-
-      th, td {
-        padding: 8px;
-      }
+    .ranking {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      margin-right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      background-color: rgba(0, 0, 0, 0.2);
     }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+    .player-info .icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      margin-right: 4px;
+    }
+
+    .highlight-points { font-weight: bold; color: #f1c232; }
+    .highlight-vermelhos { color: #e74c3c; }
+
+    .first-place-row { background-color: rgba(144, 238, 144, 0.15) !important; }
+    .second-place-row { background-color: rgba(144, 238, 144, 0.1125) !important; }
+    .third-place-row { background-color: rgba(144, 238, 144, 0.075) !important; }
+    .last-place-row { background-color: rgba(231, 76, 60, 0.0675) !important; }
+    .penultimate-place-row { background-color: rgba(231, 76, 60, 0.0506) !important; }
+    .eighteenth-place-row { background-color: rgba(231, 76, 60, 0.03795) !important; }
+    .seventeenth-place-row { background-color: rgba(231, 76, 60, 0.02846) !important; }
 
     /* === Modal CSS === */
     #modal {
@@ -259,27 +168,36 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      padding: 1rem;
+      box-sizing: border-box;
     }
     #modal .modal-content {
       background: var(--bg-color);
       color: var(--text-color);
-      max-width: 90vw;
+      width: 80vw;
+      max-width: 600px;
+      height: auto;
       max-height: 90vh;
-      overflow: visible; /* sem barra de rolagem */
+      overflow: visible;
       border-radius: 10px;
       position: relative;
       padding: 0;
     }
+    @media screen and (max-width:480px) {
+      #modal .modal-content { width: 95vw; }
+    }
+
     #modal-body iframe {
       width: 100%;
       border: none;
       display: block;
       overflow: hidden;
+      max-height: 90vh;
     }
     .modal-close {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: -8px;
+      right: -8px;
       padding: 8px;
       cursor: pointer;
       font-size: 1.5rem;
@@ -326,6 +244,11 @@
   </div>
 
   <script>
+    // cálculo dinâmico da base para carregar imagens e páginas
+    const basePath = window.location.pathname.endsWith('/')
+      ? window.location.pathname
+      : window.location.pathname.replace(/\/[^\/]+$/, '/');
+
     const nomesJogadores = [
       "Samuel", "Fernando", "Vinicius", "Cauã", "Douglas",
       "Ericles", "Michel", "Danilo A", "Danilo P", "Wagner",
@@ -371,7 +294,7 @@
         const isLast = index === jogadoresOrdenados.length - 1;
 
         const avatarSrc = jogador.nome === 'Samuel'
-          ? '/gofut/FOTOS/Samito.png'
+          ? `${basePath}FOTOS/Samito.png`
           : `https://randomuser.me/api/portraits/men/${index + 1}.jpg`;
 
         let avatarClass = 'avatar';
@@ -402,7 +325,7 @@
           .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
           .replace(/\s+/g, '')
           .toLowerCase();
-        const page = `./${sanitized}.html`;
+        const page = `${basePath}${sanitized}.html`;
 
         return `<tr class="${rowClass}">
           <td class="player-info">
@@ -432,7 +355,6 @@
 
     renderizarTabela();
 
-    /* === Modal functions: usa iframe + resize automático === */
     function resizeIframe(iframe) {
       try {
         const doc = iframe.contentDocument;
@@ -454,8 +376,7 @@
         })
         .then(html => {
           const srcdoc = `
-            <base href="./" />
-            <!-- override para altura automática e remoção de flex centering -->
+            <base href="${basePath}" />
             <style>
               html, body {
                 height: auto !important;
@@ -471,7 +392,7 @@
             ${html}
           `;
           body.innerHTML = `<iframe scrolling="no"
-                                   style="width:100%; border:none; display:block; overflow:hidden;"
+                                   style="width:100%; border:none; display:block; overflow:hidden; max-height:90vh;"
                                    srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
                                    onload="resizeIframe(this)"></iframe>`;
         })
