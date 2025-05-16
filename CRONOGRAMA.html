@@ -18,8 +18,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0; /* Remove padding */
-      margin: 0; /* Remove margin */
+      padding: 0;
+      margin: 0;
     }
 
     h1 {
@@ -37,8 +37,8 @@
       justify-content: flex-start;
       width: 100%;
       max-width: 1400px;
-      margin-top: 0; /* Remove space at the top */
-      padding-top: 0; /* Ensure no padding on top */
+      margin-top: 0;
+      padding-top: 0;
     }
 
     .card {
@@ -95,7 +95,7 @@
     .vs {
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 0 10px; /* Ajuste para espaçamento horizontal */
     }
 
     .ranking-index {
@@ -104,9 +104,9 @@
       right: -10px;
       background-color: rgba(0, 0, 0, 0.6);
       color: #fff;
-      padding: 3px 6px; /* Ajustado para acompanhar o tamanho */
+      padding: 3px 6px;
       border-radius: 50%;
-      font-size: 0.5rem; /* Reduzido em 50% */
+      font-size: 0.5rem;
       font-weight: bold;
       animation: none;
     }
@@ -124,27 +124,15 @@
     }
 
     @keyframes blinkGreen {
-      0% {
-        border-color: #28a745;
-      }
-      50% {
-        border-color: transparent;
-      }
-      100% {
-        border-color: #28a745;
-      }
+      0% { border-color: #28a745; }
+      50% { border-color: transparent; }
+      100% { border-color: #28a745; }
     }
 
     @keyframes blinkRed {
-      0% {
-        border-color: #dc3545;
-      }
-      50% {
-        border-color: transparent;
-      }
-      100% {
-        border-color: #dc3545;
-      }
+      0% { border-color: #dc3545; }
+      50% { border-color: transparent; }
+      100% { border-color: #dc3545; }
     }
 
     .event-title {
@@ -175,6 +163,7 @@
       }
     }
 
+    /* --- RESPONSIVIDADE AJUSTADA --- */
     @media (max-width: 768px) {
       .card {
         width: 100%;
@@ -182,12 +171,13 @@
       }
 
       .players {
-        flex-direction: column;
+        flex-direction: row;      /* Mantém lado a lado */
+        justify-content: space-between;
         align-items: center;
       }
 
       .vs {
-        margin: 10px 0;
+        margin: 0 10px;           /* Espaçamento horizontal */
       }
     }
 
