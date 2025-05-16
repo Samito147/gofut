@@ -54,40 +54,39 @@
       margin-top: 0;
     }
 
-    .top-button, .buttons {
-      text-align: center;
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: transparent;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
       margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
     }
 
-    .top-button button,
-    button {
-      background-color: #1e88e5;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background-color: #1565c0;
-      transform: scale(1.05);
-    }
-
-    .toggle-theme {
-      cursor: pointer;
-      font-size: 1.5rem;
+    thead {
+      background-color: var(--thead-bg);
       color: var(--text-color);
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      color: var(--text-color);
+    }
+
+    tbody tr {
+      transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: var(--row-hover);
     }
 
     img.avatar {
@@ -190,65 +189,6 @@
       background-color: rgba(231, 76, 60, 0.02846) !important;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-radius: 16px;
-      overflow: hidden;
-      background-color: transparent;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      margin-top: 1rem;
-    }
-
-    thead {
-      background-color: var(--thead-bg);
-      color: var(--text-color);
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: center;
-      color: var(--text-color);
-    }
-
-    tbody tr {
-      transition: background-color 0.3s ease;
-    }
-
-    tbody tr:hover {
-      background-color: var(--row-hover);
-    }
-
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    @media screen and (max-width: 768px) {
-      .container {
-        margin: 1rem;
-        padding: 1rem;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-
-      .buttons button {
-        margin: 8px 0;
-        width: 100%;
-      }
-
-      table {
-        min-width: 600px;
-      }
-
-      th, td {
-        padding: 8px;
-      }
-    }
-
     /* === Modal CSS === */
     #modal {
       display: none;
@@ -291,15 +231,8 @@
       <table>
         <thead>
           <tr>
-            <th>JOGADOR</th>
-            <th>P</th>
-            <th>J</th>
-            <th>V</th>
-            <th>E</th>
-            <th>D</th>
-            <th>GP</th>
-            <th>GC</th>
-            <th>SG</th>
+            <th>JOGADOR</th><th>P</th><th>J</th><th>V</th><th>E</th>
+            <th>D</th><th>GP</th><th>GC</th><th>SG</th>
             <th><span style="color: #f39c12">A</span></th>
             <th><span style="color: #e74c3c">V</span></th>
           </tr>
@@ -329,12 +262,12 @@
 
     const jogadores = nomesJogadores.map((nome, index) => {
       const vitorias = Math.floor(Math.random() * (jogosPorJogador + 1));
-      const empates = Math.floor(Math.random() * (jogosPorJogador - vitorias + 1));
+      const empates  = Math.floor(Math.random() * (jogosPorJogador - vitorias + 1));
       const derrotas = jogosPorJogador - vitorias - empates;
-      const pontos = (vitorias * 3) + empates;
-      const golsPro = Math.floor(Math.random() * 40);
+      const pontos   = (vitorias * 3) + empates;
+      const golsPro  = Math.floor(Math.random() * 40);
       const golsContra = Math.floor(Math.random() * 30);
-      const saldoGols = golsPro - golsContra;
+      const saldoGols  = golsPro - golsContra;
 
       return {
         nome,
@@ -363,7 +296,7 @@
         const isLast = index === jogadoresOrdenados.length - 1;
 
         const avatarSrc = jogador.nome === 'Samuel'
-          ? 'FOTOS/Samito.png'
+          ? 'Samito.png'
           : `https://randomuser.me/api/portraits/men/${index + 1}.jpg`;
 
         let avatarClass = 'avatar';
@@ -394,7 +327,7 @@
           .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
           .replace(/\s+/g, '')
           .toLowerCase();
-        const page = `./${sanitized}.html`;
+        const page = `${sanitized}.html`;
 
         return `<tr class="${rowClass}">
           <td class="player-info">
@@ -424,7 +357,7 @@
 
     renderizarTabela();
 
-    /* === Modal functions: usa iframe srcdoc com override e resize === */
+    // === Modal functions com override para remover borda branca ===
     function resizeIframe(iframe) {
       try {
         const doc = iframe.contentDocument;
@@ -447,7 +380,6 @@
         .then(html => {
           const srcdoc = `
             <base href="./" />
-            <!-- override para altura automática e remoção de flex centering -->
             <style>
               html, body {
                 height: auto !important;
@@ -459,11 +391,18 @@
                 transform: scale(0.75) !important;
                 transform-origin: top center !important;
               }
+              /* Remove borda e sombra branca do próprio player-card */
+              .player-card {
+                border: none !important;
+                box-shadow: none !important;
+              }
             </style>
             ${html}
           `;
-          body.innerHTML = `<iframe srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
-                                   onload="resizeIframe(this)"></iframe>`;
+          body.innerHTML = `<iframe
+            srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
+            onload="resizeIframe(this)"
+          ></iframe>`;
         })
         .catch(() => {
           body.innerHTML = '<p>Perfil não encontrado.</p>';
