@@ -34,10 +34,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center;   /* <-- centralização ajustada */
+      justify-content: center;   /* <-- centralização */
       width: 100%;
       max-width: 1400px;
-      margin: 0 auto;            /* <-- garante container centralizado */
+      margin: 0 auto;
       padding-top: 0;
     }
 
@@ -67,7 +67,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      gap: 20px;
+      gap: 10px;               /* ↓ reduzido para aproximar */
     }
 
     .player {
@@ -95,7 +95,7 @@
     .vs {
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 10px 5px;        /* ↓ margem horizontal adicionada */
     }
 
     .ranking-index {
@@ -171,9 +171,10 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;             /* mantém proporção no mobile */
       }
       .vs {
-        margin: 10px 0;
+        margin: 10px 5px;
       }
     }
 
@@ -215,13 +216,13 @@
         <div class="player">
           <span class="ranking-index">18</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Jogador 3" />
-          <div>Jogador 3</div>
+          <div>Samuel</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">8</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Jogador 4" />
-          <div>Jogador 4</div>
+          <div>Fernando</div>
         </div>
       </div>
     </div>
@@ -233,13 +234,13 @@
         <div class="player">
           <span class="ranking-index rank-1">1</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Jogador 5" />
-          <div>Jogador 5</div>
+          <div>Vinicius</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">15</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jogador 6" />
-          <div>Jogador 6</div>
+          <div>Michel</div>
         </div>
       </div>
     </div>
@@ -251,13 +252,13 @@
         <div class="player">
           <span class="ranking-index">10</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Jogador 7" />
-          <div>Jogador 7</div>
+          <div>Douglas</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index rank-20">20</span>
           <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Jogador 8" />
-          <div>Jogador 8</div>
+          <div>Danilo</div>
         </div>
       </div>
     </div>
