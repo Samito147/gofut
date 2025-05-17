@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Tabela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* === MENU (copiado da index) === */
+	    /* Zera todo espaço do topo e cola o menu */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: #0f0f0f;
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+	  align-items: center;
+      z-index: 100;
+    }
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: color .3s;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="TABELA.html">📊 Tabela</a>
+    <a href="RESULTADOS.html">📈 Resultados</a>
+    <a href="CRONOGRAMA.html">📅 Cronograma</a>
+    <a href="RANKING.html">🏆 Ranking</a>
+    <a href="NOTICIAS.html">📰 Notícias</a>
+    <a href="REGULAMENTO.html">📜 Regulamento</a>
+  </nav>
+
+  <!-- Aqui pode vir um conteúdo de boas-vindas ou dashboard -->
+  <main style="padding:2rem; text-align:center;">
+  </main>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classificação</title>
@@ -11,7 +52,7 @@
   <style>
     /* === SEU CSS ORIGINAL SEM ALTERAÇÕES === */
     :root {
-      --bg-color: transparent;
+      --bg-color: #0f0f0f;
       --text-color: #e0e0e0;
       --thead-bg: rgba(31, 31, 31, 0.8);
       --row-bg: rgba(44, 44, 44, 0.6);
@@ -195,13 +236,13 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: transparent;
       align-items: center;
       justify-content: center;
       z-index: 1000;
     }
     #modal .modal-content {
-      background: var(--bg-color);
+      background: transparent;
       color: var(--text-color);
       max-width: 90vw;
       max-height: 90vh;

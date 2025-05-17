@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Placar de Partida</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Resultados</title>
+  <!-- Fonte do menu -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    /* === MENU AJUSTADO SEM MARGEM/PADDING ACIMA === */
     body {
-      background: transparent;
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0;
-      padding: 20px 0;
       gap: 20px;
     }
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: #0f0f0f;
+      height: 60px;
+      padding: 0 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      line-height: 60px;
+      transition: color .3s;
+    }
+    .navbar a:hover {
+      color: #00bcd4;
+    }
 
+    /* === SCOREBOARD CSS ORIGINAL === */
+    * {
+      box-sizing: border-box;
+    }
     .scoreboard {
       background: rgba(30, 30, 30, 0.6);
       backdrop-filter: blur(10px);
@@ -38,7 +65,6 @@
       transform: translateY(30px);
       animation: fadeInUp 0.8s forwards;
     }
-
     .scoreboard::-webkit-scrollbar {
       height: 6px;
     }
@@ -46,25 +72,21 @@
       background: rgba(255,255,255,0.3);
       border-radius: 3px;
     }
-
     .scoreboard:nth-child(1) { animation-delay: 0.2s; }
     .scoreboard:nth-child(2) { animation-delay: 0.4s; }
     .scoreboard:nth-child(3) { animation-delay: 0.6s; }
-
     @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
     .team-block {
       display: flex;
       flex-direction: column;
       align-items: center;
       min-width: 80px;
     }
-
     .avatar {
       width: 100px;
       height: 100px;
@@ -77,11 +99,9 @@
     .avatar:hover {
       transform: scale(1.05);
     }
-
     .winner { border-color: #00ff88 !important; }
     .loser  { border-color: #ff4444 !important; }
     .draw   { border-color: #888     !important; }
-
     .team-name {
       color: #eee;
       font-weight: bold;
@@ -89,7 +109,6 @@
       white-space: nowrap;
       text-align: center;
     }
-
     .middle {
       display: flex;
       flex-direction: column;
@@ -97,23 +116,29 @@
       gap: 10px;
       min-width: 80px;
     }
-
     .scores {
       display: flex;
       gap: 30px;
       align-items: center;
     }
-
     .score {
       font-size: 2.8rem;
       font-weight: bold;
       color: #fff;
       white-space: nowrap;
     }
-    .score.winner { color: #00ff88; text-shadow: 0 0 10px rgba(0,255,136,0.6); }
-    .score.loser  { color: #ff4444; text-shadow: 0 0 10px rgba(255,68,68,0.6); }
-    .score.draw   { color: #888;    text-shadow: 0 0 8px rgba(136,136,136,0.5); }
-
+    .score.winner {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0,255,136,0.6);
+    }
+    .score.loser {
+      color: #ff4444;
+      text-shadow: 0 0 10px rgba(255,68,68,0.6);
+    }
+    .score.draw {
+      color: #888;
+      text-shadow: 0 0 8px rgba(136,136,136,0.5);
+    }
     .vs {
       font-size: 1.3rem;
       font-weight: bold;
@@ -124,13 +149,19 @@
 </head>
 <body>
 
+  <nav class="navbar">
+    <a href="TABELA.html">📊 Tabela</a>
+    <a href="RESULTADOS.html">📈 Resultados</a>
+    <a href="CRONOGRAMA.html">📅 Cronograma</a>
+    <a href="RANKING.html">🏆 Ranking</a>
+    <a href="NOTICIAS.html">📰 Notícias</a>
+    <a href="REGULAMENTO.html">📜 Regulamento</a>
+  </nav>
+
+  <!-- Scoreboards -->
   <div class="scoreboard" data-team1-score="2" data-team2-score="1">
     <div class="team-block team1">
-      <img
-        class="avatar"
-        src="Samito.png"
-        alt="Samuel"
-      >
+      <img class="avatar" src="Samito.png" alt="Samuel">
       <div class="team-name">Samuel</div>
     </div>
     <div class="middle">
@@ -183,16 +214,13 @@
   </div>
 
   <script>
-    // Substitui o <img> de Samuel por um <canvas> redimensionado com alta qualidade de smoothing
+    // Canvas de alta qualidade para o avatar de Samuel
     window.addEventListener('load', () => {
       const img = document.querySelector('img.avatar[src="Samito.png"]');
       if (!img) return;
 
-      const cssW = img.width;
-      const cssH = img.height;
+      const cssW = img.width, cssH = img.height;
       const dpr = window.devicePixelRatio || 1;
-
-      // cria canvas em alta resolução
       const canvas = document.createElement('canvas');
       canvas.width = cssW * dpr;
       canvas.height = cssH * dpr;
@@ -200,7 +228,6 @@
       canvas.style.height = cssH + 'px';
       canvas.className = img.className;
 
-      // desenha com qualidade alta
       const ctx = canvas.getContext('2d');
       ctx.scale(dpr, dpr);
       ctx.imageSmoothingEnabled = true;
@@ -210,7 +237,7 @@
       img.replaceWith(canvas);
     });
 
-    // Lógica de winner/loser/draw continua a mesma
+    // Marcar winner/loser/draw
     document.querySelectorAll('.scoreboard').forEach(board => {
       const s1 = +board.dataset.team1Score;
       const s2 = +board.dataset.team2Score;
@@ -229,6 +256,5 @@
       }
     });
   </script>
-
 </body>
 </html>

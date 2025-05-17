@@ -1,133 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Placar de Partidas</title>
+  <!-- Fonte do menu -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Zera todo espaço do topo e cola o menu */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      background-color: transparent;
+      height: 100%;
+      background: #0f0f0f;
       font-family: 'Segoe UI', sans-serif;
       color: #f1f1f1;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0;
-      margin: 0;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background: #0f0f0f;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      line-height: 60px;
+      transition: color .3s;
+    }
+    .navbar a:hover {
+      color: #00bcd4;
     }
 
     .card-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center;   /* centraliza os cards */
+      justify-content: center;
       width: 100%;
       max-width: 1400px;
-      margin: 0 auto;
-      padding-top: 0;
+      padding: 20px;
     }
 
     .card {
-      background-color: transparent;
-      border: 1px solid #444;
+      background: rgba(30,30,30,0.6);
+      backdrop-filter: blur(10px);
       border-radius: 12px;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      width: auto;
       min-width: 300px;
       max-width: 350px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
       animation: fadeIn 0.8s ease;
       transition: transform 0.3s ease;
     }
-
-    .card:hover {
-      transform: translateY(-10px);
-    }
-
-    /* Aproximação dos jogadores ao “Vs” */
-    .players {
-      display: flex;
-      justify-content: center;   /* centraliza o conjunto */
-      align-items: center;
-      width: 100%;
-      gap: 10px;                 /* gap reduzido para aproximar */
-    }
-
-    .player {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      position: relative;
-    }
-
-    /* Avatar 50% maior (70→105) menos 10% → 94.5px */
-    .avatar {
-      width: 94.5px;
-      height: 94.5px;
-      border-radius: 50%;
-      border: 3px solid #666;
-      background-color: #1a1a1a;
-      object-fit: cover;
-      transition: border 0.3s ease;
-    }
-
-    .card:hover .avatar {
-      border-color: #999;
-    }
-
-    /* “Vs” 50% maior (1.2rem→1.8rem) menos 10% → 1.62rem */
-    .vs {
-      font-size: 1.62rem;
-      font-weight: bold;
-      margin: 0 5px;
-    }
-
-    .ranking-index {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      padding: 3px 6px;
-      border-radius: 50%;
-      font-size: 0.5rem;
-      font-weight: bold;
-      animation: none;
-    }
-
-    .ranking-index.rank-1 {
-      border: 3px solid #28a745;
-      color: #ffd700;
-      animation: blinkGreen 2s infinite;
-    }
-
-    .ranking-index.rank-20 {
-      border: 3px solid #dc3545;
-      color: #8b0000;
-      animation: blinkRed 2s infinite;
-    }
-
-    @keyframes blinkGreen {
-      0% { border-color: #28a745; }
-      50% { border-color: transparent; }
-      100% { border-color: #28a745; }
-    }
-    @keyframes blinkRed {
-      0% { border-color: #dc3545; }
-      50% { border-color: transparent; }
-      100% { border-color: #dc3545; }
-    }
+    .card:hover { transform: translateY(-10px); }
 
     .event-title {
       font-size: 1.1rem;
@@ -137,162 +73,162 @@
       margin-bottom: 15px;
     }
 
-    /* Nome do jogador 50% maior (1rem→1.5rem) menos 10% → 1.35rem */
+    .players {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .avatar {
+      width: 94.5px;
+      height: 94.5px;
+      border-radius: 50%;
+      border: 3px solid #666;
+      object-fit: cover;
+      transition: border 0.3s ease;
+    }
+    .card:hover .avatar { border-color: #999; }
+    .vs {
+      font-size: 1.62rem;
+      font-weight: bold;
+    }
+    .ranking-index {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 3px 6px;
+      border-radius: 50%;
+      font-size: .5rem;
+      font-weight: bold;
+    }
+    .ranking-index.rank-1 {
+      border: 3px solid #28a745;
+      color: #ffd700;
+      animation: blinkGreen 2s infinite;
+    }
+    .ranking-index.rank-20 {
+      border: 3px solid #dc3545;
+      color: #8b0000;
+      animation: blinkRed 2s infinite;
+    }
+    @keyframes blinkGreen {
+      0%,100% { border-color: #28a745; }
+      50%     { border-color: transparent; }
+    }
+    @keyframes blinkRed {
+      0%,100% { border-color: #dc3545; }
+      50%     { border-color: transparent; }
+    }
     .player div {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      width: 100%;
-      display: block;
       font-size: 1.35rem;
       text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
     }
-
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
     @media (max-width: 768px) {
-      .card {
-        width: 100%;
-        height: auto;
-      }
-      .players {
-        flex-direction: row;
-        justify-content: center;  /* mantém centralização no mobile */
-        align-items: center;
-        gap: 10px;                /* mantém proximidade */
-      }
-      .avatar {
-        width: 85.5px;            /* 90px menos 10% → 81px, mas original mobile was 90, so: 90*0.9=81 */
-        height: 85.5px;          /* porém mantendo 10% reduction from desktop: 94.5→85.05 arredondei para 85.5 */
-      }
-      .vs {
-        font-size: 1.62rem;
-      }
-      .player div {
-        font-size: 1.35rem;
-      }
-    }
-
-    @media (max-width: 480px) {
+      .card { width: 100%; }
       .avatar {
         width: 85.5px;
         height: 85.5px;
-      }
-      .vs {
-        font-size: 1.62rem;
-      }
-      .player div {
-        font-size: 1.35rem;
       }
     }
   </style>
 </head>
 <body>
+
+  <nav class="navbar">
+    <a href="TABELA.html">📊 Tabela</a>
+    <a href="RESULTADOS.html">📈 Resultados</a>
+    <a href="CRONOGRAMA.html">📅 Cronograma</a>
+    <a href="RANKING.html">🏆 Ranking</a>
+    <a href="NOTICIAS.html">📰 Notícias</a>
+    <a href="REGULAMENTO.html">📜 Regulamento</a>
+  </nav>
+
   <div class="card-container">
     <!-- Card 1 -->
     <div class="card">
-      <div class="event-title" id="event-1">
-        12 de Abril - 19:00 (Segunda-Feira)
-      </div>
+      <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
       <div class="players">
         <div class="player">
           <span class="ranking-index rank-1">1</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/32.jpg"
-               alt="Ericles" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
           <div>Ericles</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">12</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/women/44.jpg"
-               alt="Wagner" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
           <div>Wagner</div>
         </div>
       </div>
     </div>
-
     <!-- Card 2 -->
     <div class="card">
-      <div class="event-title" id="event-2">
-        13 de Abril - 14:00 (Terça-Feira)
-      </div>
+      <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
       <div class="players">
         <div class="player">
           <span class="ranking-index">18</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/15.jpg"
-               alt="Samuel" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
           <div>Samuel</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">8</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/women/25.jpg"
-               alt="Fernando" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
           <div>Fernando</div>
         </div>
       </div>
     </div>
-
     <!-- Card 3 -->
     <div class="card">
-      <div class="event-title" id="event-3">
-        14 de Abril - 16:00 (Quarta-Feira)
-      </div>
+      <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
       <div class="players">
         <div class="player">
           <span class="ranking-index rank-1">1</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/45.jpg"
-               alt="Vinicius" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
           <div>Vinicius</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index">15</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/women/33.jpg"
-               alt="Michel" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
           <div>Michel</div>
         </div>
       </div>
     </div>
-
     <!-- Card 4 -->
     <div class="card">
-      <div class="event-title" id="event-4">
-        15 de Abril - 18:00 (Quinta-Feira)
-      </div>
+      <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
       <div class="players">
         <div class="player">
           <span class="ranking-index">10</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/27.jpg"
-               alt="Douglas" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
           <div>Douglas</div>
         </div>
         <div class="vs">Vs</div>
         <div class="player">
           <span class="ranking-index rank-20">20</span>
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/women/18.jpg"
-               alt="Danilo" />
+          <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
           <div>Danilo</div>
         </div>
       </div>
     </div>
   </div>
+
 </body>
 </html>

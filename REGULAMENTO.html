@@ -9,6 +9,41 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
+    /* === MENU AJUSTADO === */
+	    /* Zera todo espaço do topo e cola o menu */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background: #0f0f0f;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      line-height: 60px;
+      transition: color .3s;
+    }
+    .navbar a:hover {
+      color: #00bcd4;
+    }
     :root {
       --bg: #121212;
       --fg: #e0e0e0;
@@ -16,13 +51,12 @@
       --border: #333;
       --transition: 0.6s ease-out;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: transparent;
+      background: #0f0f0f;
       color: var(--fg);
       font-family: 'Montserrat', sans-serif;
       line-height: 1.6;
-      padding: 0 20px 20px;
+      padding: 0 20px 20px;    /* 0 de padding no topo */
     }
     h1 {
       text-align: center;
@@ -67,12 +101,7 @@
       font-size: 1.3rem;
     }
     p { margin-bottom: 10px; }
-    ul {
-      margin-left: 20px;
-      margin-bottom: 10px;
-      list-style: none;
-    }
-    ol {
+    ul, ol {
       margin-left: 20px;
       margin-bottom: 10px;
     }
@@ -91,28 +120,37 @@
     }
     ol { list-style: decimal outside; padding-left: 0; }
     ol li { padding-left: 24px; }
-    /* Animações */
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
       from { opacity: 0; }
-      to { opacity: 1; }
+      to   { opacity: 1; }
     }
     @keyframes iconPop {
-      0% { transform: scale(0); }
-      80% { transform: scale(1.2); }
+      0%   { transform: scale(0); }
+      80%  { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <a href="TABELA.html">📊 Tabela</a>
+    <a href="RESULTADOS.html">📈 Resultados</a>
+    <a href="CRONOGRAMA.html">📅 Cronograma</a>
+    <a href="RANKING.html">🏆 Ranking</a>
+    <a href="NOTICIAS.html">📰 Notícias</a>
+    <a href="REGULAMENTO.html">📜 Regulamento</a>
+  </nav>
+
   <section>
     <div class="section-icon"><i class="fa-solid fa-pencil"></i></div>
     <h2>INSCRIÇÃO</h2>
     A inscrição deve ser feita através do formulário enviado via WhatsApp para os jogadores selecionados, mas, só será de fato efetivada após a comprovação do pagamento da inscrição.<br>
-    O valor da inscrição será de R$ 150,00, o que já engloba as seguintes sessões:</p>
+    O valor da inscrição será de R$ 150,00, o que já engloba as seguintes sessões:
     <ul>
       <li>Participação no campeonato</li>
       <li>Participação no bolão da grande final (R$ 300,00)</li>
@@ -125,7 +163,7 @@
     <h2>JOGOS – LIGA</h2>
     A fase de LIGA será realizada com confrontos diretos entre TODOS os jogadores inscritos, sendo assim, teremos um total de 190 jogos distribuídos em 19 rodadas com 10 jogos cada. O cronograma de jogos oficiais comporta apenas 2 jogos por dia, efetivando uma rodada completa de segunda a sexta feira.<br>
     Todos os jogos da fase de LIGA serão realizados ONLINE, onde cada jogador tem liberdade para jogar da sua própria casa, ou, entrar em acordo com o adversário para se enfrentarem presencialmente.<br>
-    As partidas da fase de LIGA só serão válidas e computadas para o campeonato se:</p>
+    As partidas da fase de LIGA só serão válidas e computadas para o campeonato se:
     <ul>
       <li>Realizadas sob a supervisão de pelo menos um organizador do campeonato</li>
       <li>For realizada com todas as configurações padrões pré-determinadas</li>
@@ -146,14 +184,12 @@
       <li>Se o jogador que caiu/abandonou estiver PERDENDO, a partida será considerada exatamente como estava no momento da desconexão, gerando os 3 pontos pro adversário online com os devidos gols marcados. (OS GOLS DO JOGADOR DESCONECTADOS TAMBÉM SERÃO CONSIDERADOS NA TABELA).</li>
       <li>Se o jogo estiver EMPATADO COM GOLS, será considerado EMPATE, porém, com saldo de 0 x 0.</li>
     </ul>
-    <p>As medidas acima são configurações ANTI FRAUDE, evitando que um jogador abandone intencionalmente uma partida online e se beneficie do resultado temporário, prejudicando a competitividade e posição na tabela oficial.</p>
   </section>
 
   <section>
     <div class="section-icon"><i class="fa-solid fa-trophy"></i></div>
     <h2>CLASSIFICAÇÃO</h2>
-    Dos 20 jogadores passaram apenas 16 para as oitavas de finais, eliminando 4 da competição. A ordem que define a classificação direta é a posição na tabela, que se dá pela ordem abaixo:<br>
-    ORDEM DE CLASSIFICAÇÃO:</p>
+    Dos 20 jogadores passaram apenas 16 para as oitavas de finais, eliminando 4 da competição. A ordem que define a classificação direta é a posição na tabela, que se dá pela ordem abaixo:
     <ol>
       <li>PONTOS</li>
       <li>SALDO DE GOLS</li>
@@ -166,11 +202,10 @@
   <section>
     <div class="section-icon"><i class="fa-solid fa-bracket"></i></div>
     <h2>JOGOS – COPA</h2>
-    Os confrontos das OITAVAS serão definidos pela posição da tabela na fase de LIGA:<br>
-    PRIMEIRO enfrenta o ULTIMO<br>
+    Os confrontos das OITAVAS serão definidos pela posição da tabela na fase de LIGA:
+    <br>PRIMEIRO enfrenta o ULTIMO<br>
     SEGUNDO enfrenta o PENÚLTIMO<br>
-    E assim por diante. O favorecimento do confronto ocorrerá apenas no confronto inicial (OITAVAS), pois, o confronto das QUARTAS se dará por meio de SORTEIO, após a definição dos classificados.<br>
-    Para os jogos da fase COPA as configurações padrões serão iguais para todas as partidas:</p>
+    E assim por diante. O favorecimento do confronto ocorrerá apenas no confronto inicial (OITAVAS), pois, o confronto das QUARTAS se dará por meio de SORTEIO, após a definição dos classificados.
     <ul>
       <li>TEMPO DE JOGO: 15 Minutos</li>
       <li>VELOCIDADE: 0</li>
@@ -184,8 +219,7 @@
   <section>
     <div class="section-icon"><i class="fa-solid fa-people-group"></i></div>
     <h2>ESCOLHA DOS TIMES</h2>
-    A escolha dos times na fase de LIGA será LIVRE, podendo ter confronto direto entre dois times iguais, sem necessidade de ACORDO entre os jogadores, porém, está PROIBIDA a escolha de qualquer SELEÇÃO em qualquer fase do campeonato, mesmo havendo um acordo entre ambos.<br>
-    A partir da fase de COPA a escolha dos times se dará pelo seguinte cronograma:</p>
+    A escolha dos times na fase de LIGA será LIVRE, podendo ter confronto direto entre dois times iguais, sem necessidade de ACORDO entre os jogadores, porém, está PROIBIDA a escolha de qualquer SELEÇÃO em qualquer fase do campeonato, mesmo havendo um acordo entre ambos.
     <ol>
       <li>JOGADOR 1 (melhor posicionado na tabela na fase de LIGA) irá BANIR um time do confronto, ou seja, nem seu adversário e nem ele poderá jogar com esse time.</li>
       <li>JOGADOR 2 irá BANIR outro time logo em seguida, excluindo o segundo time do confronto.</li>
