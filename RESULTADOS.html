@@ -4,52 +4,107 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Resultados</title>
-  <!-- Fonte do menu -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Fonte Poppins -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome para os ícones do menu e título -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- ===== CSS DO MENU ===== -->
   <style>
-    /* === MENU AJUSTADO SEM MARGEM/PADDING ACIMA === */
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
       background: #0f0f0f;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      padding-top: 4rem; /* espaço para o menu fixo */
     }
     .navbar {
-      position: sticky;
+      position: fixed;
       top: 0;
-      width: 100%;
+      left: 0;
+      right: 0;
+      width: 100vw;
       background: #0f0f0f;
-      height: 60px;
-      padding: 0 1rem;
+      padding: 1rem 0;
       display: flex;
-      gap: 1rem;
       justify-content: center;
       align-items: center;
+      gap: 2rem;
       z-index: 100;
     }
     .navbar a {
+      display: flex;
+      align-items: center;
       color: #ccc;
       text-decoration: none;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-      line-height: 60px;
-      transition: color .3s;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      transition: color 0.3s;
     }
-    .navbar a:hover {
+    .navbar a i {
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+      color: inherit;
+    }
+    .navbar a:hover,
+    .navbar a.active {
       color: #00bcd4;
     }
+  </style>
 
-    /* === SCOREBOARD CSS ORIGINAL === */
+  <!-- ===== título estilo "Regulamento" ===== -->
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+      padding: 0 20px;
+    }
+    .container h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+    .container h1 i {
+      margin-right: 0.5rem;
+      font-size: 2.5rem;
+      color: #00bcd4;
+    }
+  </style>
+
+  <!-- === SCOREBOARD CSS === -->
+  <style>
     * {
       box-sizing: border-box;
     }
+
     .scoreboard {
-      background: rgba(30, 30, 30, 0.6);
-      backdrop-filter: blur(10px);
+      background: rgba(40, 40, 40, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 20px 30px;
       max-width: 700px;
@@ -59,12 +114,24 @@
       align-items: center;
       column-gap: 40px;
       overflow-x: auto;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, opacity 0.5s ease;
+      box-shadow: none;
+      transition: transform 0.3s ease,
+                  opacity 0.5s ease,
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 0.8s forwards;
+      margin: 0 auto 20px;
     }
+    .scoreboard:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(0,188,212,0.6);
+    }
+    .scoreboard:active {
+      border-color: rgba(0,188,212,0.6);
+    }
+
     .scoreboard::-webkit-scrollbar {
       height: 6px;
     }
@@ -72,21 +139,14 @@
       background: rgba(255,255,255,0.3);
       border-radius: 3px;
     }
-    .scoreboard:nth-child(1) { animation-delay: 0.2s; }
-    .scoreboard:nth-child(2) { animation-delay: 0.4s; }
-    .scoreboard:nth-child(3) { animation-delay: 0.6s; }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+
     .team-block {
       display: flex;
       flex-direction: column;
       align-items: center;
       min-width: 80px;
     }
+
     .avatar {
       width: 100px;
       height: 100px;
@@ -94,14 +154,16 @@
       object-fit: cover;
       margin-bottom: 10px;
       border: 4px solid transparent;
-      transition: transform 0.3s;
+      transition: transform 0.3s, border-color 0.3s;
     }
     .avatar:hover {
       transform: scale(1.05);
     }
+
     .winner { border-color: #00ff88 !important; }
     .loser  { border-color: #ff4444 !important; }
     .draw   { border-color: #888     !important; }
+
     .team-name {
       color: #eee;
       font-weight: bold;
@@ -109,6 +171,7 @@
       white-space: nowrap;
       text-align: center;
     }
+
     .middle {
       display: flex;
       flex-direction: column;
@@ -116,16 +179,19 @@
       gap: 10px;
       min-width: 80px;
     }
+
     .scores {
       display: flex;
       gap: 30px;
       align-items: center;
     }
+
     .score {
       font-size: 2.8rem;
       font-weight: bold;
       color: #fff;
       white-space: nowrap;
+      transition: text-shadow 0.3s;
     }
     .score.winner {
       color: #00ff88;
@@ -139,6 +205,7 @@
       color: #888;
       text-shadow: 0 0 8px rgba(136,136,136,0.5);
     }
+
     .vs {
       font-size: 1.3rem;
       font-weight: bold;
@@ -149,67 +216,94 @@
 </head>
 <body>
 
-  <nav class="navbar">
-    <a href="TABELA.html">📊 Tabela</a>
-    <a href="RESULTADOS.html">📈 Resultados</a>
-    <a href="CRONOGRAMA.html">📅 Cronograma</a>
-    <a href="RANKING.html">🏆 Ranking</a>
-    <a href="NOTICIAS.html">📰 Notícias</a>
-    <a href="REGULAMENTO.html">📜 Regulamento</a>
-  </nav>
+  <!-- Menu carregado dinamicamente -->
+  <div id="menu-placeholder"></div>
+  <script>
+    fetch('menu.html')
+      .then(res => {
+        if (!res.ok) throw new Error('Não foi possível carregar o menu');
+        return res.text();
+      })
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const nav = doc.querySelector('nav.navbar');
+        document.getElementById('menu-placeholder').appendChild(nav);
+        document.querySelectorAll('.navbar a').forEach(a => {
+          if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+            a.classList.add('active');
+          }
+        });
+      })
+      .catch(console.error);
+  </script>
 
-  <!-- Scoreboards -->
-  <div class="scoreboard" data-team1-score="2" data-team2-score="1">
-    <div class="team-block team1">
-      <img class="avatar" src="Samito.png" alt="Samuel">
-      <div class="team-name">Samuel</div>
-    </div>
-    <div class="middle">
-      <div class="scores">
-        <div class="score team1-score">2</div>
-        <div class="vs">VS</div>
-        <div class="score team2-score">1</div>
+  <div class="container">
+    <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
+
+    <!-- Scoreboards -->
+    <div class="scoreboard" data-team1-score="2" data-team2-score="1">
+      <div class="team-block team1">
+        <img class="avatar" src="Samito.png" alt="Samuel">
+        <div class="team-name">Samuel</div>
+      </div>
+      <div class="middle">
+        <div class="scores">
+          <div class="score team1-score">2</div>
+          <div class="vs">VS</div>
+          <div class="score team2-score">1</div>
+        </div>
+      </div>
+      <div class="team-block team2">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/20.jpg"
+             alt="Vinicius">
+        <div class="team-name">Vinicius</div>
       </div>
     </div>
-    <div class="team-block team2">
-      <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Vinicius">
-      <div class="team-name">Vinicius</div>
-    </div>
-  </div>
 
-  <div class="scoreboard" data-team1-score="3" data-team2-score="4">
-    <div class="team-block team1">
-      <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Fernando">
-      <div class="team-name">Fernando</div>
-    </div>
-    <div class="middle">
-      <div class="scores">
-        <div class="score team1-score">3</div>
-        <div class="vs">VS</div>
-        <div class="score team2-score">4</div>
+    <div class="scoreboard" data-team1-score="3" data-team2-score="4">
+      <div class="team-block team1">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/21.jpg"
+             alt="Fernando">
+        <div class="team-name">Fernando</div>
+      </div>
+      <div class="middle">
+        <div class="scores">
+          <div class="score team1-score">3</div>
+          <div class="vs">VS</div>
+          <div class="score team2-score">4</div>
+        </div>
+      </div>
+      <div class="team-block team2">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/22.jpg"
+             alt="Douglas">
+        <div class="team-name">Douglas</div>
       </div>
     </div>
-    <div class="team-block team2">
-      <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Douglas">
-      <div class="team-name">Douglas</div>
-    </div>
-  </div>
 
-  <div class="scoreboard" data-team1-score="1" data-team2-score="1">
-    <div class="team-block team1">
-      <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Danilo">
-      <div class="team-name">Danilo</div>
-    </div>
-    <div class="middle">
-      <div class="scores">
-        <div class="score team1-score">1</div>
-        <div class="vs">VS</div>
-        <div class="score team2-score">1</div>
+    <div class="scoreboard" data-team1-score="1" data-team2-score="1">
+      <div class="team-block team1">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/23.jpg"
+             alt="Danilo">
+        <div class="team-name">Danilo</div>
       </div>
-    </div>
-    <div class="team-block team2">
-      <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Michel">
-      <div class="team-name">Michel</div>
+      <div class="middle">
+        <div class="scores">
+          <div class="score team1-score">1</div>
+          <div class="vs">VS</div>
+          <div class="score team2-score">1</div>
+        </div>
+      </div>
+      <div class="team-block team2">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/24.jpg"
+             alt="Michel">
+        <div class="team-name">Michel</div>
+      </div>
     </div>
   </div>
 
@@ -245,14 +339,19 @@
       const a2 = board.querySelector('.team2 .avatar, .team2 canvas');
       const sc1 = board.querySelector('.team1-score');
       const sc2 = board.querySelector('.team2-score');
+
       if (s1 > s2) {
-        a1.classList.add('winner');  sc1.classList.add('winner');
-        a2.classList.add('loser');   sc2.classList.add('loser');
+        a1.classList.add('winner');
+        sc1.classList.add('winner');
+        a2.classList.add('loser');
+        sc2.classList.add('loser');
       } else if (s2 > s1) {
-        a2.classList.add('winner');  sc2.classList.add('winner');
-        a1.classList.add('loser');   sc1.classList.add('loser');
+        a2.classList.add('winner');
+        sc2.classList.add('winner');
+        a1.classList.add('loser');
+        sc1.classList.add('loser');
       } else {
-        [a1,a2,sc1,sc2].forEach(el => el.classList.add('draw'));
+        [a1, a2, sc1, sc2].forEach(el => el.classList.add('draw'));
       }
     });
   </script>

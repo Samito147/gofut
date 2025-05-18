@@ -1,0 +1,101 @@
+<!-- menu.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu de Navegação</title>
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome para ícones modernos -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-SzlrxWriC3f5rF2Y7e3X3yq5h2sVQzCq+XK4QUpDAi4yXr90sygHmL9MdEjbzU6N02XW5ZqhF3l2X+emZ+Pcfg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: transparent;
+      padding-top: 4rem; /* espaço para não ficar embaixo do menu */
+    }
+
+    /* MENU FIXO NO TOPO */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      background: #0f0f0f;    /* cor inalterada */
+      padding: 1rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;              /* espaçamento fixo */
+      z-index: 100;
+    }
+
+    /* Links com ícones e tipografia moderna */
+    .navbar a {
+      display: flex;
+      align-items: center;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      transition: color 0.3s;
+    }
+
+    /* Ícones com destaque sutil */
+    .navbar a i {
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+      color: inherit;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      color: #00bcd4;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="Menu de navegação principal">
+    <a href="TABELA.html"       title="Visualizar a Tabela">
+      <i class="fas fa-table"></i>
+      Tabela
+    </a>
+    <a href="RESULTADOS.html"   title="Visualizar Resultados">
+      <i class="fas fa-chart-line"></i>
+      Resultados
+    </a>
+    <a href="CRONOGRAMA.html"   title="Visualizar Cronograma">
+      <i class="fas fa-calendar-alt"></i>
+      Cronograma
+    </a>
+    <a href="REGULAMENTO.html"  title="Visualizar Regulamento">
+      <i class="fas fa-scroll"></i>
+      Regulamento
+    </a>
+  </nav>
+
+  <main>
+    <!-- Conteúdo de cada página -->
+  </main>
+
+</body>
+</html>

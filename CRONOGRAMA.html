@@ -4,75 +4,141 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Placar de Partidas</title>
-  <!-- Fonte do menu -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Fonte Poppins -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome para os ícones do menu e título -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- ===== CSS DO MENU (copiado de menu.html) ===== -->
   <style>
-    /* Zera todo espaço do topo e cola o menu */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
       background: #0f0f0f;
-      font-family: 'Segoe UI', sans-serif;
-      color: #f1f1f1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding-top: 4rem; /* espaço para o menu fixo */
     }
     .navbar {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 60px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100vw;
       background: #0f0f0f;
+      padding: 1rem 0;
       display: flex;
-      gap: 1rem;
       justify-content: center;
       align-items: center;
+      gap: 2rem;
       z-index: 100;
     }
     .navbar a {
+      display: flex;
+      align-items: center;
       color: #ccc;
       text-decoration: none;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-      line-height: 60px;
-      transition: color .3s;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      transition: color 0.3s;
     }
-    .navbar a:hover {
+    .navbar a i {
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+      color: inherit;
+    }
+    .navbar a:hover,
+    .navbar a.active {
       color: #00bcd4;
     }
+  </style>
 
+  <!-- ===== container + título estilo ANIMADO (do Regulamento) ===== -->
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+      padding: 0 20px; /* manter padding lateral */
+    }
+    .container h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container h1 i {
+      margin-right: 0.5rem;
+      font-size: 2.5rem;
+      color: #00bcd4;
+    }
+  </style>
+
+  <!-- ===== CSS EXISTENTE DO CARD-CONTAINER ===== -->
+  <style>
     .card-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
       width: 100%;
-      max-width: 1400px;
-      padding: 20px;
+      margin: 0 auto;
+      /* padding inferior apenas, já temos padding lateral na .container */
+      padding-bottom: 20px;
     }
-
     .card {
-      background: rgba(30,30,30,0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
+      background: rgba(40,40,40,0.85);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
       padding: 20px;
-      min-width: 300px;
+      flex: 1 1 300px;
       max-width: 350px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
       animation: fadeIn 0.8s ease;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease,
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
     }
-    .card:hover { transform: translateY(-10px); }
-
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card:hover {
+      border-color: rgba(0,188,212,0.6);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+    .card:active {
+      border-color: rgba(0,188,212,0.6);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
     .event-title {
       font-size: 1.1rem;
       color: #fff;
       font-weight: bold;
       text-align: center;
       margin-bottom: 15px;
+      white-space: nowrap;
     }
-
     .players {
       display: flex;
       justify-content: center;
@@ -85,6 +151,14 @@
       align-items: center;
       position: relative;
     }
+    .player > div {
+      white-space: nowrap;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 8px;
+      text-shadow: 0 0 5px rgba(255,255,255,0.3);
+    }
     .avatar {
       width: 94.5px;
       height: 94.5px;
@@ -93,16 +167,19 @@
       object-fit: cover;
       transition: border 0.3s ease;
     }
-    .card:hover .avatar { border-color: #999; }
+    .card:hover .avatar {
+      border-color: #00bcd4;
+    }
     .vs {
       font-size: 1.62rem;
       font-weight: bold;
+      white-space: nowrap;
     }
     .ranking-index {
       position: absolute;
       top: -10px;
       right: -10px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.75);
       color: #fff;
       padding: 3px 6px;
       border-radius: 50%;
@@ -127,20 +204,11 @@
       0%,100% { border-color: #dc3545; }
       50%     { border-color: transparent; }
     }
-    .player div {
-      font-size: 1.35rem;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @media (max-width: 768px) {
-      .card { width: 100%; }
+      .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
       .avatar {
         width: 85.5px;
         height: 85.5px;
@@ -150,81 +218,96 @@
 </head>
 <body>
 
-  <nav class="navbar">
-    <a href="TABELA.html">📊 Tabela</a>
-    <a href="RESULTADOS.html">📈 Resultados</a>
-    <a href="CRONOGRAMA.html">📅 Cronograma</a>
-    <a href="RANKING.html">🏆 Ranking</a>
-    <a href="NOTICIAS.html">📰 Notícias</a>
-    <a href="REGULAMENTO.html">📜 Regulamento</a>
-  </nav>
+  <!-- Menu carregado dinamicamente -->
+  <div id="menu-placeholder"></div>
+  <script>
+    fetch('menu.html')
+      .then(res => {
+        if (!res.ok) throw new Error('Não foi possível carregar o menu');
+        return res.text();
+      })
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const nav = doc.querySelector('nav.navbar');
+        document.getElementById('menu-placeholder').appendChild(nav);
+        document.querySelectorAll('.navbar a').forEach(a => {
+          if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+            a.classList.add('active');
+          }
+        });
+      })
+      .catch(console.error);
+  </script>
 
-  <div class="card-container">
-    <!-- Card 1 -->
-    <div class="card">
-      <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
-      <div class="players">
-        <div class="player">
-          <span class="ranking-index rank-1">1</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
-          <div>Ericles</div>
-        </div>
-        <div class="vs">Vs</div>
-        <div class="player">
-          <span class="ranking-index">12</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
-          <div>Wagner</div>
-        </div>
-      </div>
-    </div>
-    <!-- Card 2 -->
-    <div class="card">
-      <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
-      <div class="players">
-        <div class="player">
-          <span class="ranking-index">18</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
-          <div>Samuel</div>
-        </div>
-        <div class="vs">Vs</div>
-        <div class="player">
-          <span class="ranking-index">8</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
-          <div>Fernando</div>
+  <div class="container">
+    <h1><i class="fas fa-calendar-days"></i>Próximos confrontos</h1>
+    <div class="card-container">
+      <div class="card">
+        <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
+        <div class="players">
+          <div class="player">
+            <span class="ranking-index rank-1">1</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
+            <div>Ericles</div>
+          </div>
+          <div class="vs">Vs</div>
+          <div class="player">
+            <span class="ranking-index">12</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
+            <div>Wagner</div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Card 3 -->
-    <div class="card">
-      <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
-      <div class="players">
-        <div class="player">
-          <span class="ranking-index rank-1">1</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
-          <div>Vinicius</div>
-        </div>
-        <div class="vs">Vs</div>
-        <div class="player">
-          <span class="ranking-index">15</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
-          <div>Michel</div>
+
+      <div class="card">
+        <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
+        <div class="players">
+          <div class="player">
+            <span class="ranking-index">18</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
+            <div>Samuel</div>
+          </div>
+          <div class="vs">Vs</div>
+          <div class="player">
+            <span class="ranking-index">8</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
+            <div>Fernando</div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Card 4 -->
-    <div class="card">
-      <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
-      <div class="players">
-        <div class="player">
-          <span class="ranking-index">10</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
-          <div>Douglas</div>
+
+      <div class="card">
+        <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
+        <div class="players">
+          <div class="player">
+            <span class="ranking-index rank-1">1</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
+            <div>Vinicius</div>
+          </div>
+          <div class="vs">Vs</div>
+          <div class="player">
+            <span class="ranking-index">15</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
+            <div>Michel</div>
+          </div>
         </div>
-        <div class="vs">Vs</div>
-        <div class="player">
-          <span class="ranking-index rank-20">20</span>
-          <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
-          <div>Danilo</div>
+      </div>
+
+      <div class="card">
+        <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
+        <div class="players">
+          <div class="player">
+            <span class="ranking-index">10</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
+            <div>Douglas</div>
+          </div>
+          <div class="vs">Vs</div>
+          <div class="player">
+            <span class="ranking-index rank-20">20</span>
+            <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
+            <div>Danilo</div>
+          </div>
         </div>
       </div>
     </div>
