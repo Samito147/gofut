@@ -85,9 +85,10 @@
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid transparent;
+      border: 2px solid transparent;
       margin-bottom: 10px;
       transition: transform .3s, border-color .3s;
+      display: block;
     }
 
     .avatar:hover {
@@ -153,8 +154,8 @@
       .then(res => res.text())
       .then(html => {
         const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-        const nav    = doc.querySelector('nav.navbar');
+        const doc = parser.parseFromString(html, 'text/html');
+        const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         window.addEventListener('resize', () => {
@@ -242,7 +243,6 @@
   </div>
 
   <script>
-    // Canvas de alta qualidade para o avatar de Samuel
     window.addEventListener('load', () => {
       const img = document.querySelector('img.avatar[src="Samito.png"]');
       if (!img) return;
@@ -254,6 +254,14 @@
       canvas.style.width = cssW + 'px';
       canvas.style.height = cssH + 'px';
       canvas.className = img.className;
+
+      // 🔧 Estilos visuais para igualar com as outras imagens
+      canvas.style.borderRadius = '50%';
+      canvas.style.border = '2px solid transparent';
+      canvas.style.objectFit = 'cover';
+      canvas.style.marginBottom = '10px';
+      canvas.style.display = 'block';
+
       const ctx = canvas.getContext('2d');
       ctx.scale(dpr, dpr);
       ctx.imageSmoothingEnabled = true;
@@ -262,7 +270,6 @@
       img.replaceWith(canvas);
     });
 
-    // Marcar winner/loser/draw
     document.querySelectorAll('.scoreboard').forEach(board => {
       const s1 = +board.dataset.team1Score;
       const s2 = +board.dataset.team2Score;
