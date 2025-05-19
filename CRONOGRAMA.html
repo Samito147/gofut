@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Placar de Partidas</title>
+  <title>Cronograma</title>
 
   <!-- Fonte Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="menu.css">
 
-  <!-- ===== container + título estilo ANIMADO ===== -->
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -38,35 +37,31 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
       padding: 0 20px;
-      /* REMOVIDO overflow-x */
     }
+
     .container h1 {
       text-align: center;
-      /* font-size responsivo: mínimo 1.5rem, ideal 6vw, máximo 2.5rem */
       font-size: clamp(1.5rem, 6vw, 2.5rem);
       margin-bottom: 1.5rem;
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* REMOVIDO white-space e min-width */
     }
+
     .container h1 i {
       margin-right: 0.5rem;
-      /* ícone acompanha escala do texto */
       font-size: 1em;
       color: #00bcd4;
     }
-  </style>
 
-  <!-- ===== CSS EXISTENTE DO CARD-CONTAINER ===== -->
-  <style>
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -76,30 +71,25 @@
       margin: 0 auto;
       padding-bottom: 20px;
     }
+
     .card {
       background: rgba(40,40,40,0.85);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(0,188,212,0.6);
       backdrop-filter: blur(12px);
       border-radius: 14px;
       padding: 20px;
       flex: 1 1 300px;
       max-width: 350px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      box-shadow: none;
       animation: fadeIn 0.8s ease;
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .card:hover {
-      border-color: rgba(0,188,212,0.6);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    }
-    .card:active {
-      border-color: rgba(0,188,212,0.6);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    }
+
     .event-title {
       font-size: 1.1rem;
       color: #fff;
@@ -108,18 +98,21 @@
       margin-bottom: 15px;
       white-space: nowrap;
     }
+
     .players {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
     }
+
     .player {
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
     }
+
     .player > div {
       white-space: nowrap;
       font-size: 1rem;
@@ -128,22 +121,22 @@
       margin-top: 8px;
       text-shadow: 0 0 5px rgba(255,255,255,0.3);
     }
+
     .avatar {
       width: 94.5px;
       height: 94.5px;
       border-radius: 50%;
-      border: 3px solid #666;
+      border: 3px solid #00bcd4;
       object-fit: cover;
       transition: border 0.3s ease;
     }
-    .card:hover .avatar {
-      border-color: #00bcd4;
-    }
+
     .vs {
       font-size: 1.62rem;
       font-weight: bold;
       white-space: nowrap;
     }
+
     .ranking-index {
       position: absolute;
       top: -10px;
@@ -155,24 +148,29 @@
       font-size: .5rem;
       font-weight: bold;
     }
+
     .ranking-index.rank-1 {
       border: 3px solid #28a745;
       color: #ffd700;
       animation: blinkGreen 2s infinite;
     }
+
     .ranking-index.rank-20 {
       border: 3px solid #dc3545;
       color: #8b0000;
       animation: blinkRed 2s infinite;
     }
+
     @keyframes blinkGreen {
       0%,100% { border-color: #28a745; }
       50%     { border-color: transparent; }
     }
+
     @keyframes blinkRed {
       0%,100% { border-color: #dc3545; }
       50%     { border-color: transparent; }
     }
+
     @media (max-width: 768px) {
       .card {
         flex: 1 1 100%;

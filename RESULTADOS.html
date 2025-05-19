@@ -6,62 +6,69 @@
   <title>Resultados</title>
 
   <!-- Fonte Poppins -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
 
-  <!-- Font Awesome para os ícones do menu e título -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="menu.css">
 
   <style>
-    /* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
     body {
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f !important;
       padding-top: 4rem;
       margin: 0;
     }
+
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
-      opacity: 0;
+      padding: 0 20px 40px;
       animation: fadeInUp 0.8s ease-out forwards;
-      padding: 0 20px;
     }
+
     .container h1 {
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: clamp(1.5rem, 6vw, 2.5rem);
-      margin-bottom: 1.5rem;
       color: #fff;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
-    .container h1 i { margin-right: 0.5rem; font-size: 1em; color: #00bcd4; }
 
-    /* === SCOREBOARD “TABLE” CSS === */
+    .container h1 i {
+      margin-right: 0.5rem;
+      font-size: 1em;
+      color: #00bcd4;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media(max-width: 600px) {
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .scoreboard {
       display: table;
       width: 100%;
-      max-width: 700px;
-      margin: 0 auto 20px;
       background: rgba(40,40,40,0.85);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 20px 0;
-      animation: fadeInUp 0.8s forwards;
     }
-    .scoreboard-row {
-      display: table-row;
-    }
+
     .team-block,
     .middle {
       display: table-cell;
@@ -70,18 +77,23 @@
       padding: 0 20px;
       white-space: nowrap;
     }
-    .team-block { width: 1%; /* força auto */ }
+
+    .team-block { width: 1%; }
     .middle    { width: auto; }
 
     .avatar {
-      width: 100px; height: 100px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid transparent;
       margin-bottom: 10px;
       transition: transform .3s, border-color .3s;
     }
-    .avatar:hover { transform: scale(1.05); }
+
+    .avatar:hover {
+      transform: scale(1.05);
+    }
 
     .team-name {
       color: #eee;
@@ -97,22 +109,54 @@
       font-size: 2.8rem;
       color: #fff;
     }
-    .vs { font-size: 1.3rem; color: #ccc; font-weight: bold; }
 
-    /* estados */
+    .vs {
+      font-size: 1.3rem;
+      color: #ccc;
+      font-weight: bold;
+    }
+
     .winner { border-color: #0f0 !important; }
     .loser  { border-color: #f00 !important; }
+    .draw   { border-color: #888 !important; }
+
     .score.winner { color: #0f0; text-shadow: 0 0 8px #0f0; }
     .score.loser  { color: #f00; text-shadow: 0 0 8px #f00; }
-    .draw, .score.draw { color: #888; }
+    .score.draw   { color: #888; }
 
-    /* MOBILE */
-    @media(max-width:600px) {
-      .team-block, .middle { padding: 0 8px; }
-      .avatar { width: 80px; height: 80px; }
-      .scores { gap: 10px; font-size: 2.2rem; }
-      .vs     { font-size: 1rem; }
-      .team-name { font-size: 1rem; white-space: normal; }
+    @media(max-width: 600px) {
+      .scoreboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+      }
+
+      .team-block, .middle {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 10px;
+      }
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+      }
+
+      .scores {
+        font-size: 2.2rem;
+        gap: 12px;
+      }
+
+      .vs {
+        font-size: 1rem;
+      }
+
+      .team-name {
+        font-size: 1rem;
+        white-space: normal;
+      }
     }
   </style>
 </head>
@@ -121,9 +165,9 @@
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(r=>r.text())
-      .then(html=>{
-        const d=new DOMParser().parseFromString(html,'text/html');
+      .then(r => r.text())
+      .then(html => {
+        const d = new DOMParser().parseFromString(html, 'text/html');
         document.getElementById('menu-placeholder')
                 .appendChild(d.querySelector('nav.navbar').cloneNode(true));
       });
@@ -132,76 +176,82 @@
   <div class="container">
     <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
 
-    <!-- Exemplo de card como “tabela” -->
-    <div class="scoreboard" data-team1-score="2" data-team2-score="1">
-      <div class="team-block team1">
-        <img class="avatar" src="Samito.png" alt="Samuel">
-        <div class="team-name">Samuel</div>
-      </div>
-      <div class="middle">
-        <div class="scores">
-          <div class="score team1-score">2</div>
-          <div class="vs">VS</div>
-          <div class="score team2-score">1</div>
+    <div class="score-grid">
+      <div class="scoreboard" data-team1-score="2" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="Samito.png" alt="Samuel">
+          <div class="team-name">Samuel</div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">2</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Vinicius">
+          <div class="team-name">Vinicius</div>
         </div>
       </div>
-      <div class="team-block team2">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/20.jpg"
-             alt="Vinicius">
-        <div class="team-name">Vinicius</div>
-      </div>
-    </div>
 
-    <div class="scoreboard" data-team1-score="3" data-team2-score="4">
-      <div class="team-block team1">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/21.jpg"
-             alt="Fernando">
-        <div class="team-name">Fernando</div>
-      </div>
-      <div class="middle">
-        <div class="scores">
-          <div class="score team1-score">3</div>
-          <div class="vs">VS</div>
-          <div class="score team2-score">4</div>
+      <div class="scoreboard" data-team1-score="3" data-team2-score="4">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Fernando">
+          <div class="team-name">Fernando</div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">3</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">4</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Douglas">
+          <div class="team-name">Douglas</div>
         </div>
       </div>
-      <div class="team-block team2">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/22.jpg"
-             alt="Douglas">
-        <div class="team-name">Douglas</div>
-      </div>
-    </div>
 
-    <div class="scoreboard" data-team1-score="1" data-team2-score="1">
-      <div class="team-block team1">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/23.jpg"
-             alt="Danilo">
-        <div class="team-name">Danilo</div>
-      </div>
-      <div class="middle">
-        <div class="scores">
-          <div class="score team1-score">1</div>
-          <div class="vs">VS</div>
-          <div class="score team2-score">1</div>
+      <div class="scoreboard" data-team1-score="1" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Danilo">
+          <div class="team-name">Danilo</div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">1</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Michel">
+          <div class="team-name">Michel</div>
         </div>
       </div>
-      <div class="team-block team2">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/24.jpg"
-             alt="Michel">
-        <div class="team-name">Michel</div>
+
+      <div class="scoreboard" data-team1-score="3" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Ericles">
+          <div class="team-name">Ericles</div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">3</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Douglas">
+          <div class="team-name">Douglas</div>
+        </div>
       </div>
     </div>
-
-    <!-- ... repita para os demais cards, sem alterar nada além do conteúdo ... -->
-
   </div>
 
- <script>
+  <script>
     // Canvas de alta qualidade para o avatar de Samuel
     window.addEventListener('load', () => {
       const img = document.querySelector('img.avatar[src="Samito.png"]');
