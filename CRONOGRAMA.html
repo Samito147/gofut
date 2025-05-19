@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="menu.css">
 
-  <!-- ===== container + título estilo ANIMADO (do Regulamento) ===== -->
+  <!-- ===== container + título estilo ANIMADO ===== -->
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -23,7 +23,6 @@
       justify-content: center;
     }
 
-    /* SOLUÇÃO RESPONSIVA PARA CELULARES */
     @media (max-width: 768px) {
       body {
         padding-top: 6.5rem;
@@ -45,8 +44,7 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
       padding: 0 20px;
-      /* permite rolagem horizontal se necessário */
-      overflow-x: auto;
+      overflow-x: auto; /* permite rolagem horizontal se necessário */
     }
     .container h1 {
       text-align: center;
@@ -56,8 +54,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* não permite quebra de linha */
-      white-space: nowrap;
+      white-space: nowrap;       /* não quebra linha */
+      min-width: max-content;    /* largura mínima: largura do texto */
     }
     .container h1 i {
       margin-right: 0.5rem;
@@ -196,7 +194,7 @@
       .then(html => {
         const parser = new DOMParser();
         const doc    = parser.parseFromString(html, 'text/html');
-        const nav = doc.querySelector('nav.navbar');
+        const nav    = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         window.addEventListener('resize', () => {

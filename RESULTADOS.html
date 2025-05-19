@@ -55,9 +55,7 @@
 
   <!-- === SCOREBOARD CSS === -->
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     .scoreboard {
       background: rgba(40, 40, 40, 0.85);
@@ -68,7 +66,8 @@
       max-width: 700px;
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      /* <<< AQUI FOI ALTERADO >>> */
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
       column-gap: 40px;
       overflow-x: auto;
@@ -94,13 +93,12 @@
     @media (max-width: 600px) {
       .scoreboard {
         padding: 15px 20px;
-        /* redefine colunas: avatares fixos e meio flexível */
-        grid-template-columns: auto 1fr auto;
-        column-gap: 10px;         /* gap menor entre colunas */
-        overflow-x: hidden;       /* impede rolagem horizontal */
+        grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+        column-gap: 10px;
+        overflow-x: hidden;
       }
       .scores {
-        gap: 10px;                /* gap menor entre números */
+        gap: 10px;
       }
       .avatar {
         width: 80px;
@@ -114,8 +112,7 @@
         white-space: normal;
       }
       .middle {
-        padding: 0 5px;           /* padding interno reduzido */
-        /* remove min-width para encolher naturalmente */
+        padding: 0 5px;
         min-width: unset;
       }
     }
@@ -221,7 +218,6 @@
         // depois de inserir, ajusta automaticamente:
         document.body.style.paddingTop = nav.offsetHeight + 'px';
 
-        // opcional: também refaz no resize
         window.addEventListener('resize', () => {
           document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
