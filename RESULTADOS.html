@@ -18,13 +18,12 @@
   />
   <link rel="stylesheet" href="menu.css">
 
-  <!-- ===== título estilo "Regulamento" ===== -->
   <style>
     /* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0f0f0f !important; /* força o fundo escuro */
-      padding-top: 4rem; /* espaço para o menu fixo */
+      background: #0f0f0f !important;
+      padding-top: 4rem;
       margin: 0;
     }
     @keyframes fadeInUp {
@@ -43,190 +42,97 @@
       align-items: center;
       justify-content: center;
       font-size: clamp(1.5rem, 6vw, 2.5rem);
-      text-align: center;
       margin-bottom: 1.5rem;
-      color: #ffffff;
+      color: #fff;
     }
-    .container h1 i {
-      margin-right: 0.5rem;
-      font-size: 1em;
-      color: #00bcd4;
-    }
-  </style>
+    .container h1 i { margin-right: 0.5rem; font-size: 1em; color: #00bcd4; }
 
-  <!-- === SCOREBOARD CSS === -->
-  <style>
-    * { box-sizing: border-box; }
-
+    /* === SCOREBOARD “TABLE” CSS === */
     .scoreboard {
-      background: rgba(40, 40, 40, 0.85);
-      backdrop-filter: blur(12px);
+      display: table;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      background: rgba(40,40,40,0.85);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
-      padding: 20px 30px;
-      max-width: 700px;
-      width: 100%;
-      display: grid;
-      /* <<< ALTERAÇÃO AQUI: colunas de avatar auto e meio 1fr >>> */
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      column-gap: 40px;
-      overflow-x: auto;
-      box-shadow: none;
-      transition: transform 0.3s ease,
-                  opacity 0.5s ease,
-                  box-shadow 0.3s ease,
-                  border-color 0.3s ease;
-      opacity: 0;
-      transform: translateY(30px);
+      padding: 20px 0;
       animation: fadeInUp 0.8s forwards;
-      margin: 0 auto 20px;
     }
-    .scoreboard:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: rgba(0,188,212,0.6);
+    .scoreboard-row {
+      display: table-row;
     }
-    .scoreboard:active {
-      border-color: rgba(0,188,212,0.6);
+    .team-block,
+    .middle {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0 20px;
+      white-space: nowrap;
     }
-
-    /* Ajustes para telas pequenas */
-    @media (max-width: 600px) {
-      .scoreboard {
-        padding: 15px 20px;
-        /* <<< MESMA LÓGICA EM MOBILE >>> */
-        grid-template-columns: auto 1fr auto;
-        column-gap: 10px;
-        overflow-x: hidden;
-      }
-      .scores {
-        gap: 10px;
-      }
-      .avatar {
-        width: 80px;
-        height: 80px;
-      }
-      .score {
-        font-size: 2.2rem;
-      }
-      .team-name {
-        font-size: 1rem;
-        white-space: normal;
-      }
-      .middle {
-        padding: 0 5px;
-        min-width: unset;
-      }
-    }
-
-    .scoreboard::-webkit-scrollbar {
-      height: 6px;
-    }
-    .scoreboard::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.3);
-      border-radius: 3px;
-    }
-
-    .team-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 80px;
-    }
+    .team-block { width: 1%; /* força auto */ }
+    .middle    { width: auto; }
 
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 100px; height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 10px;
       border: 4px solid transparent;
-      transition: transform 0.3s, border-color 0.3s;
+      margin-bottom: 10px;
+      transition: transform .3s, border-color .3s;
     }
-    .avatar:hover {
-      transform: scale(1.05);
-    }
-
-    .winner { border-color: #00ff88 !important; }
-    .loser  { border-color: #ff4444 !important; }
-    .draw   { border-color: #888     !important; }
+    .avatar:hover { transform: scale(1.05); }
 
     .team-name {
       color: #eee;
       font-weight: bold;
       font-size: 1.1rem;
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    .middle {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      padding: 0 10px;
+      margin-top: .5rem;
     }
 
     .scores {
-      display: flex;
-      gap: 30px;
+      display: inline-flex;
       align-items: center;
-    }
-
-    .score {
+      gap: 30px;
       font-size: 2.8rem;
-      font-weight: bold;
       color: #fff;
-      white-space: nowrap;
-      transition: text-shadow 0.3s;
     }
-    .score.winner {
-      color: #00ff88;
-      text-shadow: 0 0 10px rgba(0,255,136,0.6);
-    }
-    .score.loser {
-      color: #ff4444;
-      text-shadow: 0 0 10px rgba(255,68,68,0.6);
-    }
-    .score.draw {
-      color: #888;
-      text-shadow: 0 0 8px rgba(136,136,136,0.5);
-    }
+    .vs { font-size: 1.3rem; color: #ccc; font-weight: bold; }
 
-    .vs {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #ccc;
-      white-space: nowrap;
+    /* estados */
+    .winner { border-color: #0f0 !important; }
+    .loser  { border-color: #f00 !important; }
+    .score.winner { color: #0f0; text-shadow: 0 0 8px #0f0; }
+    .score.loser  { color: #f00; text-shadow: 0 0 8px #f00; }
+    .draw, .score.draw { color: #888; }
+
+    /* MOBILE */
+    @media(max-width:600px) {
+      .team-block, .middle { padding: 0 8px; }
+      .avatar { width: 80px; height: 80px; }
+      .scores { gap: 10px; font-size: 2.2rem; }
+      .vs     { font-size: 1rem; }
+      .team-name { font-size: 1rem; white-space: normal; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Menu carregado dinamicamente -->
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(res => res.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-
-        const nav = doc.querySelector('nav.navbar');
-        document.getElementById('menu-placeholder').appendChild(nav);
-
-        document.body.style.paddingTop = nav.offsetHeight + 'px';
-        window.addEventListener('resize', () => {
-          document.body.style.paddingTop = nav.offsetHeight + 'px';
-        });
+      .then(r=>r.text())
+      .then(html=>{
+        const d=new DOMParser().parseFromString(html,'text/html');
+        document.getElementById('menu-placeholder')
+                .appendChild(d.querySelector('nav.navbar').cloneNode(true));
       });
   </script>
 
   <div class="container">
     <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
 
-    <!-- Scoreboards originais -->
+    <!-- Exemplo de card como “tabela” -->
     <div class="scoreboard" data-team1-score="2" data-team2-score="1">
       <div class="team-block team1">
         <img class="avatar" src="Samito.png" alt="Samuel">
@@ -291,9 +197,11 @@
       </div>
     </div>
 
+    <!-- ... repita para os demais cards, sem alterar nada além do conteúdo ... -->
+
   </div>
 
-  <script>
+ <script>
     // Canvas de alta qualidade para o avatar de Samuel
     window.addEventListener('load', () => {
       const img = document.querySelector('img.avatar[src="Samito.png"]');
