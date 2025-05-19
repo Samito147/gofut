@@ -154,7 +154,6 @@
       margin-right: 4px;
       color: inherit;
     }
-    .highlight-points { font-weight: bold; color: #f1c232; }
     .highlight-vermelhos { color: #e74c3c; }
     .first-place-row   { background-color: rgba(144, 238, 144, 0.15) !important; }
     .second-place-row  { background-color: rgba(144, 238, 144, 0.1125) !important; }
@@ -278,7 +277,6 @@
           <tr>
             <th>JOGADOR</th><th>P</th><th>J</th><th>V</th><th>E</th>
             <th>D</th><th>GP</th><th>GC</th><th>SG</th>
-            <th><span style="color: #f39c12">A</span></th>
             <th><span style="color: #e74c3c">V</span></th>
           </tr>
         </thead>
@@ -297,26 +295,26 @@
 
   <script>
     const jogadores = [
-      { nome:"Samuel",  pontos:25, jogos:10, vitorias:8, empates:1, derrotas:1, golsPro:20, golsContra:10, saldoGols:10, amarelos:2, vermelhos:0 },
-      { nome:"Fernando",pontos:18, jogos:10, vitorias:5, empates:3, derrotas:2, golsPro:15, golsContra:12, saldoGols:3,  amarelos:1, vermelhos:0 },
-      { nome:"Vinicius",pontos:22, jogos:10, vitorias:7, empates:1, derrotas:2, golsPro:18, golsContra:11, saldoGols:7,  amarelos:3, vermelhos:1 },
-      { nome:"Cauã",    pontos:16, jogos:10, vitorias:4, empates:4, derrotas:2, golsPro:14, golsContra:13, saldoGols:1,  amarelos:0, vermelhos:0 },
-      { nome:"Douglas", pontos:20, jogos:10, vitorias:6, empates:2, derrotas:2, golsPro:17, golsContra:12, saldoGols:5,  amarelos:2, vermelhos:0 },
-      { nome:"Ericles", pontos:14, jogos:10, vitorias:4, empates:2, derrotas:4, golsPro:12, golsContra:14, saldoGols:-2, amarelos:1, vermelhos:0 },
-      { nome:"Michel",  pontos:10, jogos:10, vitorias:3, empates:1, derrotas:6, golsPro:11, golsContra:18, saldoGols:-7, amarelos:3, vermelhos:1 },
-      { nome:"Danilo A",pontos:12, jogos:10, vitorias:3, empates:3, derrotas:4, golsPro:13, golsContra:15, saldoGols:-2, amarelos:2, vermelhos:0 },
-      { nome:"Danilo P",pontos: 8, jogos:10, vitorias:2, empates:2, derrotas:6, golsPro:10, golsContra:17, saldoGols:-7, amarelos:1, vermelhos:0 },
-      { nome:"Wagner",  pontos: 6, jogos:10, vitorias:1, empates:3, derrotas:6, golsPro: 9, golsContra:19, saldoGols:-10,amarelos:2, vermelhos:0 },
-      { nome:"Roger",   pontos:13, jogos:10, vitorias:4, empates:1, derrotas:5, golsPro:12, golsContra:16, saldoGols:-4, amarelos:3, vermelhos:0 },
-      { nome:"Caio",    pontos:11, jogos:10, vitorias:3, empates:2, derrotas:5, golsPro:11, golsContra:17, saldoGols:-6, amarelos:1, vermelhos:0 },
-      { nome:"Breno",   pontos: 9, jogos:10, vitorias:2, empates:3, derrotas:5, golsPro:10, golsContra:18, saldoGols:-8, amarelos:2, vermelhos:0 },
-      { nome:"Tone",    pontos:15, jogos:10, vitorias:5, empates:0, derrotas:5, golsPro:14, golsContra:14, saldoGols:0,  amarelos:0, vermelhos:0 },
-      { nome:"Davi",    pontos:17, jogos:10, vitorias:5, empates:2, derrotas:3, golsPro:16, golsContra:13, saldoGols:3,  amarelos:1, vermelhos:0 },
-      { nome:"Jhon",    pontos: 7, jogos:10, vitorias:2, empates:1, derrotas:7, golsPro: 8, golsContra:20, saldoGols:-12, amarelos:3, vermelhos:1 },
-      { nome:"Isaac",   pontos:19, jogos:10, vitorias:6, empates:1, derrotas:3, golsPro:17, golsContra:11, saldoGols:6,  amarelos:0, vermelhos:0 },
-      { nome:"Diego",   pontos:21, jogos:10, vitorias:6, empates:3, derrotas:1, golsPro:18, golsContra:10, saldoGols:8,  amarelos:2, vermelhos:0 },
-      { nome:"Antonio", pontos: 4, jogos:10, vitorias:1, empates:1, derrotas:8, golsPro: 7, golsContra:21, saldoGols:-14, amarelos:3, vermelhos:1 },
-      { nome:"Roberio", pontos: 5, jogos:10, vitorias:1, empates:2, derrotas:7, golsPro: 6, golsContra:20, saldoGols:-14, amarelos:4, vermelhos:1 }
+      { nome:"Samuel",  pontos:25, jogos:10, vitorias:8, empates:1, derrotas:1, golsPro:20, golsContra:10, saldoGols:10, vermelhos:0 },
+      { nome:"Fernando",pontos:18, jogos:10, vitorias:5, empates:3, derrotas:2, golsPro:15, golsContra:12, saldoGols:3,  vermelhos:0 },
+      { nome:"Vinicius",pontos:22, jogos:10, vitorias:7, empates:1, derrotas:2, golsPro:18, golsContra:11, saldoGols:7,  vermelhos:1 },
+      { nome:"Cauã",    pontos:16, jogos:10, vitorias:4, empates:4, derrotas:2, golsPro:14, golsContra:13, saldoGols:1,  vermelhos:0 },
+      { nome:"Douglas", pontos:20, jogos:10, vitorias:6, empates:2, derrotas:2, golsPro:17, golsContra:12, saldoGols:5,  vermelhos:0 },
+      { nome:"Ericles", pontos:14, jogos:10, vitorias:4, empates:2, derrotas:4, golsPro:12, golsContra:14, saldoGols:-2, vermelhos:0 },
+      { nome:"Michel",  pontos:10, jogos:10, vitorias:3, empates:1, derrotas:6, golsPro:11, golsContra:18, saldoGols:-7, vermelhos:1 },
+      { nome:"Danilo A",pontos:12, jogos:10, vitorias:3, empates:3, derrotas:4, golsPro:13, golsContra:15, saldoGols:-2, vermelhos:0 },
+      { nome:"Danilo P",pontos: 8, jogos:10, vitorias:2, empates:2, derrotas:6, golsPro:10, golsContra:17, saldoGols:-7, vermelhos:0 },
+      { nome:"Wagner",  pontos: 6, jogos:10, vitorias:1, empates:3, derrotas:6, golsPro: 9, golsContra:19, saldoGols:-10,vermelhos:0 },
+      { nome:"Roger",   pontos:13, jogos:10, vitorias:4, empates:1, derrotas:5, golsPro:12, golsContra:16, saldoGols:-4, vermelhos:0 },
+      { nome:"Caio",    pontos:11, jogos:10, vitorias:3, empates:2, derrotas:5, golsPro:11, golsContra:17, saldoGols:-6, vermelhos:0 },
+      { nome:"Breno",   pontos: 9, jogos:10, vitorias:2, empates:3, derrotas:5, golsPro:10, golsContra:18, saldoGols:-8, vermelhos:0 },
+      { nome:"Tone",    pontos:15, jogos:10, vitorias:5, empates:0, derrotas:5, golsPro:14, golsContra:14, saldoGols:0,  vermelhos:0 },
+      { nome:"Davi",    pontos:17, jogos:10, vitorias:5, empates:2, derrotas:3, golsPro:16, golsContra:13, saldoGols:3,  vermelhos:0 },
+      { nome:"Jhon",    pontos: 7, jogos:10, vitorias:2, empates:1, derrotas:7, golsPro: 8, golsContra:20, saldoGols:-12, vermelhos:1 },
+      { nome:"Isaac",   pontos:19, jogos:10, vitorias:6, empates:1, derrotas:3, golsPro:17, golsContra:11, saldoGols:6,  vermelhos:0 },
+      { nome:"Diego",   pontos:21, jogos:10, vitorias:6, empates:3, derrotas:1, golsPro:18, golsContra:10, saldoGols:8,  vermelhos:0 },
+      { nome:"Antonio", pontos: 4, jogos:10, vitorias:1, empates:1, derrotas:8, golsPro: 7, golsContra:21, saldoGols:-14, vermelhos:1 },
+      { nome:"Roberio", pontos: 5, jogos:10, vitorias:1, empates:2, derrotas:7, golsPro: 6, golsContra:20, saldoGols:-14, vermelhos:1 }
     ];
 
     function renderizarTabela() {
@@ -363,7 +361,6 @@
               <td>${jog.golsPro}</td>
               <td>${jog.golsContra}</td>
               <td>${jog.saldoGols}</td>
-              <td class="highlight-points">${jog.amarelos}</td>
               <td class="highlight-vermelhos">${jog.vermelhos}</td>
             </tr>`;
         }).join("");
