@@ -16,7 +16,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
-
+<link rel="stylesheet" href="menu.css">
   <!-- ===== título estilo "Regulamento" ===== -->
   <style>
       /* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
@@ -93,6 +93,8 @@
     @media (max-width: 600px) {
       .scoreboard {
         padding: 15px 20px;
+        /* redefine colunas: avatares fixos e meio flexível */
+        grid-template-columns: auto 1fr auto;
         column-gap: 20px;
         overflow-x: visible;
       }
@@ -109,10 +111,6 @@
       .team-name {
         font-size: 1rem;
         white-space: normal;
-      }
-      /* adiciona espaço antes dos números */
-      .middle {
-        margin-left: 20px;
       }
     }
 
