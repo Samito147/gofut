@@ -21,6 +21,15 @@
 
   <!-- --------------- SEU CSS DE CONTEÚDO --------------- -->
   <style>
+    /* 0) GARANTE QUE NÃO HAJA ROLAGEM HORIZONTAL */
+    html, body {
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f !important;
+      width: 100%;
+    }
+
     /* 1) RESET GLOBAL */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,21 +38,25 @@
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f !important; /* força o fundo escuro */
       padding-top: 4rem; /* espaço para o menu fixo */
+      color: #e0e0e0;
     }
 
-    /* 4) ANIMAÇÃO fadeInUp – escopo global */
+    /* 3) ANIMAÇÃO fadeInUp – escopo global */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* 5) CONTEÚDO – aplicado só à .container e descendentes */
+    /* 4) CONTEÚDO – aplicado só à .container e descendentes */
     .container {
       max-width: 800px;
+      width: 100%;
       margin: 0 auto;
+      padding: 0 1rem;
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
     }
+
     .container h1 {
       display: flex;
       align-items: center;
@@ -80,9 +93,21 @@
       border-radius: 4px;
       margin-bottom: 1rem;
     }
-    /* ACORDEÃO */
     .collapsible-content { display: none; }
     section.open .collapsible-content { display: block; }
+
+    /* MEDIA QUERIES PARA TELAS PEQUENAS */
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 0.75rem;
+      }
+      .container h1 {
+        font-size: 2rem;
+      }
+      .container h2 {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -253,6 +278,7 @@
     </section>
 
     <!-- ... demais seções idênticas ... -->
+
   </div>
 
   <script>
