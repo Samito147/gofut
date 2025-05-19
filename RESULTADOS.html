@@ -16,10 +16,11 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
-<link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="menu.css">
+
   <!-- ===== título estilo "Regulamento" ===== -->
   <style>
-      /* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
+    /* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
     body {
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f !important; /* força o fundo escuro */
@@ -95,11 +96,11 @@
         padding: 15px 20px;
         /* redefine colunas: avatares fixos e meio flexível */
         grid-template-columns: auto 1fr auto;
-        column-gap: 20px;
-        overflow-x: visible;
+        column-gap: 10px;         /* gap menor entre colunas */
+        overflow-x: hidden;       /* impede rolagem horizontal */
       }
       .scores {
-        gap: 15px;
+        gap: 10px;                /* gap menor entre números */
       }
       .avatar {
         width: 80px;
@@ -111,6 +112,11 @@
       .team-name {
         font-size: 1rem;
         white-space: normal;
+      }
+      .middle {
+        padding: 0 5px;           /* padding interno reduzido */
+        /* remove min-width para encolher naturalmente */
+        min-width: unset;
       }
     }
 
@@ -203,31 +209,23 @@
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(res => {
-        if (!res.ok) throw new Error('Não foi possível carregar o menu');
-        return res.text();
-      })
+      .then(res => res.text())
       .then(html => {
         const parser = new DOMParser();
         const doc    = parser.parseFromString(html, 'text/html');
 
-        // 1) traga todos <link> e <style> do <head> de menu.html
-        doc.head.querySelectorAll('link[rel="stylesheet"], style').forEach(node => {
-          document.head.appendChild(node.cloneNode(true));
-        });
-
-        // 2) injete o <nav>
+        // injeta CSS e <nav>...
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
 
-        // 3) marque o link ativo
-        document.querySelectorAll('.navbar a').forEach(a => {
-          if (a.getAttribute('href') === location.pathname.split('/').pop()) {
-            a.classList.add('active');
-          }
+        // depois de inserir, ajusta automaticamente:
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+
+        // opcional: também refaz no resize
+        window.addEventListener('resize', () => {
+          document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
-      })
-      .catch(console.error);
+      });
   </script>
 
   <div class="container">

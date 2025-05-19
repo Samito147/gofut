@@ -10,7 +10,8 @@
 
   <!-- Font Awesome para os ícones do menu e título -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="menu.css">
+
   <!-- ===== container + título estilo ANIMADO (do Regulamento) ===== -->
   <style>
     body {
@@ -44,6 +45,8 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
       padding: 0 20px;
+      /* permite rolagem horizontal se necessário */
+      overflow-x: auto;
     }
     .container h1 {
       text-align: center;
@@ -53,6 +56,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* não permite quebra de linha */
+      white-space: nowrap;
     }
     .container h1 i {
       margin-right: 0.5rem;
@@ -187,28 +192,17 @@
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(res => {
-        if (!res.ok) throw new Error('Não foi possível carregar o menu');
-        return res.text();
-      })
+      .then(res => res.text())
       .then(html => {
         const parser = new DOMParser();
         const doc    = parser.parseFromString(html, 'text/html');
-
-        doc.head.querySelectorAll('link[rel="stylesheet"], style').forEach(node => {
-          document.head.appendChild(node.cloneNode(true));
-        });
-
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
-
-        document.querySelectorAll('.navbar a').forEach(a => {
-          if (a.getAttribute('href') === location.pathname.split('/').pop()) {
-            a.classList.add('active');
-          }
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+        window.addEventListener('resize', () => {
+          document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
-      })
-      .catch(console.error);
+      });
   </script>
 
   <div class="wrapper">
