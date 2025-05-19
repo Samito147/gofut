@@ -44,22 +44,23 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
       padding: 0 20px;
-      overflow-x: auto; /* permite rolagem horizontal se necessário */
+      /* REMOVIDO overflow-x */
     }
     .container h1 {
       text-align: center;
-      font-size: 2.5rem;
+      /* font-size responsivo: mínimo 1.5rem, ideal 6vw, máximo 2.5rem */
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
       margin-bottom: 1.5rem;
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      white-space: nowrap;       /* não quebra linha */
-      min-width: max-content;    /* largura mínima: largura do texto */
+      /* REMOVIDO white-space e min-width */
     }
     .container h1 i {
       margin-right: 0.5rem;
-      font-size: 2.5rem;
+      /* ícone acompanha escala do texto */
+      font-size: 1em;
       color: #00bcd4;
     }
   </style>
