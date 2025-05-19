@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabela</title>
+
+  <!-- Fonte Poppins (mesma do Regulamento) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome e libs da página de classificação -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    /* 1) RESET GLOBAL */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* 2) BODY – usa Poppins, fundo escuro e espaço para o menu fixo */
+    html, body {
+      background: #0f0f0f !important;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f0f0f !important;
+      padding-top: 4rem;
+      color: #e0e0e0;
+      min-height: 100vh;
+      overflow: auto;
+    }
+
+    /* 3) ANIMAÇÃO fadeInUp – escopo global */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 4) CONTEÚDO – aplicado só à .container */
+    #export-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    /* 5) TÍTULO PRINCIPAL */
+    #export-container h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+    #export-container h1 i {
+      margin-right: 0.5rem;
+      color: #00bcd4;
+      font-size: 2.5rem;
+    }
+
+    /* ------------------------------------------------------------------------
+       RESTANTE DO CSS DA TABELA (inalterado)
+    ------------------------------------------------------------------------ */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: transparent;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      margin-top: 1rem;
+    }
+    thead {
+      background-color: rgba(31, 31, 31, 0.8);
+      color: #e0e0e0;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      color: #e0e0e0;
+    }
+    tbody tr {
+      transition: background-color 0.3s ease;
+    }
+    tbody tr:hover {
+      background-color: rgba(58, 58, 58, 0.8);
+    }
+    img.avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+      border: 2px solid #fff;
+    }
+    img.first-place-avatar {
+      border-color: #90ee90 !important;
+      box-shadow: 0 0 4px #90ee90;
+      animation: pulse-green 2s infinite;
+    }
+    img.last-place-avatar {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 4px #e74c3c;
+      animation: pulse-red 2s infinite;
+    }
+    @keyframes pulse-green {
+      0%,100% { box-shadow: 0 0 4px #90ee90; }
+      50%     { box-shadow: 0 0 12px #90ee90; }
+    }
+    @keyframes pulse-red {
+      0%,100% { box-shadow: 0 0 4px #e74c3c; }
+      50%     { box-shadow: 0 0 12px #e74c3c; }
+    }
+    .ranking {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      margin-right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .player-info {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+    .player-info .icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      margin-right: 4px;
+      color: inherit;
+    }
+    .highlight-points { font-weight: bold; color: #f1c232; }
+    .highlight-vermelhos { color: #e74c3c; }
+    .first-place-row   { background-color: rgba(144, 238, 144, 0.15) !important; }
+    .second-place-row  { background-color: rgba(144, 238, 144, 0.1125) !important; }
+    .third-place-row   { background-color: rgba(144, 238, 144, 0.075) !important; }
+    .last-place-row    { background-color: rgba(231, 76, 60, 0.0675) !important; }
+    .penultimate-place-row { background-color: rgba(231, 76, 60, 0.0506) !important; }
+    .eighteenth-place-row  { background-color: rgba(231, 76, 60, 0.03795) !important; }
+    .seventeenth-place-row { background-color: rgba(231, 76, 60, 0.02846) !important; }
+
+    /* Modal (inalterado) */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: transparent;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #modal .modal-content {
+      background: transparent;
+      color: #e0e0e0;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: auto;
+      border-radius: 10px;
+      position: relative;
+      padding: 0;
+    }
+    #modal-body iframe {
+      width: 100%; border: none; display: block;
+    }
+    .modal-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #e0e0e0;
+      z-index: 1001;
+    }
+
+    /* ------------------------
+       MEDIA QUERIES PARA RESPONSIVIDADE
+    ------------------------ */
+    @media (max-width: 768px) {
+      #export-container {
+        padding: 0 1rem;
+      }
+      #export-container h1 {
+        font-size: 2rem;
+      }
+      th, td {
+        padding: 8px;
+        font-size: 0.85rem;
+      }
+      .ranking {
+        width: 24px; height: 24px; font-size: 0.9rem;
+      }
+      img.avatar { width: 28px; height: 28px; margin-right: 6px; }
+    }
+
+    @media (max-width: 480px) {
+      #export-container {
+        padding: 0 0.5rem;
+      }
+      #export-container h1 {
+        font-size: 1.5rem;
+        white-space: normal;
+      }
+      th, td {
+        padding: 6px;
+        font-size: 0.75rem;
+      }
+      .ranking {
+        width: 20px; height: 20px; font-size: 0.8rem;
+      }
+      img.avatar { width: 24px; height: 24px; margin-right: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu carregado dinamicamente -->
+  <div id="menu-placeholder"></div>
+  <script>
+    fetch('menu.html')
+      .then(res => {
+        if (!res.ok) throw new Error('Não foi possível carregar o menu');
+        return res.text();
+      })
+      .then(html => {
+        const parser = new DOMParser();
+        const doc    = parser.parseFromString(html, 'text/html');
+
+        // 1) traga todos <link> e <style> do <head> de menu.html
+        doc.head.querySelectorAll('link[rel="stylesheet"], style').forEach(node => {
+          document.head.appendChild(node.cloneNode(true));
+        });
+
+        // 2) injete o <nav>
+        const nav = doc.querySelector('nav.navbar');
+        document.getElementById('menu-placeholder').appendChild(nav);
+
+        // 3) marque o link ativo
+        document.querySelectorAll('.navbar a').forEach(a => {
+          if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+            a.classList.add('active');
+          }
+        });
+      })
+      .catch(console.error);
+  </script>
+
+  <!-- Conteúdo da Tabela (fadeInUp) -->
+  <div id="export-container">
+    <h1><i class="fas fa-clipboard-check"></i> Tabela de Classificação</h1>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>JOGADOR</th><th>P</th><th>J</th><th>V</th><th>E</th>
+            <th>D</th><th>GP</th><th>GC</th><th>SG</th>
+            <th><span style="color: #f39c12">A</span></th>
+            <th><span style="color: #e74c3c">V</span></th>
+          </tr>
+        </thead>
+        <tbody id="tabela-corpo"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal de perfil -->
+  <div id="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const jogadores = [
+      { nome:"Samuel",  pontos:25, jogos:10, vitorias:8, empates:1, derrotas:1, golsPro:20, golsContra:10, saldoGols:10, amarelos:2, vermelhos:0 },
+      { nome:"Fernando",pontos:18, jogos:10, vitorias:5, empates:3, derrotas:2, golsPro:15, golsContra:12, saldoGols:3,  amarelos:1, vermelhos:0 },
+      { nome:"Vinicius",pontos:22, jogos:10, vitorias:7, empates:1, derrotas:2, golsPro:18, golsContra:11, saldoGols:7,  amarelos:3, vermelhos:1 },
+      { nome:"Cauã",    pontos:16, jogos:10, vitorias:4, empates:4, derrotas:2, golsPro:14, golsContra:13, saldoGols:1,  amarelos:0, vermelhos:0 },
+      { nome:"Douglas", pontos:20, jogos:10, vitorias:6, empates:2, derrotas:2, golsPro:17, golsContra:12, saldoGols:5,  amarelos:2, vermelhos:0 },
+      { nome:"Ericles", pontos:14, jogos:10, vitorias:4, empates:2, derrotas:4, golsPro:12, golsContra:14, saldoGols:-2, amarelos:1, vermelhos:0 },
+      { nome:"Michel",  pontos:10, jogos:10, vitorias:3, empates:1, derrotas:6, golsPro:11, golsContra:18, saldoGols:-7, amarelos:3, vermelhos:1 },
+      { nome:"Danilo A",pontos:12, jogos:10, vitorias:3, empates:3, derrotas:4, golsPro:13, golsContra:15, saldoGols:-2, amarelos:2, vermelhos:0 },
+      { nome:"Danilo P",pontos: 8, jogos:10, vitorias:2, empates:2, derrotas:6, golsPro:10, golsContra:17, saldoGols:-7, amarelos:1, vermelhos:0 },
+      { nome:"Wagner",  pontos: 6, jogos:10, vitorias:1, empates:3, derrotas:6, golsPro: 9, golsContra:19, saldoGols:-10,amarelos:2, vermelhos:0 },
+      { nome:"Roger",   pontos:13, jogos:10, vitorias:4, empates:1, derrotas:5, golsPro:12, golsContra:16, saldoGols:-4, amarelos:3, vermelhos:0 },
+      { nome:"Caio",    pontos:11, jogos:10, vitorias:3, empates:2, derrotas:5, golsPro:11, golsContra:17, saldoGols:-6, amarelos:1, vermelhos:0 },
+      { nome:"Breno",   pontos: 9, jogos:10, vitorias:2, empates:3, derrotas:5, golsPro:10, golsContra:18, saldoGols:-8, amarelos:2, vermelhos:0 },
+      { nome:"Tone",    pontos:15, jogos:10, vitorias:5, empates:0, derrotas:5, golsPro:14, golsContra:14, saldoGols:0,  amarelos:0, vermelhos:0 },
+      { nome:"Davi",    pontos:17, jogos:10, vitorias:5, empates:2, derrotas:3, golsPro:16, golsContra:13, saldoGols:3,  amarelos:1, vermelhos:0 },
+      { nome:"Jhon",    pontos: 7, jogos:10, vitorias:2, empates:1, derrotas:7, golsPro: 8, golsContra:20, saldoGols:-12, amarelos:3, vermelhos:1 },
+      { nome:"Isaac",   pontos:19, jogos:10, vitorias:6, empates:1, derrotas:3, golsPro:17, golsContra:11, saldoGols:6,  amarelos:0, vermelhos:0 },
+      { nome:"Diego",   pontos:21, jogos:10, vitorias:6, empates:3, derrotas:1, golsPro:18, golsContra:10, saldoGols:8,  amarelos:2, vermelhos:0 },
+      { nome:"Antonio", pontos: 4, jogos:10, vitorias:1, empates:1, derrotas:8, golsPro: 7, golsContra:21, saldoGols:-14, amarelos:3, vermelhos:1 },
+      { nome:"Roberio", pontos: 5, jogos:10, vitorias:1, empates:2, derrotas:7, golsPro: 6, golsContra:20, saldoGols:-14, amarelos:4, vermelhos:1 }
+    ];
+
+    function renderizarTabela() {
+      const tabela = document.getElementById("tabela-corpo");
+      tabela.innerHTML = jogadores
+        .slice().sort((a,b) => b.pontos - a.pontos)
+        .map((jog, i) => {
+          const rank    = i + 1;
+          const first   = i === 0;
+          const last    = i === jogadores.length - 1;
+          const avatar  = jog.nome === "Samuel"
+            ? "Samito.png"
+            : `https://randomuser.me/api/portraits/men/${i+1}.jpg`;
+          let cls = "avatar";
+          if (first) cls += " first-place-avatar";
+          if (last ) cls += " last-place-avatar";
+          const rowCls = [
+            first ? "first-place-row" : "",
+            i===1 ? "second-place-row" : "",
+            i===2 ? "third-place-row"  : "",
+            last  ? "last-place-row"   : "",
+            i===jogadores.length-2 ? "penultimate-place-row" : "",
+            i===17 ? "eighteenth-place-row" : "",
+            i===16 ? "seventeenth-place-row": ""
+          ].filter(Boolean).join(" ");
+          const icon = first ? "🏆" : i===1? "🥈" : i===2? "🥉" : last? "💀" : "";
+          const filename = jog.nome
+            .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+            .replace(/\s+/g,"").toLowerCase() + ".html";
+          return `
+            <tr class="${rowCls}">
+              <td class="player-info">
+                <span class="icon">${icon}</span>
+                <span class="ranking">${rank}</span>
+                <img src="${avatar}" alt="Avatar de ${jog.nome}"
+                     class="${cls}" onclick="openModal('${filename}')"/>
+                <span onclick="openModal('${filename}')">${jog.nome}</span>
+              </td>
+              <td>${jog.pontos}</td>
+              <td>${jog.jogos}</td>
+              <td>${jog.vitorias}</td>
+              <td>${jog.empates}</td>
+              <td>${jog.derrotas}</td>
+              <td>${jog.golsPro}</td>
+              <td>${jog.golsContra}</td>
+              <td>${jog.saldoGols}</td>
+              <td class="highlight-points">${jog.amarelos}</td>
+              <td class="highlight-vermelhos">${jog.vermelhos}</td>
+            </tr>`;
+        }).join("");
+    }
+
+    renderizarTabela();
+
+    function resizeIframe(ifr) {
+      try {
+        const h = ifr.contentDocument.documentElement.scrollHeight;
+        ifr.style.height = h + "px";
+      } catch(e){}
+    }
+
+    function openModal(page) {
+      const m = document.getElementById("modal"),
+            b = document.getElementById("modal-body");
+      m.style.display = "flex";
+      fetch(page)
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(html => {
+          const srcdoc = `
+            <base href="./" />
+            <style>html,body{height:auto!important;display:block!important;overflow:visible!important;background:transparent!important;}
+            .card-wrapper{transform:scale(0.75)!important;transform-origin:top center!important;}</style>${html}`;
+          b.innerHTML = `<iframe srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
+                             onload="resizeIframe(this)"></iframe>`;
+        })
+        .catch(_ => b.innerHTML = "<p>Perfil não encontrado.</p>");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    document.querySelector(".modal-close").addEventListener("click", closeModal);
+  </script>
+
+</body>
+</html>
