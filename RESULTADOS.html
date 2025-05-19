@@ -67,7 +67,8 @@
       max-width: 700px;
       width: 100%;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      /* <<< ALTERAÇÃO AQUI: colunas de avatar auto e meio 1fr >>> */
+      grid-template-columns: auto 1fr auto;
       align-items: center;
       column-gap: 40px;
       overflow-x: auto;
@@ -93,7 +94,8 @@
     @media (max-width: 600px) {
       .scoreboard {
         padding: 15px 20px;
-        grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+        /* <<< MESMA LÓGICA EM MOBILE >>> */
+        grid-template-columns: auto 1fr auto;
         column-gap: 10px;
         overflow-x: hidden;
       }
@@ -289,28 +291,6 @@
       </div>
     </div>
 
-    <!-- Novo card responsivo -->
-    <div class="scoreboard" data-team1-score="5" data-team2-score="2">
-      <div class="team-block team1">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/women/65.jpg"
-             alt="Ana">
-        <div class="team-name">Ana</div>
-      </div>
-      <div class="middle">
-        <div class="scores">
-          <div class="score team1-score">5</div>
-          <div class="vs">VS</div>
-          <div class="score team2-score">2</div>
-        </div>
-      </div>
-      <div class="team-block team2">
-        <img class="avatar"
-             src="https://randomuser.me/api/portraits/men/30.jpg"
-             alt="Bruno">
-        <div class="team-name">Bruno</div>
-      </div>
-    </div>
   </div>
 
   <script>

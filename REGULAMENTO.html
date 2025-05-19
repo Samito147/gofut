@@ -61,8 +61,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* responsivo: entre 1.5rem e 2.5rem, ideal 6vw */
-      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      white-space: nowrap;           /* sem quebra de linha */
+      overflow: hidden;              /* sem barra de rolagem */
+      /* responsivo: entre 1.5rem e 2.5rem, baseado em 5vw */
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
       text-align: center;
       margin-bottom: 1.5rem;
       color: #ffffff;
@@ -104,7 +106,7 @@
         padding: 0 0.75rem;
       }
       .container h1 {
-        /* mantendo clamp, mas reduzindo limites */
+        /* limites ajustados para telas bem pequenas */
         font-size: clamp(1.25rem, 8vw, 2rem);
       }
       .container h2 {
@@ -271,6 +273,7 @@
         </p>
       </div>
     </section>
+
     <!-- ... demais seções idênticas ... -->
 
   </div>
