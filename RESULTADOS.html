@@ -89,6 +89,29 @@
       border-color: rgba(0,188,212,0.6);
     }
 
+    /* Ajustes para telas pequenas */
+    @media (max-width: 600px) {
+      .scoreboard {
+        padding: 15px 20px;
+        column-gap: 20px;
+        overflow-x: visible;
+      }
+      .scores {
+        gap: 15px;
+      }
+      .avatar {
+        width: 80px;
+        height: 80px;
+      }
+      .score {
+        font-size: 2.2rem;
+      }
+      .team-name {
+        font-size: 1rem;
+        white-space: normal;
+      }
+    }
+
     .scoreboard::-webkit-scrollbar {
       height: 6px;
     }
