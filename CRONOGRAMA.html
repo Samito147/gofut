@@ -6,66 +6,27 @@
   <title>Placar de Partidas</title>
 
   <!-- Fonte Poppins -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- Font Awesome para os ícones do menu e título -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-
-  <!-- ===== CSS DO MENU (copiado de menu.html) ===== -->
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f0f0f;
-      padding-top: 4rem; /* espaço para o menu fixo */
-    }
-    .navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      width: 100vw;
-      background: #0f0f0f;
-      padding: 1rem 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      z-index: 100;
-    }
-    .navbar a {
-      display: flex;
-      align-items: center;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-      transition: color 0.3s;
-    }
-    .navbar a i {
-      font-size: 1.2rem;
-      margin-right: 0.5rem;
-      color: inherit;
-    }
-    .navbar a:hover,
-    .navbar a.active {
-      color: #00bcd4;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- ===== container + título estilo ANIMADO (do Regulamento) ===== -->
   <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f0f0f !important;
+      padding-top: 4rem;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1000px;
+    }
+
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -75,7 +36,7 @@
       margin: 0 auto;
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
-      padding: 0 20px; /* manter padding lateral */
+      padding: 0 20px;
     }
     .container h1 {
       text-align: center;
@@ -102,7 +63,6 @@
       justify-content: center;
       width: 100%;
       margin: 0 auto;
-      /* padding inferior apenas, já temos padding lateral na .container */
       padding-bottom: 20px;
     }
     .card {
@@ -115,9 +75,7 @@
       max-width: 350px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
       animation: fadeIn 0.8s ease;
-      transition: transform 0.3s ease,
-                  box-shadow 0.3s ease,
-                  border-color 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -228,9 +186,15 @@
       })
       .then(html => {
         const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+        const doc    = parser.parseFromString(html, 'text/html');
+
+        doc.head.querySelectorAll('link[rel="stylesheet"], style').forEach(node => {
+          document.head.appendChild(node.cloneNode(true));
+        });
+
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
+
         document.querySelectorAll('.navbar a').forEach(a => {
           if (a.getAttribute('href') === location.pathname.split('/').pop()) {
             a.classList.add('active');
@@ -240,73 +204,75 @@
       .catch(console.error);
   </script>
 
-  <div class="container">
-    <h1><i class="fas fa-calendar-days"></i>Próximos confrontos</h1>
-    <div class="card-container">
-      <div class="card">
-        <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
-        <div class="players">
-          <div class="player">
-            <span class="ranking-index rank-1">1</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
-            <div>Ericles</div>
-          </div>
-          <div class="vs">Vs</div>
-          <div class="player">
-            <span class="ranking-index">12</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
-            <div>Wagner</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
-        <div class="players">
-          <div class="player">
-            <span class="ranking-index">18</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
-            <div>Samuel</div>
-          </div>
-          <div class="vs">Vs</div>
-          <div class="player">
-            <span class="ranking-index">8</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
-            <div>Fernando</div>
+  <div class="wrapper">
+    <div class="container">
+      <h1><i class="fas fa-calendar-days"></i>Próximos confrontos</h1>
+      <div class="card-container">
+        <div class="card">
+          <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
+          <div class="players">
+            <div class="player">
+              <span class="ranking-index rank-1">1</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
+              <div>Ericles</div>
+            </div>
+            <div class="vs">Vs</div>
+            <div class="player">
+              <span class="ranking-index">12</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
+              <div>Wagner</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
-        <div class="players">
-          <div class="player">
-            <span class="ranking-index rank-1">1</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
-            <div>Vinicius</div>
-          </div>
-          <div class="vs">Vs</div>
-          <div class="player">
-            <span class="ranking-index">15</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
-            <div>Michel</div>
+        <div class="card">
+          <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
+          <div class="players">
+            <div class="player">
+              <span class="ranking-index">18</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
+              <div>Samuel</div>
+            </div>
+            <div class="vs">Vs</div>
+            <div class="player">
+              <span class="ranking-index">8</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
+              <div>Fernando</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
-        <div class="players">
-          <div class="player">
-            <span class="ranking-index">10</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
-            <div>Douglas</div>
+        <div class="card">
+          <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
+          <div class="players">
+            <div class="player">
+              <span class="ranking-index rank-1">1</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
+              <div>Vinicius</div>
+            </div>
+            <div class="vs">Vs</div>
+            <div class="player">
+              <span class="ranking-index">15</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
+              <div>Michel</div>
+            </div>
           </div>
-          <div class="vs">Vs</div>
-          <div class="player">
-            <span class="ranking-index rank-20">20</span>
-            <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
-            <div>Danilo</div>
+        </div>
+
+        <div class="card">
+          <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
+          <div class="players">
+            <div class="player">
+              <span class="ranking-index">10</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
+              <div>Douglas</div>
+            </div>
+            <div class="vs">Vs</div>
+            <div class="player">
+              <span class="ranking-index rank-20">20</span>
+              <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
+              <div>Danilo</div>
+            </div>
           </div>
         </div>
       </div>
