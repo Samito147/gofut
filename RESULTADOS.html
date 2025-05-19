@@ -42,7 +42,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* responsivo: entre 1.5rem e 2.5rem, ideal 6vw */
       font-size: clamp(1.5rem, 6vw, 2.5rem);
       text-align: center;
       margin-bottom: 1.5rem;
@@ -50,7 +49,6 @@
     }
     .container h1 i {
       margin-right: 0.5rem;
-      /* ícone escala junto */
       font-size: 1em;
       color: #00bcd4;
     }
@@ -164,7 +162,7 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      min-width: 0px;
+      min-width: 0;
       padding: 0 10px;
     }
 
@@ -213,13 +211,10 @@
         const parser = new DOMParser();
         const doc    = parser.parseFromString(html, 'text/html');
 
-        // injeta CSS e <nav>...
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
 
-        // depois de inserir, ajusta automaticamente:
         document.body.style.paddingTop = nav.offsetHeight + 'px';
-
         window.addEventListener('resize', () => {
           document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
@@ -229,7 +224,7 @@
   <div class="container">
     <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
 
-    <!-- Scoreboards -->
+    <!-- Scoreboards originais -->
     <div class="scoreboard" data-team1-score="2" data-team2-score="1">
       <div class="team-block team1">
         <img class="avatar" src="Samito.png" alt="Samuel">
@@ -293,6 +288,29 @@
         <div class="team-name">Michel</div>
       </div>
     </div>
+
+    <!-- Novo card responsivo -->
+    <div class="scoreboard" data-team1-score="5" data-team2-score="2">
+      <div class="team-block team1">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/women/65.jpg"
+             alt="Ana">
+        <div class="team-name">Ana</div>
+      </div>
+      <div class="middle">
+        <div class="scores">
+          <div class="score team1-score">5</div>
+          <div class="vs">VS</div>
+          <div class="score team2-score">2</div>
+        </div>
+      </div>
+      <div class="team-block team2">
+        <img class="avatar"
+             src="https://randomuser.me/api/portraits/men/30.jpg"
+             alt="Bruno">
+        <div class="team-name">Bruno</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -300,7 +318,6 @@
     window.addEventListener('load', () => {
       const img = document.querySelector('img.avatar[src="Samito.png"]');
       if (!img) return;
-
       const cssW = img.width, cssH = img.height;
       const dpr = window.devicePixelRatio || 1;
       const canvas = document.createElement('canvas');
@@ -309,13 +326,11 @@
       canvas.style.width = cssW + 'px';
       canvas.style.height = cssH + 'px';
       canvas.className = img.className;
-
       const ctx = canvas.getContext('2d');
       ctx.scale(dpr, dpr);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, cssW, cssH);
-
       img.replaceWith(canvas);
     });
 
@@ -327,7 +342,6 @@
       const a2 = board.querySelector('.team2 .avatar, .team2 canvas');
       const sc1 = board.querySelector('.team1-score');
       const sc2 = board.querySelector('.team2-score');
-
       if (s1 > s2) {
         a1.classList.add('winner');
         sc1.classList.add('winner');
