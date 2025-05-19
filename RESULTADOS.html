@@ -7,7 +7,6 @@
 
   <!-- Fonte Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="menu.css">
@@ -125,20 +124,6 @@
     .score.draw   { color: #888; }
 
     @media(max-width: 600px) {
-      .scoreboard {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 16px;
-      }
-
-      .team-block, .middle {
-        display: block;
-        width: 100%;
-        padding: 0;
-        margin-bottom: 10px;
-      }
-
       .avatar {
         width: 80px;
         height: 80px;
@@ -165,11 +150,16 @@
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(r => r.text())
+      .then(res => res.text())
       .then(html => {
-        const d = new DOMParser().parseFromString(html, 'text/html');
-        document.getElementById('menu-placeholder')
-                .appendChild(d.querySelector('nav.navbar').cloneNode(true));
+        const parser = new DOMParser();
+        const doc    = parser.parseFromString(html, 'text/html');
+        const nav    = doc.querySelector('nav.navbar');
+        document.getElementById('menu-placeholder').appendChild(nav);
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+        window.addEventListener('resize', () => {
+          document.body.style.paddingTop = nav.offsetHeight + 'px';
+        });
       });
   </script>
 
@@ -281,15 +271,11 @@
       const sc1 = board.querySelector('.team1-score');
       const sc2 = board.querySelector('.team2-score');
       if (s1 > s2) {
-        a1.classList.add('winner');
-        sc1.classList.add('winner');
-        a2.classList.add('loser');
-        sc2.classList.add('loser');
+        a1.classList.add('winner'); sc1.classList.add('winner');
+        a2.classList.add('loser');  sc2.classList.add('loser');
       } else if (s2 > s1) {
-        a2.classList.add('winner');
-        sc2.classList.add('winner');
-        a1.classList.add('loser');
-        sc1.classList.add('loser');
+        a2.classList.add('winner'); sc2.classList.add('winner');
+        a1.classList.add('loser');  sc1.classList.add('loser');
       } else {
         [a1, a2, sc1, sc2].forEach(el => el.classList.add('draw'));
       }
