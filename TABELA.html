@@ -26,9 +26,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     /* 2) BODY – usa Poppins, fundo escuro e espaço para o menu fixo */
-    html, body {
-      background: #0f0f0f !important;
-    }
+    html, body { background: #0f0f0f !important; }
     body {
       font-family: 'Poppins', sans-serif;
       background: #0f0f0f !important;
@@ -61,7 +59,8 @@
       white-space: nowrap;
       font-size: 2.5rem;
       text-align: center;
-      margin-bottom: 1.5rem;
+      /* removido margin-bottom extra */
+      margin-bottom: 0;
       color: #ffffff;
     }
     #export-container h1 i {
@@ -71,7 +70,7 @@
     }
 
     /* ------------------------------------------------------------------------
-       RESTANTE DO CSS DA TABELA (inalterado)
+       RESTANTE DO CSS DA TABELA (inalterado, exceto margin-top ajustado)
     ------------------------------------------------------------------------ */
     .table-responsive {
       overflow-x: auto;
@@ -85,7 +84,8 @@
       background-color: transparent;
       backdrop-filter: blur(4px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      margin-top: 1rem;
+      /* removido margin-top para juntar com o título */
+      margin-top: 0;
     }
     thead {
       background-color: rgba(31, 31, 31, 0.8);
@@ -134,8 +134,7 @@
       color: #fff;
       margin-right: 8px;
       border-radius: 50%;
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       text-align: center;
       line-height: 28px;
       background-color: rgba(0, 0, 0, 0.2);
@@ -201,37 +200,18 @@
        MEDIA QUERIES PARA RESPONSIVIDADE
     ------------------------ */
     @media (max-width: 768px) {
-      #export-container {
-        padding: 0 1rem;
-      }
-      #export-container h1 {
-        font-size: 2rem;
-      }
-      th, td {
-        padding: 8px;
-        font-size: 0.85rem;
-      }
-      .ranking {
-        width: 24px; height: 24px; font-size: 0.9rem;
-      }
+      #export-container { padding: 0 1rem; }
+      #export-container h1 { font-size: 2rem; }
+      th, td { padding: 8px; font-size: 0.85rem; }
+      .ranking { width: 24px; height: 24px; font-size: 0.9rem; }
       img.avatar { width: 28px; height: 28px; margin-right: 6px; }
     }
 
     @media (max-width: 480px) {
-      #export-container {
-        padding: 0 0.5rem;
-      }
-      #export-container h1 {
-        font-size: 1.5rem;
-        white-space: normal;
-      }
-      th, td {
-        padding: 6px;
-        font-size: 0.75rem;
-      }
-      .ranking {
-        width: 20px; height: 20px; font-size: 0.8rem;
-      }
+      #export-container { padding: 0 0.5rem; }
+      #export-container h1 { font-size: 1.5rem; white-space: normal; }
+      th, td { padding: 6px; font-size: 0.75rem; }
+      .ranking { width: 20px; height: 20px; font-size: 0.8rem; }
       img.avatar { width: 24px; height: 24px; margin-right: 4px; }
     }
   </style>
@@ -241,24 +221,19 @@
   <!-- Menu carregado dinamicamente -->
   <div id="menu-placeholder"></div>
   <script>
-fetch('menu.html')
-  .then(res => res.text())
-  .then(html => {
-    const parser = new DOMParser();
-    const doc    = parser.parseFromString(html, 'text/html');
-
-    // injeta CSS e <nav>...
-    const nav = doc.querySelector('nav.navbar');
-    document.getElementById('menu-placeholder').appendChild(nav);
-
-    // depois de inserir, ajusta automaticamente:
-    document.body.style.paddingTop = nav.offsetHeight + 'px';
-
-    // opcional: também refaz no resize
-    window.addEventListener('resize', () => {
-      document.body.style.paddingTop = nav.offsetHeight + 'px';
-    });
-  });
+    fetch('menu.html')
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc    = parser.parseFromString(html, 'text/html');
+        const nav    = doc.querySelector('nav.navbar');
+        document.getElementById('menu-placeholder').appendChild(nav);
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+        window.addEventListener('resize', () => {
+          document.body.style.paddingTop = nav.offsetHeight + 'px';
+        });
+      })
+      .catch(console.error);
   </script>
 
   <!-- Conteúdo da Tabela (fadeInUp) -->
