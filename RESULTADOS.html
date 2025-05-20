@@ -47,8 +47,10 @@
     /* GRID de cards: 2 colunas no desktop, 1 no móvel */
     .score-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
       gap: 20px;
+      justify-content: center;
+      justify-items: center;
     }
 
     @media(max-width: 600px) {
@@ -60,7 +62,7 @@
     .scoreboard {
       position: relative;
       display: grid;
-      width: 100%;
+      width: auto;
       grid-template-columns: auto 1fr auto;
       grid-template-rows: auto auto;
       align-items: center;
@@ -181,17 +183,19 @@
       }
     }
 
+    /* Ícone de compartilhar, centralizado no topo do card */
     .share-icon {
       position: absolute;
       top: 10px;
-      right: 10px;
-      color: #25D366;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ccc;
       font-size: 1.5rem;
       cursor: pointer;
       transition: transform .2s;
     }
     .share-icon:hover {
-      transform: scale(1.1);
+      transform: translateX(-50%) scale(1.1);
     }
   </style>
 </head>
@@ -235,9 +239,7 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/20.jpg"
-               alt="Vinicius">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Vinicius">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Vinicius</div>
@@ -253,9 +255,7 @@
       <!-- Card 2 -->
       <div class="scoreboard" data-team1-score="3" data-team2-score="4">
         <div class="team-block team1">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/21.jpg"
-               alt="Fernando">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Fernando">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Fernando</div>
@@ -269,9 +269,7 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/22.jpg"
-               alt="Douglas">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Douglas">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Douglas</div>
@@ -287,9 +285,7 @@
       <!-- Card 3 -->
       <div class="scoreboard" data-team1-score="1" data-team2-score="1">
         <div class="team-block team1">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/23.jpg"
-               alt="Danilo">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Danilo">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Danilo</div>
@@ -303,9 +299,7 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/24.jpg"
-               alt="Michel">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Michel">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Michel</div>
@@ -321,9 +315,7 @@
       <!-- Card 4 -->
       <div class="scoreboard" data-team1-score="3" data-team2-score="1">
         <div class="team-block team1">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/23.jpg"
-               alt="Ericles">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Ericles">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Ericles</div>
@@ -337,9 +329,7 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar"
-               src="https://randomuser.me/api/portraits/men/24.jpg"
-               alt="Wagner">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Wagner">
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Wagner</div>
@@ -356,7 +346,7 @@
   </div>
 
   <script>
-    // Rank dinâmico (igual ao seu)
+    // Rank dinâmico
     fetch('TABELA.html')
       .then(res => res.text())
       .then(html => {
@@ -380,8 +370,33 @@
       })
       .catch(console.error);
 
-    // Canvas + destaque vencedores/empates/derrotas
+    // Função de destaque de vencedores/derrotas/empates
+    function highlightBoard(board){
+      const s1 = +board.dataset.team1Score, s2 = +board.dataset.team2Score;
+      const a1 = board.querySelector('.team1 .avatar, .team1 canvas'),
+            a2 = board.querySelector('.team2 .avatar, .team2 canvas');
+      const sc1 = board.querySelector('.team1-score'),
+            sc2 = board.querySelector('.team2-score');
+      if (s1 > s2) {
+        a1.classList.add('winner'); sc1.classList.add('winner');
+        a2.classList.add('loser');  sc2.classList.add('loser');
+      } else if (s2 > s1) {
+        a2.classList.add('winner'); sc2.classList.add('winner');
+        a1.classList.add('loser');  sc1.classList.add('loser');
+      } else {
+        [a1,a2,sc1,sc2].forEach(el => el.classList.add('draw'));
+      }
+    }
+
     window.addEventListener('load', () => {
+      document.querySelectorAll('.scoreboard').forEach(board => {
+        highlightBoard(board);
+        // adiciona ícone de compartilhar mais delicado
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-share-alt share-icon';
+        board.appendChild(icon);
+      });
+      // canvas apenas para Samito, não remove borda dinâmica
       document.querySelectorAll('img.avatar[src="Samito.png"]').forEach(imgEl => {
         const cssW = imgEl.clientWidth, cssH = imgEl.clientHeight;
         const comp = getComputedStyle(imgEl), dpr = window.devicePixelRatio||1;
@@ -405,48 +420,25 @@
         hiRes.onload = () => {
           ctx.drawImage(hiRes,0,0,cssW,cssH);
           imgEl.replaceWith(canvas);
-          // após substituir, vamos pintar borda também neste canvas
-          highlightBoard(canvas.closest('.scoreboard'));
         };
-      });
-      // função para aplicar destaque
-      function highlightBoard(board){
-        const s1=+board.dataset.team1Score, s2=+board.dataset.team2Score;
-        const a1=board.querySelector('.team1 .avatar, .team1 canvas'),
-              a2=board.querySelector('.team2 .avatar, .team2 canvas');
-        const sc1=board.querySelector('.team1-score'),
-              sc2=board.querySelector('.team2-score');
-        if(s1> s2){
-          a1.classList.add('winner'); sc1.classList.add('winner');
-          a2.classList.add('loser');  sc2.classList.add('loser');
-        } else if(s2> s1){
-          a2.classList.add('winner'); sc2.classList.add('winner');
-          a1.classList.add('loser');  sc1.classList.add('loser');
-        } else {
-          [a1,a2,sc1,sc2].forEach(el=>el.classList.add('draw'));
-        }
-      }
-      // aplica destaque nos demais (remotos)
-      document.querySelectorAll('.scoreboard').forEach(board=>{
-        if(!board.querySelector('canvas.avatar')) highlightBoard(board);
       });
     });
 
-    // Compartilhamento via WhatsApp
-    document.addEventListener('click', e=>{
-      if(e.target.classList.contains('share-icon')){
+    // Compartilhamento via html2canvas
+    document.addEventListener('click', e => {
+      if (e.target.classList.contains('share-icon')) {
         const board = e.target.closest('.scoreboard');
-        import('https://html2canvas.hertzen.com/dist/html2canvas.min.js').then(({default:html2canvas})=>{
-          html2canvas(board,{useCORS:true,scale:(window.devicePixelRatio||1)*2})
-            .then(canvas=>{
-              canvas.toBlob(blob=>{
-                const file=new File([blob],'card.png',{type:'image/png'});
-                if(navigator.canShare && navigator.canShare({files:[file]})){
-                  navigator.share({files:[file]}).catch(console.error);
-                }else{
-                  const link=document.createElement('a');
-                  link.href=URL.createObjectURL(blob);
-                  link.download='card.png';
+        import('https://html2canvas.hertzen.com/dist/html2canvas.min.js').then(({default:html2canvas}) => {
+          html2canvas(board, { useCORS: true, scale: (window.devicePixelRatio||1)*2 })
+            .then(canvas => {
+              canvas.toBlob(blob => {
+                const file = new File([blob], 'card.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                  navigator.share({ files: [file] }).catch(console.error);
+                } else {
+                  const link = document.createElement('a');
+                  link.href = URL.createObjectURL(blob);
+                  link.download = 'card.png';
                   link.click();
                 }
               });
