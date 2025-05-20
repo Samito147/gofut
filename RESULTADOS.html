@@ -55,48 +55,17 @@
       justify-content: center;
       justify-items: center;
     }
+    /* permite encolher corretamente */
+    .score-grid,
+    .scoreboard,
+    .team-block,
+    .middle {
+      min-width: 0;
+    }
 
     @media(max-width: 600px) {
       .score-grid {
         grid-template-columns: 1fr;
-      }
-
-      /* Ajustes para evitar overflow */
-      .team-block,
-      .middle {
-        white-space: normal;
-        padding: 0 10px;
-      }
-
-      .avatar, canvas.avatar {
-        width: 80px;
-        height: 80px;
-      }
-
-      .scores {
-        font-size: 2.2rem;
-        gap: 12px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .vs {
-        font-size: 1rem;
-      }
-
-      .team-name {
-        font-size: 1rem;
-        white-space: normal;
-      }
-
-      .team-info {
-        margin-top: 0.4rem;
-      }
-
-      .team-rank {
-        width: 20px;
-        height: 20px;
-        font-size: 0.65rem;
       }
     }
 
@@ -113,6 +82,7 @@
       border-radius: 20px;
       padding: 20px 0;
       box-sizing: border-box;
+      min-width: 0; /* crucial para não estourar a coluna */
     }
 
     .team-block.team1 { grid-column: 1; grid-row: 1; }
@@ -124,6 +94,7 @@
       text-align: center;
       white-space: nowrap;
       padding: 0 20px;
+      min-width: 0; /* permite encolher */
     }
 
     /* Avatar padrão (tanto IMG quanto CANVAS) */
@@ -175,6 +146,7 @@
       font-size: 2.8rem;
       color: #fff;
       text-shadow: 0 0 8px rgba(255,255,255,0.3);
+      min-width: 0; /* permite encolher */
     }
 
     .vs { font-size: 1.3rem; color: #ccc; font-weight: bold; }
@@ -198,6 +170,17 @@
     .score.winner { color: #0f0; text-shadow: 0 0 8px #0f0; }
     .score.loser  { color: #f00; text-shadow: 0 0 8px #f00; }
     .score.draw   { color: #888; }
+
+    @media(max-width: 600px) {
+      .avatar, canvas.avatar { width: 80px; height: 80px; }
+      .scores { font-size: 2.2rem; gap: 12px; }
+      .vs     { font-size: 1rem; }
+      .team-name { font-size: 1rem; }
+      .team-info { margin-top: 0.4rem; }
+      .team-rank {
+        width: 20px; height: 20px; font-size: 0.65rem;
+      }
+    }
 
     /* Ícone de compartilhar */
     .share-icon {
@@ -275,7 +258,7 @@
           <div class="team-info">
             <span class="team-rank">–</span>
             <div class="team-name">Fernando</div>
-          </div>
+          }</div>
         </div>
         <div class="middle">
           <div class="scores">
@@ -411,32 +394,6 @@
         const icon = document.createElement('i');
         icon.className = 'fas fa-share-alt share-icon';
         board.appendChild(icon);
-      });
-      // canvas apenas para Samito, não remove borda dinâmica
-      document.querySelectorAll('img.avatar[src="Samito.png"]').forEach(imgEl => {
-        const cssW = imgEl.clientWidth, cssH = imgEl.clientHeight;
-        const comp = getComputedStyle(imgEl), dpr = window.devicePixelRatio||1;
-        const canvas = document.createElement('canvas');
-        canvas.width  = cssW*dpr;
-        canvas.height = cssH*dpr;
-        canvas.style.width        = cssW+'px';
-        canvas.style.height       = cssH+'px';
-        canvas.className          = imgEl.className;
-        canvas.style.borderRadius = comp.borderRadius;
-        canvas.style.border       = comp.border;
-        canvas.style.objectFit    = 'cover';
-        canvas.style.display      = 'block';
-        canvas.style.marginBottom = comp.marginBottom;
-        const ctx = canvas.getContext('2d');
-        ctx.scale(dpr,dpr);
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        const hiRes = new Image();
-        hiRes.src = imgEl.src;
-        hiRes.onload = () => {
-          ctx.drawImage(hiRes,0,0,cssW,cssH);
-          imgEl.replaceWith(canvas);
-        };
       });
     });
 
