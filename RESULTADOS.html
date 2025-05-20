@@ -267,6 +267,8 @@
           <div class="stat"><i class="fas fa-futbol"></i>5 / 4</div>
           <div class="stat"><i class="fas fa-flag"></i>7 / 3</div>
         </div>
+        <!-- ícone de compartilhar -->
+        <i class="fas fa-share-alt share-icon"></i>
       </div>
 
       <!-- Card 2 -->
@@ -297,6 +299,8 @@
           <div class="stat"><i class="fas fa-futbol"></i>8 / 10</div>
           <div class="stat"><i class="fas fa-flag"></i>4 / 5</div>
         </div>
+        <!-- ícone de compartilhar -->
+        <i class="fas fa-share-alt share-icon"></i>
       </div>
 
       <!-- Card 3 -->
@@ -327,6 +331,8 @@
           <div class="stat"><i class="fas fa-futbol"></i>6 / 6</div>
           <div class="stat"><i class="fas fa-flag"></i>5 / 5</div>
         </div>
+        <!-- ícone de compartilhar -->
+        <i class="fas fa-share-alt share-icon"></i>
       </div>
 
       <!-- Card 4 -->
@@ -357,6 +363,8 @@
           <div class="stat"><i class="fas fa-futbol"></i>10 / 4</div>
           <div class="stat"><i class="fas fa-flag"></i>6 / 2</div>
         </div>
+        <!-- ícone de compartilhar -->
+        <i class="fas fa-share-alt share-icon"></i>
       </div>
 
     </div>
@@ -387,7 +395,7 @@
       })
       .catch(console.error);
 
-    // Destaque de vencedores/derrotas/empates
+    // Realça vencedores/derrotas/empates
     function highlightBoard(board){
       const s1 = +board.dataset.team1Score, s2 = +board.dataset.team2Score;
       const a1 = board.querySelector('.team1 .avatar, .team1 canvas'),
@@ -408,12 +416,8 @@
     window.addEventListener('load', () => {
       document.querySelectorAll('.scoreboard').forEach(board => {
         highlightBoard(board);
-        // adiciona ícone de compartilhar
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-share-alt share-icon';
-        board.appendChild(icon);
       });
-      // canvas de alta qualidade para Samito
+      // alta qualidade para avatar Samito
       document.querySelectorAll('img.avatar[src="Samito.png"]').forEach(imgEl => {
         const cssW = imgEl.clientWidth, cssH = imgEl.clientHeight;
         const comp = getComputedStyle(imgEl), dpr = window.devicePixelRatio||1;
@@ -441,15 +445,18 @@
       });
     });
 
-    // Compartilhamento PNG com fundo transparente
+    // Compartilhamento PNG com fundo transparente (esconde o ícone antes de capturar)
     document.addEventListener('click', e => {
       if (e.target.classList.contains('share-icon')) {
         const board = e.target.closest('.scoreboard');
+        const icon = board.querySelector('.share-icon');
+        icon.style.display = 'none';
         html2canvas(board, {
           useCORS: true,
           scale: (window.devicePixelRatio||1)*2,
           backgroundColor: null
         }).then(canvas => {
+          icon.style.display = '';  // restaura ícone
           canvas.toBlob(blob => {
             const file = new File([blob], 'card.png', { type: 'image/png' });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
