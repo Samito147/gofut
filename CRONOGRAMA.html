@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Cronograma</title>
 
-  <!-- Fonte Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Font Awesome para os ícones do menu e título -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Fonte Poppins + Bebas Neue (para VS) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- CSS do menu (com animações) -->
   <link rel="stylesheet" href="menu.css">
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -82,7 +83,12 @@
       max-width: 350px;
       box-shadow: none;
       animation: fadeIn 0.8s ease;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover,
+    .card:active {
+      transform: scale(1.03);
     }
 
     @keyframes fadeIn {
@@ -110,7 +116,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
     }
 
     .player > div {
@@ -126,49 +131,18 @@
       width: 94.5px;
       height: 94.5px;
       border-radius: 50%;
-      border: 3px solid #00bcd4;
+      border: 1.5px solid #00bcd4;
       object-fit: cover;
       transition: border 0.3s ease;
     }
 
     .vs {
-      font-size: 1.62rem;
-      font-weight: bold;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      font-weight: normal;
       white-space: nowrap;
-    }
-
-    .ranking-index {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: rgba(0,0,0,0.75);
-      color: #fff;
-      padding: 3px 6px;
-      border-radius: 50%;
-      font-size: .5rem;
-      font-weight: bold;
-    }
-
-    .ranking-index.rank-1 {
-      border: 3px solid #28a745;
-      color: #ffd700;
-      animation: blinkGreen 2s infinite;
-    }
-
-    .ranking-index.rank-20 {
-      border: 3px solid #dc3545;
-      color: #8b0000;
-      animation: blinkRed 2s infinite;
-    }
-
-    @keyframes blinkGreen {
-      0%,100% { border-color: #28a745; }
-      50%     { border-color: transparent; }
-    }
-
-    @keyframes blinkRed {
-      0%,100% { border-color: #dc3545; }
-      50%     { border-color: transparent; }
+      color: #ff4444;
+      text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -186,21 +160,25 @@
 <body>
 
   <!-- Menu carregado dinamicamente -->
-  <div id="menu-placeholder"></div>
-  <script>
-    fetch('menu.html')
-      .then(res => res.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc    = parser.parseFromString(html, 'text/html');
-        const nav    = doc.querySelector('nav.navbar');
-        document.getElementById('menu-placeholder').appendChild(nav);
+<div id="menu-placeholder"></div>
+<script>
+  fetch('menu.html')
+    .then(res => res.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc    = parser.parseFromString(html, 'text/html');
+      // injeta apenas o <nav> (o CSS já veio no menu.css)
+      const nav = doc.querySelector('nav.navbar');
+      document.getElementById('menu-placeholder').appendChild(nav);
+      // ajusta o padding-top conforme a altura real do navbar
+      const ajustarPadding = () => {
         document.body.style.paddingTop = nav.offsetHeight + 'px';
-        window.addEventListener('resize', () => {
-          document.body.style.paddingTop = nav.offsetHeight + 'px';
-        });
-      });
-  </script>
+      };
+      ajustarPadding();
+      window.addEventListener('resize', ajustarPadding);
+    })
+    .catch(console.error);
+</script>
 
   <div class="wrapper">
     <div class="container">
@@ -210,13 +188,11 @@
           <div class="event-title">12 de Abril - 19:00 (Segunda-Feira)</div>
           <div class="players">
             <div class="player">
-              <span class="ranking-index rank-1">1</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ericles">
               <div>Ericles</div>
             </div>
-            <div class="vs">Vs</div>
+            <div class="vs">VS</div>
             <div class="player">
-              <span class="ranking-index">12</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Wagner">
               <div>Wagner</div>
             </div>
@@ -227,13 +203,11 @@
           <div class="event-title">13 de Abril - 14:00 (Terça-Feira)</div>
           <div class="players">
             <div class="player">
-              <span class="ranking-index">18</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Samuel">
               <div>Samuel</div>
             </div>
-            <div class="vs">Vs</div>
+            <div class="vs">VS</div>
             <div class="player">
-              <span class="ranking-index">8</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Fernando">
               <div>Fernando</div>
             </div>
@@ -244,13 +218,11 @@
           <div class="event-title">14 de Abril - 16:00 (Quarta-Feira)</div>
           <div class="players">
             <div class="player">
-              <span class="ranking-index rank-1">1</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Vinicius">
               <div>Vinicius</div>
             </div>
-            <div class="vs">Vs</div>
+            <div class="vs">VS</div>
             <div class="player">
-              <span class="ranking-index">15</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Michel">
               <div>Michel</div>
             </div>
@@ -261,13 +233,11 @@
           <div class="event-title">15 de Abril - 18:00 (Quinta-Feira)</div>
           <div class="players">
             <div class="player">
-              <span class="ranking-index">10</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Douglas">
               <div>Douglas</div>
             </div>
-            <div class="vs">Vs</div>
+            <div class="vs">VS</div>
             <div class="player">
-              <span class="ranking-index rank-20">20</span>
               <img class="avatar" src="https://randomuser.me/api/portraits/women/18.jpg" alt="Danilo">
               <div>Danilo</div>
             </div>

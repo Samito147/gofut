@@ -1,14 +1,28 @@
-/* menu.css */
+/* --- menu.css --- */
+@keyframes iconFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+.navbar a i {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+html, body {
+  width: 100%;
+  background: transparent;
+}
 body {
   font-family: 'Poppins', sans-serif;
-  background: transparent;
-  padding-top: 4rem; /* espaço para o navbar fixo */
+  /* padding-top é ajustado via script */
 }
+
+/* NAVBAR */
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -22,6 +36,8 @@ body {
   background: #0f0f0f;
   z-index: 100;
 }
+
+/* LINKS */
 .navbar a {
   display: flex;
   align-items: center;
@@ -34,15 +50,27 @@ body {
   text-shadow: 0 1px 2px rgba(0,0,0,0.4);
   transition: color 0.3s;
 }
+
+/* 🌀 KEYFRAMES DA FLOTAÇÃO */
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+/* 😌 APLICAÇÃO DA ANIMAÇÃO NOS ÍCONES */
 .navbar a i {
   font-size: 1.2rem;
   margin-right: 0.5rem;
+  animation: iconFloat 3s ease-in-out infinite;
   color: inherit;
 }
+
 .navbar a:hover,
 .navbar a.active {
   color: #00bcd4;
 }
+
+/* RESPONSIVO PEQUENO */
 @media (max-width: 480px) {
   .navbar { gap: 1rem; }
   .navbar a { font-size: 0.95rem; margin: 0.25rem; }

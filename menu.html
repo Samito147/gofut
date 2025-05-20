@@ -4,94 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Menu de Navegação</title>
+
   <!-- Fonte Poppins -->
   <link 
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" 
     rel="stylesheet" 
   />
-  <!-- Font Awesome para ícones modernos -->
+
+  <!-- Font Awesome para ícones -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    integrity="sha512-SzlrxWriC3f5rF2Y7e3X3yq5h2sVQzCq+XK4QUpDAi4yXr90sygHmL9MdEjbzU6N02XW5ZqhF3l2X+emZ+Pcfg=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
 
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      background: transparent;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      /* padding-top será ajustado via JS */
-    }
-
-    /* MENU FIXO NO TOPO */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      padding: 1rem;           /* espaço interno */
-      display: flex;
-      justify-content: center; /* centraliza itens */
-      align-items: center;
-      gap: 2rem;               /* espaçamento fixo */
-      flex-wrap: wrap;         /* quebra em mobile */
-      background: #0f0f0f;     /* cor inalterada */
-      z-index: 100;
-    }
-
-    /* Links com ícones e tipografia moderna */
-    .navbar a {
-      display: flex;
-      align-items: center;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-      transition: color 0.3s;
-    }
-
-    /* Ícones com destaque sutil */
-    .navbar a i {
-      font-size: 1.2rem;
-      margin-right: 0.5rem;
-      color: inherit;
-    }
-
-    .navbar a:hover,
-    .navbar a.active {
-      color: #00bcd4;
-    }
-
-    /* Ajustes para telas muito pequenas */
-    @media (max-width: 480px) {
-      .navbar {
-        gap: 1rem;
-      }
-      .navbar a {
-        font-size: 0.95rem;
-        margin: 0.25rem;
-      }
-      .navbar a i {
-        font-size: 1rem;
-        margin-right: 0.3rem;
-      }
-    }
-  </style>
+  <!-- CSS do Menu (contém toda a estilização, inclusive keyframes e animação dos ícones) -->
+  <link rel="stylesheet" href="menu.css" />
 </head>
 <body>
 
@@ -115,17 +44,16 @@
   </nav>
 
   <script>
-    // Ajusta o padding-top do body de acordo com a altura real do navbar
+    // Ajusta o padding-top do <body> para não deixar o conteúdo oculto
     window.addEventListener('DOMContentLoaded', () => {
       const nav = document.querySelector('.navbar');
-      const height = nav.offsetHeight;
-      document.body.style.paddingTop = height + 'px';
+      document.body.style.paddingTop = nav.offsetHeight + 'px';
+      // Reajusta em resize para suporte a quebras de linha
+      window.addEventListener('resize', () => {
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+      });
     });
   </script>
-
-  <main>
-    <!-- Conteúdo de cada página -->
-  </main>
 
 </body>
 </html>

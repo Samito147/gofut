@@ -6,9 +6,15 @@
   <title>Resultados</title>
 
   <!-- Fonte Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
   <link rel="stylesheet" href="menu.css">
 
   <style>
@@ -17,20 +23,18 @@
       background: #0f0f0f !important;
       padding-top: 4rem;
       margin: 0;
+      overflow-x: hidden;
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 20px 40px;
       animation: fadeInUp 0.8s ease-out forwards;
     }
-
     .container h1 {
       display: flex;
       align-items: center;
@@ -40,49 +44,50 @@
       margin-bottom: 1.5rem;
       text-align: center;
     }
+    .container h1 i { margin-right: 0.5rem; color: #00bcd4; }
 
-    .container h1 i {
-      margin-right: 0.5rem;
-      font-size: 1em;
-      color: #00bcd4;
-    }
-
+    /* GRID de cards: 2 colunas no desktop, 1 no móvel */
     .score-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-
     @media(max-width: 600px) {
       .score-grid {
         grid-template-columns: 1fr;
       }
     }
 
+    /* Cada card: grid 3×2 interna */
     .scoreboard {
-      display: table;
+      position: relative; /* para posicionar o ícone */
+      display: grid;
       width: 100%;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      justify-items: center;
       background: rgba(40,40,40,0.85);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 20px 0;
+      box-sizing: border-box;
     }
+    .team-block.team1 { grid-column: 1; grid-row: 1; }
+    .middle           { grid-column: 2; grid-row: 1; }
+    .team-block.team2 { grid-column: 3; grid-row: 1; }
+    .stats            { grid-column: 1 / 4; grid-row: 2; }
 
-    .team-block,
-    .middle {
-      display: table-cell;
-      vertical-align: middle;
+    .team-block, .middle {
       text-align: center;
-      padding: 0 20px;
       white-space: nowrap;
+      padding: 0 20px;
     }
 
-    .team-block { width: 1%; }
-    .middle    { width: auto; }
-
-    .avatar {
-      width: 100px;
-      height: 100px;
+    /* Avatar e canvas de avatar recebem borda padrão */
+    .avatar,
+    canvas.avatar {
+      width: 100px; height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid transparent;
@@ -90,88 +95,132 @@
       transition: transform .3s, border-color .3s;
       display: block;
     }
+    .avatar:hover { transform: scale(1.05); }
 
-    .avatar:hover {
-      transform: scale(1.05);
+    /* Rank + nome */
+    .team-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.5rem;
     }
-
     .team-name {
       color: #eee;
       font-weight: bold;
       font-size: 1.1rem;
-      margin-top: .5rem;
+      margin: 0;
+    }
+    .team-rank {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #00bcd4;
+      color: #0f0f0f;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
+    /* cores dinâmicas para ranks */
+    .team-rank.rank-top    { background: #006400 !important; color: #fff !important; }
+    .team-rank.rank-mid    { background: #888    !important; color: #000 !important; }
+    .team-rank.rank-bottom { background: #8B0000 !important; color: #fff !important; }
+
+    /* Placar */
     .scores {
       display: inline-flex;
       align-items: center;
       gap: 30px;
       font-size: 2.8rem;
       color: #fff;
+      text-shadow: 0 0 8px rgba(255,255,255,0.3);
     }
+    .vs { font-size: 1.3rem; color: #ccc; font-weight: bold; }
 
-    .vs {
-      font-size: 1.3rem;
-      color: #ccc;
-      font-weight: bold;
+    /* Estatísticas */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 12px;
+      color: #fff;
+      font-size: 0.9rem;
     }
+    .stats .stat i { margin-right: 4px; color: #00bcd4; }
 
+    /* Cores vitória/derrota/empate */
     .winner { border-color: #0f0 !important; }
     .loser  { border-color: #f00 !important; }
     .draw   { border-color: #888 !important; }
-
     .score.winner { color: #0f0; text-shadow: 0 0 8px #0f0; }
     .score.loser  { color: #f00; text-shadow: 0 0 8px #f00; }
     .score.draw   { color: #888; }
 
     @media(max-width: 600px) {
-      .avatar {
-        width: 80px;
-        height: 80px;
-      }
-
-      .scores {
-        font-size: 2.2rem;
-        gap: 12px;
-      }
-
-      .vs {
-        font-size: 1rem;
-      }
-
-      .team-name {
-        font-size: 1rem;
-        white-space: normal;
+      .avatar,
+      canvas.avatar { width: 80px; height: 80px; }
+      .scores { font-size: 2.2rem; gap: 12px; }
+      .vs     { font-size: 1rem; }
+      .team-name { font-size: 1rem; white-space: normal; }
+      .team-info { margin-top: 0.4rem; }
+      .team-rank {
+        width: 20px;
+        height: 20px;
+        font-size: 0.65rem;
       }
     }
+
+    /* Ícone de WhatsApp */
+    .share-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #25D366;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .share-icon:hover {
+      transform: scale(1.1);
+    }
   </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
   <div id="menu-placeholder"></div>
   <script>
     fetch('menu.html')
-      .then(res => res.text())
+      .then(r => r.text())
       .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const nav = doc.querySelector('nav.navbar');
+        const nav = new DOMParser()
+          .parseFromString(html,'text/html')
+          .querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         window.addEventListener('resize', () => {
           document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
-      });
+      })
+      .catch(console.error);
   </script>
 
   <div class="container">
     <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
-
     <div class="score-grid">
+
+      <!-- Card 1 -->
       <div class="scoreboard" data-team1-score="2" data-team2-score="1">
         <div class="team-block team1">
           <img class="avatar" src="Samito.png" alt="Samuel">
-          <div class="team-name">Samuel</div>
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Samuel</div>
+          </div>
         </div>
         <div class="middle">
           <div class="scores">
@@ -181,15 +230,31 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Vinicius">
-          <div class="team-name">Vinicius</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/20.jpg"
+               alt="Vinicius">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Vinicius</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>58% / 42%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>5 / 4</div>
+          <div class="stat"><i class="fas fa-flag"></i>7 / 3</div>
         </div>
       </div>
 
+      <!-- Card 2 -->
       <div class="scoreboard" data-team1-score="3" data-team2-score="4">
         <div class="team-block team1">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Fernando">
-          <div class="team-name">Fernando</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/21.jpg"
+               alt="Fernando">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Fernando</div>
+          </div>
         </div>
         <div class="middle">
           <div class="scores">
@@ -199,15 +264,31 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Douglas">
-          <div class="team-name">Douglas</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/22.jpg"
+               alt="Douglas">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Douglas</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>46% / 54%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>8 / 10</div>
+          <div class="stat"><i class="fas fa-flag"></i>4 / 5</div>
         </div>
       </div>
 
+      <!-- Card 3 -->
       <div class="scoreboard" data-team1-score="1" data-team2-score="1">
         <div class="team-block team1">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Danilo">
-          <div class="team-name">Danilo</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/23.jpg"
+               alt="Danilo A">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Danilo A</div>
+          </div>
         </div>
         <div class="middle">
           <div class="scores">
@@ -217,15 +298,31 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Michel">
-          <div class="team-name">Michel</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/24.jpg"
+               alt="Michel">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Michel</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>50% / 50%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>6 / 6</div>
+          <div class="stat"><i class="fas fa-flag"></i>5 / 5</div>
         </div>
       </div>
 
+      <!-- Card 4 -->
       <div class="scoreboard" data-team1-score="3" data-team2-score="1">
         <div class="team-block team1">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Ericles">
-          <div class="team-name">Ericles</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/23.jpg"
+               alt="Ericles">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Ericles</div>
+          </div>
         </div>
         <div class="middle">
           <div class="scores">
@@ -235,58 +332,133 @@
           </div>
         </div>
         <div class="team-block team2">
-          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Douglas">
-          <div class="team-name">Douglas</div>
+          <img class="avatar"
+               src="https://randomuser.me/api/portraits/men/24.jpg"
+               alt="Wagner">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Wagner</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>62% / 38%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>10 / 4</div>
+          <div class="stat"><i class="fas fa-flag"></i>6 / 2</div>
         </div>
       </div>
+
     </div>
   </div>
 
+  <!-- ─── Script de ranking (preenche os números e define cor) ─── -->
+  <script>
+    fetch('tabela.html')
+      .then(res => res.text())
+      .then(html => {
+        const match = html.match(/const jogadores\s*=\s*(\[[\s\S]*?\]);/);
+        if (!match) throw new Error('Array jogadores não encontrado em tabela.html');
+        const jogadores = Function('"use strict";return ' + match[1])();
+        jogadores.sort((a,b)=> b.pontos - a.pontos);
+        const rankMap = {};
+        jogadores.forEach((j,i)=> rankMap[j.nome] = i+1);
+
+        document.querySelectorAll('.team-block').forEach(block => {
+          const nome = block.querySelector('.team-name').textContent.trim();
+          const span = block.querySelector('.team-rank');
+          const rank = rankMap[nome] || '–';
+          span.textContent = rank;
+          span.classList.remove('rank-top','rank-mid','rank-bottom');
+          if (rank >= 1 && rank <= 3) span.classList.add('rank-top');
+          else if (rank <= 16) span.classList.add('rank-mid');
+          else span.classList.add('rank-bottom');
+        });
+      })
+      .catch(console.error);
+  </script>
+
+  <!-- ─── Canvas & destaque + Compartilhamento em Ultra Alta Qualidade ─── -->
   <script>
     window.addEventListener('load', () => {
-      const img = document.querySelector('img.avatar[src="Samito.png"]');
-      if (!img) return;
-      const cssW = img.width, cssH = img.height;
-      const dpr = window.devicePixelRatio || 1;
-      const canvas = document.createElement('canvas');
-      canvas.width = cssW * dpr;
-      canvas.height = cssH * dpr;
-      canvas.style.width = cssW + 'px';
-      canvas.style.height = cssH + 'px';
-      canvas.className = img.className;
+      // Pré-renderiza apenas o avatar local, copiando a borda original
+      document.querySelectorAll('img.avatar[src="Samito.png"]').forEach(imgEl => {
+        const cssW = imgEl.clientWidth;
+        const cssH = imgEl.clientHeight;
+        const comp = getComputedStyle(imgEl);
+        const dpr = window.devicePixelRatio || 1;
 
-      // 🔧 Estilos visuais para igualar com as outras imagens
-      canvas.style.borderRadius = '50%';
-      canvas.style.border = '2px solid transparent';
-      canvas.style.objectFit = 'cover';
-      canvas.style.marginBottom = '10px';
-      canvas.style.display = 'block';
+        const canvas = document.createElement('canvas');
+        canvas.width  = cssW * dpr;
+        canvas.height = cssH * dpr;
+        canvas.style.width        = cssW + 'px';
+        canvas.style.height       = cssH + 'px';
+        canvas.className          = imgEl.className;      // mantém "avatar"
+        canvas.style.borderRadius = comp.borderRadius;
+        canvas.style.border       = comp.border;          // copia "2px solid transparent"
+        canvas.style.objectFit    = 'cover';
+        canvas.style.display      = 'block';
+        canvas.style.marginBottom = comp.marginBottom;
 
-      const ctx = canvas.getContext('2d');
-      ctx.scale(dpr, dpr);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, 0, 0, cssW, cssH);
-      img.replaceWith(canvas);
-    });
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
 
-    document.querySelectorAll('.scoreboard').forEach(board => {
-      const s1 = +board.dataset.team1Score;
-      const s2 = +board.dataset.team2Score;
-      const a1 = board.querySelector('.team1 .avatar, .team1 canvas');
-      const a2 = board.querySelector('.team2 .avatar, .team2 canvas');
-      const sc1 = board.querySelector('.team1-score');
-      const sc2 = board.querySelector('.team2-score');
-      if (s1 > s2) {
-        a1.classList.add('winner'); sc1.classList.add('winner');
-        a2.classList.add('loser');  sc2.classList.add('loser');
-      } else if (s2 > s1) {
-        a2.classList.add('winner'); sc2.classList.add('winner');
-        a1.classList.add('loser');  sc1.classList.add('loser');
-      } else {
-        [a1, a2, sc1, sc2].forEach(el => el.classList.add('draw'));
-      }
+        const hiRes = new Image();
+        hiRes.src = imgEl.src;
+        hiRes.onload = () => {
+          ctx.drawImage(hiRes, 0, 0, cssW, cssH);
+          imgEl.replaceWith(canvas);
+        };
+      });
+
+      // Destaque vencedores/derrotas/empates (inclui canvas local + imgs remotas)
+      document.querySelectorAll('.scoreboard').forEach(board => {
+        const s1 = +board.dataset.team1Score,
+              s2 = +board.dataset.team2Score;
+        const a1 = board.querySelector('.team1 .avatar, .team1 canvas'),
+              a2 = board.querySelector('.team2 .avatar, .team2 canvas');
+        const sc1 = board.querySelector('.team1-score'),
+              sc2 = board.querySelector('.team2-score');
+        if (s1 > s2) {
+          a1.classList.add('winner'); sc1.classList.add('winner');
+          a2.classList.add('loser');  sc2.classList.add('loser');
+        } else if (s2 > s1) {
+          a2.classList.add('winner'); sc2.classList.add('winner');
+          a1.classList.add('loser');  sc1.classList.add('loser');
+        } else {
+          [a1,a2,sc1,sc2].forEach(el => el.classList.add('draw'));
+        }
+      });
+
+      // Ícone WhatsApp + compartilhamento ultra HD
+      document.querySelectorAll('.scoreboard').forEach(board => {
+        const icon = document.createElement('i');
+        icon.className = 'fab fa-whatsapp share-icon';
+        board.appendChild(icon);
+        icon.addEventListener('click', async () => {
+          const scale = (window.devicePixelRatio || 1) * 2;
+          const canvas = await html2canvas(board, {
+            useCORS: true,
+            scale,
+            backgroundColor: null
+          });
+          canvas.getContext('2d').imageSmoothingEnabled = false;
+          canvas.toBlob(blob => {
+            if (!blob) return;
+            const file = new File([blob], 'card-fullhd.png', { type: 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({ files: [file] }).catch(console.error);
+            } else {
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = 'card-fullhd.png';
+              link.click();
+            }
+          }, 'image/png');
+        });
+      });
     });
   </script>
+
 </body>
 </html>

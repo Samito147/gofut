@@ -59,7 +59,6 @@
       white-space: nowrap;
       font-size: 2.5rem;
       text-align: center;
-      /* removido margin-bottom extra */
       margin-bottom: 0;
       color: #ffffff;
     }
@@ -70,7 +69,7 @@
     }
 
     /* ------------------------------------------------------------------------
-       RESTANTE DO CSS DA TABELA (inalterado, exceto margin-top ajustado)
+       RESTANTE DO CSS DA TABELA (inalterado, exceto margin-top ajustado e .ranking)
     ------------------------------------------------------------------------ */
     .table-responsive {
       overflow-x: auto;
@@ -84,7 +83,6 @@
       background-color: transparent;
       backdrop-filter: blur(4px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      /* removido margin-top para juntar com o título */
       margin-top: 0;
     }
     thead {
@@ -128,17 +126,22 @@
       0%,100% { box-shadow: 0 0 4px #e74c3c; }
       50%     { box-shadow: 0 0 12px #e74c3c; }
     }
+
+    /* Centraliza o número no círculo de ranking */
     .ranking {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1rem;
       font-weight: bold;
       color: #fff;
       margin-right: 8px;
       border-radius: 50%;
-      width: 28px; height: 28px;
-      text-align: center;
-      line-height: 28px;
+      width: 28px;
+      height: 28px;
       background-color: rgba(0, 0, 0, 0.2);
     }
+
     .player-info {
       display: flex;
       align-items: center;
@@ -196,9 +199,7 @@
       z-index: 1001;
     }
 
-    /* ------------------------
-       MEDIA QUERIES PARA RESPONSIVIDADE
-    ------------------------ */
+    /* MEDIA QUERIES PARA RESPONSIVIDADE */
     @media (max-width: 768px) {
       #export-container { padding: 0 1rem; }
       #export-container h1 { font-size: 2rem; }
@@ -320,7 +321,7 @@
                      class="${cls}" onclick="openModal('${filename}')"/>
                 <span onclick="openModal('${filename}')">${jog.nome}</span>
               </td>
-              <td>${jog.pontos}</td>
+              <td><strong>${jog.pontos}</strong></td>
               <td>${jog.jogos}</td>
               <td>${jog.vitorias}</td>
               <td>${jog.empates}</td>
@@ -352,7 +353,7 @@
           const srcdoc = `
             <base href="./" />
             <style>html,body{height:auto!important;display:block!important;overflow:visible!important;background:transparent!important;}
-            .card-wrapper{transform:scale(0.75)!important;transform-origin:top center!important;}</style>${html}`;
+            .card-wrapper{transform:scale(0.75)!important;transform-origin:top center!important;}</style>${html}`; 
           b.innerHTML = `<iframe srcdoc="${srcdoc.replace(/"/g,'&quot;')}"
                              onload="resizeIframe(this)"></iframe>`;
         })

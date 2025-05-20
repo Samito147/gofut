@@ -97,6 +97,22 @@
       border-radius: 4px;
       margin-bottom: 1rem;
     }
+    /* destaque azul */
+    .container .attention-blue {
+      background: rgba(3, 220, 198, 0.1);
+      border-left: 4px solid #03dac6;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+	    /* destaque cinza */
+     .container .attention-cinza {
+	  background: rgba(153, 153, 153, 0.1);
+      border-left: 4px solid #03dac6;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
     .collapsible-content { display: none; }
     section.open .collapsible-content { display: block; }
 
@@ -127,21 +143,27 @@
         const doc    = parser.parseFromString(html, 'text/html');
 
         // injeta CSS e <nav>...
+        doc.head.querySelectorAll('link[rel="stylesheet"], style')
+           .forEach(node => document.head.appendChild(node.cloneNode(true)));
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
 
-        // depois de inserir, ajusta automaticamente:
+        // ajusta body padding-top para altura do menu
         document.body.style.paddingTop = nav.offsetHeight + 'px';
-
-        // opcional: também refaz no resize
         window.addEventListener('resize', () => {
           document.body.style.paddingTop = nav.offsetHeight + 'px';
+        });
+
+        // marca link ativo
+        document.querySelectorAll('.navbar a').forEach(a => {
+          if (a.getAttribute('href') === location.pathname.split('/').pop())
+            a.classList.add('active');
         });
       });
   </script>
 
   <div class="container">
- <section>
+    <section>
       <h2><i class="fas fa-clipboard-list"></i> INSCRIÇÃO</h2>
       <div class="collapsible-content">
         <p>
@@ -212,13 +234,17 @@
         <p>
           Dos 20 jogadores passaram apenas 16 para as oitavas de finais, eliminando 4 da competição. A ordem que define a classificação direta é a posição na tabela, que se dá pela ordem abaixo:
         </p>
-        <p><strong>ORDEM DE CLASSIFICAÇÃO:</strong></p>
+	  <div class="attention-cinza">
+	  <ol style="margin-left:1.5rem; margin-bottom:1rem;">
+       <h2><i class="fas fa-info-circle"></i>ORDEM DE CLASSIFICAÇÃO:</h2>
         <ul>
-          <li>PONTOS</li>
+          <li><strong>PONTOS</li>
           <li>SALDO DE GOLS</li>
           <li>QUANTIDADE DE VITÓRIAS</li>
-          <li>CARTÕES</li>
+          <li>CARTÕES</strong></li>
         </ul>
+	  </ol>
+	  </div>
         <p>
           Persistindo o EMPATE em todas essas categorias será realizado um CONFRONTO DIRETO para decidir a colocação final na tabela. As configurações desse confronto serão iguais as de todos os outros jogos da fase, porém, com acréscimo de PRORROGAÇÃO e PENALTIS, em caso de empate.
         </p>
@@ -240,14 +266,21 @@
           O favorecimento do confronto ocorrerá apenas no confronto inicial (OITAVAS), pois, o confronto das QUARTAS se dará por meio de SORTEIO, após a definição dos classificados.
         </p>
         <p>Para os jogos da fase COPA as configurações padrões serão iguais para todas as partidas:</p>
-        <ul>
-          <li>TEMPO DE JOGO: 15 Minutos</li>
+      <div class="attention-cinza">
+	  <ol style="margin-left:1.5rem; margin-bottom:1rem;">
+		<ul>
+          <li><strong>TEMPO DE JOGO: 15 Minutos</li>
           <li>VELOCIDADE: 0</li>
           <li>LESÕES: Ligada</li>
           <li>CONDIÇÃO DOS JOGADORES: Excelente</li>
           <li>CLIMA: Limpo (Dia)</li>
-          <li>EMPATE: Prorrogação (Se necessário, PENALTIS)</li>
+          <li>EMPATE: Prorrogação (Se necessário, PENALTIS)</strong></li>
         </ul>
+	  </ol>
+	  </div>
+        <p>
+          As medidas acima configuram um campeonato mais disputado, tecnicamente mais justo e mais equilibrado a nível de HABILIDADE, reduzindo impacto do POWER ABUSE dos times na competição.
+        </p>
       </div>
     </section>
 
@@ -260,14 +293,20 @@
         <p>
           A partir da fase de COPA a escolha dos times se dará pelo seguinte cronograma:
         </p>
-        <ol style="margin-left:1.5rem; margin-bottom:1rem;">
-          <li>JOGADOR 1 (melhor posicionado na tabela na fase de LIGA) irá BANIR um time do confronto, ou seja, nem seu adversário e nem ele poderá jogar com esse time.</li>
-          <li>JOGADOR 2 irá BANIR outro time logo em seguida, excluindo o segundo time do confronto.</li>
-          <li>JOGADOR 1 agora irá ESCOLHER seu time.</li>
-          <li>JOGADOR 2 irá ESCOLHER seu time, porém, NÃO PODE HAVER REPETIÇÃO, confronto de times iguais não será permitido.</li>
-        </ol>
+        <div class="attention-blue">
+          <h2><i class="fas fa-info-circle"></i> IMPORTANTE</h2>
+          <p>
+            A partir da fase de COPA a escolha dos times se dará pelo seguinte cronograma:
+          </p>
+          <ol style="margin-left:1.5rem; margin-bottom:1rem;">
+            <li>JOGADOR 1 (melhor posicionado na tabela na fase de LIGA) irá BANIR um time do confronto, ou seja, nem seu adversário nem ele poderá jogar com esse time.</li>
+            <li>JOGADOR 2 irá BANIR outro time logo em seguida, excluindo o segundo time do confronto.</li>
+            <li>JOGADOR 1 agora irá ESCOLHER seu time.</li>
+            <li>JOGADOR 2 irá ESCOLHER seu time, porém, NÃO PODE HAVER REPETIÇÃO, confronto de times iguais não será permitido.</li>
+          </ol>
+        </div>
         <p>
-          As medidas acima configuram um campeonato mais disputado, tecnicamente mais justo e mais equilibrado á nível de HABILIDADE, reduzindo impacto do POWER ABUSE dos times na competição.
+          As medidas acima configuram um campeonato mais disputado, tecnicamente mais justo e mais equilibrado a nível de HABILIDADE, reduzindo impacto do POWER ABUSE dos times na competição.
         </p>
       </div>
     </section>
