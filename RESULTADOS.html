@@ -65,7 +65,7 @@
     .scoreboard {
       position: relative;
       display: grid;
-      width: auto;
+      width: 100%; /* ocupa 100% da coluna do grid */
       grid-template-columns: auto 1fr auto;
       grid-template-rows: auto auto;
       align-items: center;
@@ -152,41 +152,27 @@
 
     .stats .stat i { margin-right: 4px; color: #00bcd4; }
 
-    /* Destaques dinâmicos para vencedores/derrotas/empates */
-    .avatar.winner,
-    canvas.avatar.winner {
-      border-color: #0f0 !important;
-    }
-    .avatar.loser,
-    canvas.avatar.loser {
-      border-color: #f00 !important;
-    }
-    .avatar.draw,
-    canvas.avatar.draw {
-      border-color: #888 !important;
-    }
+    /* Destaques dinâmicos */
+    .avatar.winner, canvas.avatar.winner { border-color: #0f0!important; }
+    .avatar.loser,  canvas.avatar.loser  { border-color: #f00!important; }
+    .avatar.draw,   canvas.avatar.draw   { border-color: #888!important; }
 
     .score.winner { color: #0f0; text-shadow: 0 0 8px #0f0; }
     .score.loser  { color: #f00; text-shadow: 0 0 8px #f00; }
     .score.draw   { color: #888; }
 
     @media(max-width: 600px) {
-      .avatar, canvas.avatar {
-        width: 80px;
-        height: 80px;
-      }
+      .avatar, canvas.avatar { width: 80px; height: 80px; }
       .scores { font-size: 2.2rem; gap: 12px; }
       .vs     { font-size: 1rem; }
       .team-name { font-size: 1rem; white-space: normal; }
       .team-info { margin-top: 0.4rem; }
       .team-rank {
-        width: 20px;
-        height: 20px;
-        font-size: 0.65rem;
+        width: 20px; height: 20px; font-size: 0.65rem;
       }
     }
 
-    /* Ícone de compartilhar, centralizado no topo do card */
+    /* Ícone de compartilhar */
     .share-icon {
       position: absolute;
       top: 10px;
@@ -427,25 +413,27 @@
       });
     });
 
-    // Compartilhamento via html2canvas
+    // Compartilhamento via html2canvas com fundo transparente
     document.addEventListener('click', e => {
       if (e.target.classList.contains('share-icon')) {
         const board = e.target.closest('.scoreboard');
-        // usa html2canvas global
-        html2canvas(board, { useCORS: true, scale: (window.devicePixelRatio||1)*2 })
-          .then(canvas => {
-            canvas.toBlob(blob => {
-              const file = new File([blob], 'card.png', { type: 'image/png' });
-              if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({ files: [file] }).catch(console.error);
-              } else {
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'card.png';
-                link.click();
-              }
-            });
+        html2canvas(board, {
+          useCORS: true,
+          scale: (window.devicePixelRatio||1)*2,
+          backgroundColor: null
+        }).then(canvas => {
+          canvas.toBlob(blob => {
+            const file = new File([blob], 'card.png', { type: 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({ files: [file] }).catch(console.error);
+            } else {
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = 'card.png';
+              link.click();
+            }
           });
+        });
       }
     });
   </script>
