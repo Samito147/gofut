@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="menu.css">
 
+  <!-- html2canvas (global) -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -391,7 +394,7 @@
     window.addEventListener('load', () => {
       document.querySelectorAll('.scoreboard').forEach(board => {
         highlightBoard(board);
-        // adiciona ícone de compartilhar mais delicado
+        // adiciona ícone de compartilhar
         const icon = document.createElement('i');
         icon.className = 'fas fa-share-alt share-icon';
         board.appendChild(icon);
@@ -428,22 +431,21 @@
     document.addEventListener('click', e => {
       if (e.target.classList.contains('share-icon')) {
         const board = e.target.closest('.scoreboard');
-        import('https://html2canvas.hertzen.com/dist/html2canvas.min.js').then(({default:html2canvas}) => {
-          html2canvas(board, { useCORS: true, scale: (window.devicePixelRatio||1)*2 })
-            .then(canvas => {
-              canvas.toBlob(blob => {
-                const file = new File([blob], 'card.png', { type: 'image/png' });
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                  navigator.share({ files: [file] }).catch(console.error);
-                } else {
-                  const link = document.createElement('a');
-                  link.href = URL.createObjectURL(blob);
-                  link.download = 'card.png';
-                  link.click();
-                }
-              });
+        // usa html2canvas global
+        html2canvas(board, { useCORS: true, scale: (window.devicePixelRatio||1)*2 })
+          .then(canvas => {
+            canvas.toBlob(blob => {
+              const file = new File([blob], 'card.png', { type: 'image/png' });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file] }).catch(console.error);
+              } else {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'card.png';
+                link.click();
+              }
             });
-        });
+          });
       }
     });
   </script>
