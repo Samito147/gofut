@@ -1,0 +1,16 @@
+// vercel.json
+{
+  "version": 2,
+  "builds": [
+    // Informa ao Vercel para usar o runtime Node em toda .js dentro de api/
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    // Roteia /api/auth/steam   para o handler steam.js
+    { "src": "/api/auth/steam$",           "dest": "/api/auth/steam.js" },
+    // Roteia /api/auth/steam/return  para o mesmo arquivo (ele trata a /return internamente)
+    { "src": "/api/auth/steam/return$",    "dest": "/api/auth/steam.js" },
+    // Opcional: garante que outras rotas estáticas continuem funcionando
+    { "src": "/(.*)",                      "dest": "/$1" }
+  ]
+}
