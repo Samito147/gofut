@@ -1,6 +1,7 @@
 // api/auth/steam.js
 
 const express       = require('express');
+const path          = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
@@ -8,7 +9,11 @@ const SteamStrategy = require('passport-steam').Strategy;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 📦 Sessão para o Passport (cookies não precisam ser seguros no Heroku HTTP)
+// 📂 Serve os arquivos estáticos (menu.html, CSS, dashboard.html etc.)
+//    Ajuste o caminho para a pasta raiz do seu site
+app.use('/', express.static(path.resolve(__dirname, '..', '..')));
+
+// 📦 Sessão para o Passport
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -46,6 +51,11 @@ app.get('/auth/steam/return',
   }
 );
 
+// 🏠 Redireciona raiz → menu.html
+app.get('/', (req, res) => {
+  res.redirect('/menu.html');
+});
+
 // 🛑 Tratamento de erros
 app.use((err, req, res, next) => {
   console.error('🚨 ERRO NA STEAM AUTH:', err);
@@ -54,5 +64,5 @@ app.use((err, req, res, next) => {
 
 // 🚀 Inicia o servidor
 app.listen(PORT, () => {
-  console.log(`🔥 Steam Auth rodando em http://localhost:${PORT} e em https://gofut-app.herokuapp.com`);
+  console.log(`🔥 SteamAuth rodando em http://localhost:${PORT} e https://gofut-app.herokuapp.com`);
 });
