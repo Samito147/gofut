@@ -8,55 +8,45 @@ const serverless    = require('serverless-http');
 
 const app = express();
 
-// —– configurações Express & Passport —–
-
-// Session (necessário para o fluxo do Passport)
+// Sessão para Passport
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: { secure: true, httpOnly: true }
 }));
-
-// Inicializa Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Serialização do usuário
+// Serialização
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
-// Configura a estratégia Steam
+// SteamStrategy
 passport.use(new SteamStrategy({
-    returnURL: process.env.RETURN_URL,   // ex: https://seu-backend.vercel.app/api/auth/steam/return
-    realm:     process.env.REALM,        // ex: https://seu-backend.vercel.app/
+    returnURL: process.env.RETURN_URL,  // ex: https://<seu-domínio>/api/auth/steam/return
+    realm:     process.env.REALM,       // ex: https://<seu-domínio>/
     apiKey:    process.env.STEAM_API_KEY
   },
-  (identifier, profile, done) => {
-    // Aqui você pode salvar/atualizar o usuário no DB, se quiser
-    return done(null, profile);
-  }
+  (identifier, profile, done) => done(null, profile)
 ));
 
-// Rota que inicia o login na Steam
-app.get('/api/auth/steam',
-  passport.authenticate('steam')
-);
+// Inicia o login (GET /api/auth/steam)
+app.get('/', passport.authenticate('steam'));
 
-// Rota de callback da Steam
-app.get('/api/auth/steam/return',
+// Callback (GET /api/auth/steam/return)
+app.get('/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
-    // Autenticação bem-sucedida → redireciona ao dashboard
+    // sucesso → redireciona
     res.redirect('/dashboard.html');
   }
 );
 
-// Middleware de tratamento de erros
+// Tratamento de erros
 app.use((err, req, res, next) => {
-  console.error('🚨 ERRO NO SERVERLESS:', err);
-  res.status(500).send('Erro interno — confira os logs do Vercel');
+  console.error('🚨 ERRO NA STEAM FUNCTION:', err);
+  res.status(500).send('Erro interno — verifique os logs');
 });
 
-// Exporta como handler Serverless
 module.exports = serverless(app);
