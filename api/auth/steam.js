@@ -1,52 +1,40 @@
 // api/auth/steam.js
-
 const express       = require('express');
 const session       = require('express-session');
 const passport      = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
-const serverless    = require('serverless-http');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Sessão para Passport
+// Sessão necessária pro Passport
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: true, httpOnly: true }
+  cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Serialização
+// Serialize / Deserialize
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
-// SteamStrategy
+// Configura Steam OpenID
 passport.use(new SteamStrategy({
-    returnURL: process.env.RETURN_URL,  // ex: https://<seu-domínio>/api/auth/steam/return
-    realm:     process.env.REALM,       // ex: https://<seu-domínio>/
-    apiKey:    process.env.STEAM_API_KEY
+    returnURL:  `${process.env.BASE_URL}/auth/steam/return`,
+    realm:      process.env.BASE_URL,
+    apiKey:     process.env.STEAM_API_KEY
   },
   (identifier, profile, done) => done(null, profile)
 ));
 
-// Inicia o login (GET /api/auth/steam)
-app.get('/', passport.authenticate('steam'));
-
-// Callback (GET /api/auth/steam/return)
-app.get('/return',
+// Rotas Express
+app.get('/auth/steam', passport.authenticate('steam'));
+app.get('/auth/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
-  (req, res) => {
-    // sucesso → redireciona
-    res.redirect('/dashboard.html');
-  }
+  (req, res) => res.redirect('/dashboard.html')
 );
 
-// Tratamento de erros
-app.use((err, req, res, next) => {
-  console.error('🚨 ERRO NA STEAM FUNCTION:', err);
-  res.status(500).send('Erro interno — verifique os logs');
-});
-
-module.exports = serverless(app);
+app.listen(PORT, () => console.log(`Servidor SteamAuth rodando em ${PORT}`));
