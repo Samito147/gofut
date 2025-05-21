@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Menu de Navegação</title>
 
   <!-- Fonte Poppins -->
@@ -19,41 +19,28 @@
     referrerpolicy="no-referrer"
   />
 
-  <!-- CSS do Menu (contém toda a estilização, inclusive keyframes e animação dos ícones) -->
-  <link rel="stylesheet" href="menu.css" />
+  <!-- CSS do Menu -->
+  <link rel="stylesheet" href="menu.css"/>
 </head>
 <body>
-
   <nav class="navbar" role="navigation" aria-label="Menu de navegação principal">
     <a href="TABELA.html"       title="Visualizar a Tabela">
-      <i class="fas fa-table"></i>
-      Tabela
+      <i class="fas fa-table"></i> Tabela
     </a>
     <a href="RESULTADOS.html"   title="Visualizar Resultados">
-      <i class="fas fa-chart-line"></i>
-      Resultados
+      <i class="fas fa-chart-line"></i> Resultados
     </a>
     <a href="CRONOGRAMA.html"   title="Visualizar Cronograma">
-      <i class="fas fa-calendar-alt"></i>
-      Cronograma
+      <i class="fas fa-calendar-alt"></i> Cronograma
     </a>
     <a href="REGULAMENTO.html"  title="Visualizar Regulamento">
-      <i class="fas fa-scroll"></i>
-      Regulamento
+      <i class="fas fa-scroll"></i> Regulamento
+    </a>
+
+    <!-- Botão de Login via Steam (somente o ícone, sem fundo nem animação) -->
+    <a href="https://seusite.com/api/auth/steam" class="btn-steam" title="Entrar com Steam">
+      <i class="fab fa-steam"></i>
     </a>
   </nav>
-
-  <script>
-    // Ajusta o padding-top do <body> para não deixar o conteúdo oculto
-    window.addEventListener('DOMContentLoaded', () => {
-      const nav = document.querySelector('.navbar');
-      document.body.style.paddingTop = nav.offsetHeight + 'px';
-      // Reajusta em resize para suporte a quebras de linha
-      window.addEventListener('resize', () => {
-        document.body.style.paddingTop = nav.offsetHeight + 'px';
-      });
-    });
-  </script>
-
 </body>
 </html>

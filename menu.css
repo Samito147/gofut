@@ -1,12 +1,5 @@
 /* --- menu.css --- */
-@keyframes iconFloat {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-2px); }
-}
 
-.navbar a i {
-  animation: iconFloat 3s ease-in-out infinite;
-}
 /* Reset */
 * {
   margin: 0;
@@ -51,20 +44,35 @@ body {
   transition: color 0.3s;
 }
 
-/* 🌀 KEYFRAMES DA FLOTAÇÃO */
+/* KEYFRAMES DA FLOTAÇÃO */
 @keyframes iconFloat {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-2px); }
 }
 
-/* 😌 APLICAÇÃO DA ANIMAÇÃO NOS ÍCONES */
+/* APLICAÇÃO DA ANIMAÇÃO NOS ÍCONES EXCETO STEAM */
 .navbar a i {
   font-size: 1.2rem;
   margin-right: 0.5rem;
-  animation: iconFloat 3s ease-in-out infinite;
   color: inherit;
 }
+.navbar a:not(.btn-steam) i {
+  animation: iconFloat 3s ease-in-out infinite;
+}
 
+/* Ícone Steam (sem animação e sem fundo) */
+.btn-steam {
+  margin-left: 1rem;    /* espaço entre links */
+  padding: 0;
+  background: none;
+}
+.btn-steam i {
+  font-size: 1.25rem;   /* tamanho do ícone */
+  color: #66c0f4;       /* cor Steam */
+  animation: none !important;  /* remove qualquer animação */
+}
+
+/* HOVER / ACTIVE */
 .navbar a:hover,
 .navbar a.active {
   color: #00bcd4;
@@ -75,4 +83,5 @@ body {
   .navbar { gap: 1rem; }
   .navbar a { font-size: 0.95rem; margin: 0.25rem; }
   .navbar a i { font-size: 1rem; margin-right: 0.3rem; }
+  .btn-steam i { font-size: 1.1rem; } /* Steam ícone menor em mobile */
 }

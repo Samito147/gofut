@@ -61,9 +61,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      white-space: nowrap;           /* sem quebra de linha */
-      overflow: hidden;              /* sem barra de rolagem */
-      /* responsivo: entre 1.5rem e 2.5rem, baseado em 5vw */
+      white-space: nowrap;
+      overflow: hidden;
       font-size: clamp(1.5rem, 5vw, 2.5rem);
       text-align: center;
       margin-bottom: 1.5rem;
@@ -71,7 +70,6 @@
     }
     .container h1 i {
       margin-right: 0.5rem;
-      /* ícone escala junto com o texto */
       font-size: 1em;
       color: #00bcd4;
     }
@@ -97,7 +95,6 @@
       border-radius: 4px;
       margin-bottom: 1rem;
     }
-    /* destaque azul */
     .container .attention-blue {
       background: rgba(3, 220, 198, 0.1);
       border-left: 4px solid #03dac6;
@@ -105,9 +102,8 @@
       border-radius: 4px;
       margin-bottom: 1rem;
     }
-	    /* destaque cinza */
-     .container .attention-cinza {
-	  background: rgba(153, 153, 153, 0.1);
+    .container .attention-cinza {
+      background: rgba(153, 153, 153, 0.1);
       border-left: 4px solid #03dac6;
       padding: 1rem;
       border-radius: 4px;
@@ -118,16 +114,9 @@
 
     /* MEDIA QUERIES PARA TELAS PEQUENAS */
     @media (max-width: 600px) {
-      .container {
-        padding: 0 0.75rem;
-      }
-      .container h1 {
-        /* limites ajustados para telas bem pequenas */
-        font-size: clamp(1.25rem, 8vw, 2rem);
-      }
-      .container h2 {
-        font-size: 1.5rem;
-      }
+      .container { padding: 0 0.75rem; }
+      .container h1 { font-size: clamp(1.25rem, 8vw, 2rem); }
+      .container h2 { font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -141,20 +130,14 @@
       .then(html => {
         const parser = new DOMParser();
         const doc    = parser.parseFromString(html, 'text/html');
-
-        // injeta CSS e <nav>...
         doc.head.querySelectorAll('link[rel="stylesheet"], style')
            .forEach(node => document.head.appendChild(node.cloneNode(true)));
         const nav = doc.querySelector('nav.navbar');
         document.getElementById('menu-placeholder').appendChild(nav);
-
-        // ajusta body padding-top para altura do menu
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         window.addEventListener('resize', () => {
           document.body.style.paddingTop = nav.offsetHeight + 'px';
         });
-
-        // marca link ativo
         document.querySelectorAll('.navbar a').forEach(a => {
           if (a.getAttribute('href') === location.pathname.split('/').pop())
             a.classList.add('active');
@@ -163,23 +146,6 @@
   </script>
 
   <div class="container">
-    <section>
-      <h2><i class="fas fa-clipboard-list"></i> INSCRIÇÃO</h2>
-      <div class="collapsible-content">
-        <p>
-          A inscrição deve ser feita através do formulário enviado via WhatsApp para os jogadores selecionados, mas, só será de fato efetivada após a comprovação do pagamento da inscrição.
-        </p>
-        <p>
-          O valor da inscrição será de R$ 150,00, o que já engloba as seguintes sessões:
-        </p>
-        <ul>
-          <li>Participação no campeonato</li>
-          <li>Participação no bolão da grande final (R$ 300,00)</li>
-          <li>Participação no sorteio de abertura das oitavas de finais (R$ 200)</li>
-        </ul>
-      </div>
-    </section>
-
     <section>
       <h2><i class="fas fa-gamepad"></i> JOGOS – LIGA</h2>
       <div class="collapsible-content">
@@ -310,9 +276,18 @@
         </p>
       </div>
     </section>
-
-    <!-- ... demais seções idênticas ... -->
-
+    <section>
+      <h2><i class="fas fa-award"></i> PREMIAÇÃO</h2>
+      <div class="collapsible-content">
+        <p>As premiações serão distribuídas da seguinte forma:</p>
+        <ul>
+          <li><strong>🥇 1º Lugar:</strong> Troféu + R$ 1.500,00</li>
+          <li><strong>🥈 2º Lugar:</strong> Medalha + R$ 350,00</li>
+          <li><strong>🥉 3º Lugar:</strong> Medalha + R$ 150,00</li>
+		  <li><strong>⚽</i> Artilheiro:</strong> R$ 150,00</li>
+        </ul>
+      </div>
+    </section>
   </div>
 
   <script>
