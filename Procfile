@@ -1,1 +1,1 @@
-web: node api/auth/steam.js
+web: node index.js
