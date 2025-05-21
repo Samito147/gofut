@@ -250,7 +250,7 @@
             { text: 'Sair',          href: 'sair.html' }
           ]
         : [
-            { text: 'Entrar', href: 'signup.html' }
+            { text: 'Entrar', href: 'login.html' }
           ];
       menuContainer.innerHTML = '';
       items.forEach(item => {
@@ -420,7 +420,7 @@
 
   <script>
     // Rank dinâmico
-    fetch('TABELA.html')
+    fetch('tabela.html')
       .then(res => res.text())
       .then(html => {
         const match = html.match(/const jogadores\s*=\s*(\[[\s\S]*?\]);/);

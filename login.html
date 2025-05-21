@@ -16,6 +16,7 @@
     referrerpolicy="no-referrer"
   />
 
+
   <style>
     /* reset e evitar scroll horizontal */
     *, *::before, *::after { box-sizing: border-box; }
@@ -145,10 +146,10 @@
     <h1><i class="fas fa-sign-in-alt"></i>Login</h1>
     <form id="login-form">
       <div class="form-group">
-        <input name="usernameOrEmail" placeholder="Usuário ou E-mail" required />
+        <input id="email" name="email" placeholder="Usuário ou E-mail" required />
       </div>
       <div class="form-group">
-        <input type="password" name="password" placeholder="Senha" required />
+        <input id="password" type="password" name="password" placeholder="Senha" required />
       </div>
       <button type="submit" class="btn-login">Entrar</button>
     </form>
@@ -158,23 +159,33 @@
     </div>
   </div>
 
+  <!-- 1) Adicione o SDK do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/index.min.js"></script>
   <script>
+    // 2) Inicialize seu cliente Supabase
+    const SUPABASE_URL = 'https://<seu-project-ref>.supabase.co';
+    const SUPABASE_ANON_KEY = '<sua-anon-key-aqui>';
+    const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // 3) Manipule o evento de submit do formulário
     document.getElementById('login-form').addEventListener('submit', async e => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target));
-      const res  = await fetch('/api/login', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(data)
+      const email    = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // 4) Use o método de autenticação do Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
       });
-      if (res.ok) {
-        window.location.href = '/dashboard.html';
+
+      if (error) {
+        alert(error.message);
       } else {
-        const err = await res.json();
-        alert(err.error || 'Erro no login');
+        // Login bem-sucedido → redireciona
+        window.location.href = '/dashboard.html';
       }
     });
   </script>
-
 </body>
 </html>
