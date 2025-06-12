@@ -24,7 +24,7 @@
   const role = user?.role || null;
 
   try {
-    const resHtml = await fetch('public/menu.html');
+    const resHtml = await fetch('../menu.html');
     const html    = await resHtml.text();
     const parser  = new DOMParser();
     const doc     = parser.parseFromString(html, 'text/html');
