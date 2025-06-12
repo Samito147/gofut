@@ -1,0 +1,180 @@
+/* --- menu.css --- */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  background: transparent;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  /* padding-top é ajustado via script */
+}
+
+/* Esconde o placeholder inteiro até o menu ser inicializado via JS */
+#menu-placeholder {
+  visibility: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background: #0f0f0f;
+  z-index: 100;
+}
+
+/* LINKS */
+.navbar a {
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  transition: color 0.3s;
+}
+
+/* KEYFRAMES DA FLOTAÇÃO (para ícones “normais”) */
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+/* APLICAÇÃO DA ANIMAÇÃO NOS ÍCONES EXCETO PERFIL */
+.navbar a i {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  color: inherit;
+}
+.navbar a:not(.btn-profile) i {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+/* Ícone de Perfil fixo no canto superior direito */
+.btn-profile {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  background: none;
+  padding: 0;
+  z-index: 110;
+}
+.btn-profile i {
+  display: inline-block;
+  font-size: 1.5rem;
+  margin: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+/* Não logado → ícone vermelho claro com mais transparência */
+.btn-profile.logged-out i {
+  color: rgba(244, 67, 54, 0.5);  /* #f44336 em 50% */
+}
+
+/* Logado → ícone verde claro com mais transparência */
+.btn-profile.logged-in i {
+  color: rgba(76, 175, 80, 0.5);   /* #4caf50 em 50% */
+}
+
+/* Esconde o toggle até ser inicializado via JS */
+#profile-toggle {
+  visibility: hidden;
+}
+/* Mostra após adicionar a classe initialized */
+#profile-toggle.initialized {
+  visibility: visible;
+}
+
+/* SUBMENU DE PERFIL */
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);   /* logo abaixo da navbar */
+  right: 1rem;                /* alinhado ao ícone de perfil */
+  display: none;              /* oculto por padrão */
+  flex-direction: column;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  min-width: 160px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  z-index: 105;
+}
+.profile-menu.show {
+  display: flex;
+}
+.profile-menu a {
+  padding: 0.75rem 1rem;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+.profile-menu a:hover {
+  background: #444;   /* fundo mais escuro para melhor contraste */
+  color: #fff;        /* texto branco para máxima legibilidade */
+}
+
+/* HOVER / ACTIVE */
+.navbar a:hover,
+.navbar a.active {
+  color: #00bcd4;
+}
+
+/* RESPONSIVO PEQUENO */
+@media (max-width: 480px) {
+  .navbar { gap: 1rem; }
+  .navbar a { font-size: 0.95rem; margin: 0.25rem; }
+  .navbar a i { font-size: 1rem; margin-right: 0.3rem; }
+  .btn-profile {
+    right: 0.75rem;
+  }
+  .btn-profile i { font-size: 1.3rem; }
+
+  /* Submenu ajustado para mobile */
+  .profile-menu {
+    right: 0.75rem;
+    min-width: 140px;
+  }
+  .profile-menu a {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* >>> ADIÇÃO FINAL — Faz os ícones do submenu ficarem parados */
+.profile-menu a i {
+  animation: none !important;
+}
+/* Logo no menu */
+.navbar .logo {
+  position: absolute;
+  top: 20%;
+  left: 1rem;
+  transform: translateY(-20%);
+  display: flex;
+  align-items: center;
+}
+.navbar .logo img {
+  height: 64px; /* ajuste a altura como preferir */
+  max-height: 80px;
+  width: auto;
+}

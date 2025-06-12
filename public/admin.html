@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Administração</title>
+
+  <!-- Poppins + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <!-- CSS global -->
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/menu.css"/>
+  <link rel="stylesheet" href="css/perfil.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+
+  <script type="module" src="js/admin.js" defer></script>
+</head>
+<body>
+  <!-- MENU GLOBAL -->
+  <nav id="menu-placeholder"></nav>
+  <script src="js/menu.js"></script>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="profile-page admin-page">
+    <h1></h1>
+
+    <!-- 🔍 Campo de busca -->
+    <div class="form-group search-group">
+      <label for="player-search"><i class="fas fa-search"></i> Buscar Jogador</label>
+      <input type="text" id="player-search" placeholder="Digite o nome..." autocomplete="off"/>
+      <button id="search-btn" class="btn"><i class="fas fa-search"></i> Procurar</button>
+      <ul id="search-results" class="search-results"></ul>
+    </div>
+
+    <!-- 📝 Formulário de estatísticas -->
+    <form id="stats-form" class="stats-form" style="display:none;">
+      <input type="hidden" id="player-id"/>
+      <div class="player-info" style="text-align:center; margin-bottom:1rem;">
+        <h2 id="player-name" style="margin:0; font-size:1.5rem;">Nome do Jogador</h2>
+        <p id="player-fullname" style="margin:0.25rem 0; font-size:1rem; opacity:0.8;">Nome Completo</p>
+        <p id="player-age" style="margin:0; font-size:0.9rem; opacity:0.8;">Idade: 0 anos</p>
+      </div>
+
+      <div class="stats-cards">
+        <div class="stats-card"><label>Jogos:</label><span id="played-current" class="current">0</span><input type="number" id="played" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Gols:</label><span id="goals-current" class="current">0</span><input type="number" id="goals" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Vitórias:</label><span id="victories-current" class="current">0</span><input type="number" id="victories" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Empates:</label><span id="draws-current" class="current">0</span><input type="number" id="draws" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Derrotas:</label><span id="losses-current" class="current">0</span><input type="number" id="losses" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Amarelos:</label><span id="yellow-current" class="current">0</span><input type="number" id="yellow" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Vermelhos:</label><span id="red-current" class="current">0</span><input type="number" id="red" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Escanteios:</label><span id="corners-current" class="current">0</span><input type="number" id="corners" min="0" placeholder="+" /></div>
+        <div class="stats-card"><label>Posse (%):</label><span id="possession-current" class="current">0</span><input type="number" id="possession" min="0" max="100" placeholder="+" /></div>
+      </div>
+
+      <button type="submit" class="btn"><i class="fas fa-save"></i> Salvar Estatísticas</button>
+    </form>
+
+    <div id="toast-admin" class="toast success"></div>
+  </main>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+
+  <!-- Template do Match Campeonato (visível apenas no JS quando clicado em Campeonatos) -->
+  <template id="match-tester-template" style="display:none">
+    <form id="matchForm">
+      <div class="player-column">
+        <label>Jogador 1:
+          <div class="input-group">
+            <input id="player1Search" placeholder="Nome do usuário" type="text"/>
+            <button class="btn-search" onclick="searchUser(1)" type="button">🔍</button>
+          </div>
+          <div class="results" id="results1" style="display:none;"></div>
+          <input id="player1Id" name="player1" type="hidden"/>
+        </label>
+        <label>Time:<input name="player1_team" required type="text"/></label>
+        <label>Gols:<input name="player1Score" required type="number"/></label>
+        <label>Chutes no gol:<input name="player1_kick_on_target" required type="number"/></label>
+        <label>Posse de bola:<input name="player1_possession" required type="number"/></label>
+        <label>Escanteios:<input name="player1Corners" required type="number"/></label>
+        <label>Amarelos:<input name="player1Yellow" required type="number"/></label>
+        <label>Vermelhos:<input name="player1Red" required type="number"/></label>
+      </div>
+
+      <div class="player-column">
+        <label>Jogador 2:
+          <div class="input-group">
+            <input id="player2Search" placeholder="Nome do usuário" type="text"/>
+            <button class="btn-search" onclick="searchUser(2)" type="button">🔍</button>
+          </div>
+          <div class="results" id="results2" style="display:none;"></div>
+          <input id="player2Id" name="player2" type="hidden"/>
+        </label>
+        <label>Time:<input name="player2_team" required type="text"/></label>
+        <label>Gols:<input name="player2Score" required type="number"/></label>
+        <label>Chutes:<input name="player2_kick_on_target" required type="number"/></label>
+        <label>Posse de bola:<input name="player2_possession" required type="number"/></label>
+        <label>Escanteios:<input name="player2Corners" required type="number"/></label>
+        <label>Amarelos:<input name="player2Yellow" required type="number"/></label>
+        <label>Vermelhos:<input name="player2Red" required type="number"/></label>
+      </div>
+
+      <button type="submit">Enviar Partida</button>
+      <div class="log" id="log"></div>
+    </form>
+  </template>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* css/ranking.css */
+
+/* Fundo global escuro e estrutura básica */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0f0f0f !important;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+  overflow-y: scroll; /* ✅ Força a barra SEMPRE, evitando piscar */
+}
+
+/* Oculta barra de rolagem quando não é necessária (sem remover o espaço) */
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Layout flexível */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ✅ Animação padrão de surgimento */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Conteúdo principal da página */
+main.profile-page {
+  flex: 1;
+  width: 100%;
+  min-height: 60vh;
+  background-color: #0f0f0f;
+  padding: 2rem;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Células */
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background-color: #222;
+}
+
+tr:hover {
+  background-color: #292929;
+}
+
+/* Classe visual */
+.classe-A { color: gold; font-weight: bold; }
+.classe-B { color: silver; font-weight: bold; }
+.classe-C { color: #cd7f32; font-weight: bold; }
+.classe-D { color: #888; font-weight: bold; }
+
+/* Avatar */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}

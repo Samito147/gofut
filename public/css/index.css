@@ -1,0 +1,178 @@
+/* ---------------------------------------- */
+/* index.css — estilos específicos da página */
+/* ---------------------------------------- */
+/* em index.css, no topo */
+body {
+  overflow-y: hidden;  /* esconde a barra até o menu carregar */
+}
+/* CONTEÚDO – container de exportação */
+#export-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards; /* keyframes em styles.css */
+}
+
+/* TÍTULO PRINCIPAL */
+#export-container h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0;
+  color: #ffffff;
+}
+#export-container h1 i {
+  margin-right: 0.5rem;
+  color: #00bcd4;
+  font-size: 2.5rem;
+}
+
+/* tabela responsiva */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* layout da tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-top: 0;
+}
+thead {
+  background-color: rgba(31, 31, 31, 0.8);
+  color: #e0e0e0;
+}
+th, td {
+  padding: 12px;
+  text-align: center;
+  color: #e0e0e0;
+}
+tbody tr {
+  transition: background-color 0.3s ease;
+}
+tbody tr:hover {
+  background-color: rgba(58, 58, 58, 0.8);
+}
+
+/* avatares e destaques */
+img.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  border: 2px solid #fff;
+}
+img.first-place-avatar {
+  border-color: #90ee90 !important;
+  box-shadow: 0 0 4px #90ee90;
+  animation: pulse-green 2s infinite; /* keyframes em styles.css? */
+}
+img.last-place-avatar {
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 4px #e74c3c;
+  animation: pulse-red 2s infinite;
+}
+
+/* ranking circular */
+.ranking {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 8px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* info do jogador */
+.player-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 1.8rem;
+}
+.player-info .icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  margin-right: 4px;
+  color: inherit;
+}
+
+/* linhas de destaque */
+.first-place-row   { background-color: rgba(144, 238, 144, 0.15) !important; }
+.second-place-row  { background-color: rgba(144, 238, 144, 0.1125) !important; }
+.third-place-row   { background-color: rgba(144, 238, 144, 0.075) !important; }
+.last-place-row    { background-color: rgba(231, 76, 60, 0.0675) !important; }
+.penultimate-place-row { background-color: rgba(231, 76, 60, 0.0506) !important; }
+.eighteenth-place-row  { background-color: rgba(231, 76, 60, 0.03795) !important; }
+.seventeenth-place-row { background-color: rgba(231, 76, 60, 0.02846) !important; }
+
+/* cores de alertas */
+.highlight-vermelhos { color: #e74c3c; }
+
+/* modal de perfil */
+#modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+#modal .modal-content {
+  background: transparent;
+  color: #e0e0e0;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 10px;
+  position: relative;
+  padding: 0;
+}
+#modal-body iframe {
+  width: 100%; border: none; display: block;
+}
+.modal-close {
+  position: absolute;
+  top: 8px; right: 12px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  z-index: 1001;
+}
+
+/* MEDIA QUERIES ESPECÍFICAS */
+@media (max-width: 768px) {
+  #export-container { padding: 0 1rem; }
+  #export-container h1 { font-size: 2rem; }
+  th, td { padding: 8px; font-size: 0.85rem; }
+  .ranking { width: 24px; height: 24px; font-size: 0.9rem; }
+  img.avatar { width: 28px; height: 28px; margin-right: 6px; }
+}
+@media (max-width: 480px) {
+  #export-container { padding: 0 0.5rem; }
+  #export-container h1 { font-size: 1.5rem; white-space: normal; }
+  th, td { padding: 6px; font-size: 0.75rem; }
+  .ranking { width: 20px; height: 20px; font-size: 0.8rem; }
+  img.avatar { width: 24px; height: 24px; margin-right: 4px; }
+}

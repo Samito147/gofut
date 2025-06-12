@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Cadastro</title>
+
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <link rel="stylesheet" href="css/styles.css">   <!-- global -->
+  <link rel="stylesheet" href="css/cadastro.css"> <!-- específico -->
+
+  <!-- Air Datepicker CSS (design moderno) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.5/air-datepicker.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-user-plus"></i>Cadastro</h1>
+    <form id="signup-form">
+      <div class="form-group">
+        <label for="username"><i class="fas fa-user"></i>Usuário</label>
+        <input id="username" name="username"
+               type="text"
+               required
+               minlength="4"
+               maxlength="10"
+               placeholder="4–10 caracteres"/>
+      </div>
+      <div class="form-group">
+        <label for="full_name"><i class="fas fa-id-card"></i>Nome Completo</label>
+        <input id="full_name" name="full_name" type="text" required/>
+      </div>
+      <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i>E-mail</label>
+        <input id="email" name="email" type="email" required/>
+      </div>
+      <div class="form-group">
+        <label for="phone"><i class="fas fa-phone"></i>Celular</label>
+        <input id="phone" name="phone" type="tel" required pattern="\d{10,11}" placeholder="Somente dígitos"/>
+      </div>
+      <div class="form-group">
+        <label for="cpf"><i class="fas fa-id-badge"></i>CPF</label>
+        <input id="cpf" name="cpf" type="text" required pattern="\d{11}" placeholder="Somente dígitos"/>
+      </div>
+      <div class="form-group">
+        <label for="birth_date"><i class="fas fa-calendar-alt"></i>Data de Nascimento</label>
+        <input id="birth_date" name="birth_date" type="text" placeholder="Selecione a data" required/>
+      </div>
+      <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i>Senha</label>
+        <input id="password" name="password" type="password" required minlength="6"/>
+      </div>
+      <div class="form-group">
+        <label for="confirm_password"><i class="fas fa-lock"></i>Confirmar Senha</label>
+        <input id="confirm_password" name="confirm_password" type="password" required minlength="6"/>
+      </div>
+      <button type="submit" class="btn-submit">Cadastrar</button>
+      <a href="login.html" class="btn-alt">Já tenho conta</a>
+    </form>
+  </div>
+
+  <!-- toasts -->
+  <div id="toast-error" class="toast error"></div>
+  <div id="toast-success" class="toast success"></div>
+
+  <!-- Air Datepicker JS -->
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.5/air-datepicker.js"></script>
+  <!-- Inicialização inline do Air Datepicker -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dp = new AirDatepicker('#birth_date', {
+        autoClose: true,
+        dateFormat: 'yyyy-MM-dd',
+        position: 'bottom center',
+        locale: {
+          days: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+          daysShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+          daysMin: ['D','S','T','Q','Q','S','S'],
+          months: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+          monthsShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+          today: 'Hoje',
+          clear: 'Limpar',
+          dateFormat: 'yyyy-MM-dd',
+          timeFormat: 'HH:mm',
+          firstDay: 1
+        },
+        onSelect({ date }) {
+          this.input.value = dp.selectedDates[0].toISOString().split('T')[0];
+        }
+      });
+    });
+  </script>
+  <!-- JS desta página -->
+  <script src="js/cadastro.js" defer></script>
+</body>
+</html>

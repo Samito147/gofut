@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Menu</title>
+
+  <!-- Fonte Poppins -->
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" 
+    rel="stylesheet" 
+  />
+
+  <!-- Font Awesome para ícones -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- CSS do menu -->
+  <link rel="stylesheet" href="css/menu.css"/>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Menu de navegação principal">
+    
+    <!-- 🏆 Logomarca GOFUT no canto esquerdo -->
+    <a href="index.html" class="logo" title="Página Inicial">
+      <img src="assets/logos/gofutbranca.png" alt="GOFUT" />
+    </a>
+
+    <!-- LINKS principais -->
+    <a href="liga.html" title="Visualizar a Tabela"><i class="fas fa-table"></i> Tabela</a>
+    <a href="campeonatos.html" title="Visualizar Campeonatos"><i class="fas fa-trophy"></i> Campeonatos</a>
+    <!-- <a href="ranking.html" title="Ranking"><i class="fas fa-medal"></i> Ranking</a>
+    <!-- 🌐 NOVO LINK Matchmaking -->
+    <!-- <a href="matchmaking.html" title="Matchmaking"><i class="fas fa-bolt"></i> Matchmaking</a>
+
+    <!-- 🔗 Botão: Perfil -->
+    <a href="#" class="btn-profile" id="profile-toggle" title="Meu Perfil">
+      <i class="fas fa-user-circle"></i>
+    </a>
+
+    <!-- Submenu de Perfil (inicialmente vazio) -->
+    <div class="profile-menu" id="profile-menu"></div>
+  </nav>
+
+  <!-- JS de controle do menu -->
+  <script src="js/menu.js" defer></script>
+</body>
+</html>

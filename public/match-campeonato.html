@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partida de Campeonato</title>
+
+  <!-- Fonte e Estilos -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/match-campeonato.css" />
+
+  <!-- FontAwesome para ícones -->
+  <script src="https://kit.fontawesome.com/2f33f47f70.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- 🔔 TOAST FLUTUANTE -->
+  <div id="toast" class="toast hidden">Mensagem</div>
+
+  <h1>Registrar Partida de Campeonato</h1>
+
+  <form id="matchForm">
+
+    <!-- 🏆 Seletor de Campeonato -->
+    <div class="championship-row">
+      <div id="campeonatos-lista" class="campeonatos-container"></div>
+      <input type="hidden" name="championship_id" id="championship_id" required />
+    </div>
+
+    <!-- 🧍 Jogador 1 -->
+    <div class="player-column">
+      <label>Jogador 1:
+        <select name="player1" id="player1Select" required>
+          <option value="">Selecione o Jogador 1</option>
+        </select>
+      </label>
+
+      <label>Gols:
+        <input type="number" name="player1_score" required />
+      </label>
+      <label>Escanteios:
+        <input type="number" name="player1_corners" required />
+      </label>
+      <label>Amarelos:
+        <input type="number" name="player1_yellow" required />
+      </label>
+      <label>Vermelhos:
+        <input type="number" name="player1_red" required />
+      </label>
+
+      <!-- 📊 Novos Campos -->
+      <label>Posse de Bola (%):
+        <input type="number" name="player1_possession" min="0" max="100" />
+      </label>
+      <label>Chutes no Gol:
+        <input type="number" name="player1_kick_on_target" min="0" />
+      </label>
+      <label>Nome do Time:
+        <input type="text" name="player1_team" />
+      </label>
+    </div>
+
+    <!-- 🧍 Jogador 2 -->
+    <div class="player-column">
+      <label>Jogador 2:
+        <select name="player2" id="player2Select" required>
+          <option value="">Selecione o Jogador 2</option>
+        </select>
+      </label>
+
+      <label>Gols:
+        <input type="number" name="player2_score" required />
+      </label>
+      <label>Escanteios:
+        <input type="number" name="player2_corners" required />
+      </label>
+      <label>Amarelos:
+        <input type="number" name="player2_yellow" required />
+      </label>
+      <label>Vermelhos:
+        <input type="number" name="player2_red" required />
+      </label>
+
+      <!-- 📊 Novos Campos -->
+      <label>Posse de Bola (%):
+        <input type="number" name="player2_possession" min="0" max="100" />
+      </label>
+      <label>Chutes no Gol:
+        <input type="number" name="player2_kick_on_target" min="0" />
+      </label>
+      <label>Nome do Time:
+        <input type="text" name="player2_team" />
+      </label>
+    </div>
+
+    <!-- ✅ Botão de envio -->
+    <button type="submit">Enviar Partida</button>
+  </form>
+
+  <script src="../js/match-campeonato.js"></script>
+</body>
+</html>

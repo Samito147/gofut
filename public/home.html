@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOFut | O Jogo Começa Aqui</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top, #121212, #0a0a0a);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: #000;
+      border-bottom: 1px solid #222;
+    }
+    header .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: #27ae60;
+      letter-spacing: 1px;
+    }
+    nav a {
+      color: #ccc;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #27ae60;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+    .hero .cta {
+      margin-top: 2rem;
+    }
+    .cta a {
+      background: #27ae60;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #27ae60;
+      transition: background 0.3s;
+    }
+    .cta a:hover {
+      background: #1e8449;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem;
+      background: #111;
+      text-align: center;
+    }
+    .feature {
+      background: #1c1c1c;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+    .feature i {
+      font-size: 2rem;
+      color: #27ae60;
+      margin-bottom: 1rem;
+    }
+    .feature h3 {
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .feature p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+    footer {
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      color: #666;
+      font-size: 0.85rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GOFut</div>
+    <nav>
+      <a href="login.html">Entrar</a>
+      <a href="cadastro.html">Cadastrar</a>
+      <a href="#">Ranking</a>
+      <a href="#">Sobre</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <h1>Transforme seu jogo em lenda</h1>
+    <p>Participe de torneios, acompanhe rankings, desafie amigos e evolua sua performance em tempo real com a plataforma que une paixão e competição.</p>
+    <div class="cta">
+      <a href="cadastro.html">Comece agora</a>
+    </div>
+  </section>
+  <section class="features">
+    <div class="feature">
+      <i class="fas fa-trophy"></i>
+      <h3>Ranking em Tempo Real</h3>
+      <p>Acompanhe sua colocação com base em desempenho e estatísticas atualizadas a cada partida.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-users"></i>
+      <h3>Desafios Diretos</h3>
+      <p>Crie ou aceite convites para partidas e registre sua superioridade com estilo.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-chart-line"></i>
+      <h3>Estatísticas Detalhadas</h3>
+      <p>Visualize sua evolução com gráficos, eficiência, escanteios, gols, vitórias e muito mais.</p>
+    </div>
+  </section>
+  <footer>
+    &copy; 2025 GOFut. Todos os direitos reservados.
+  </footer>
+</body>
+</html>

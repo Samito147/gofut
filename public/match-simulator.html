@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Simulador de Partidas • GOFUT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #e0e0e0;
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #1f1f1f;
+      border-radius: 8px;
+      border: 1px solid #444;
+    }
+
+    .result h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .pair {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .highlight {
+      margin-top: 0.8rem;
+      font-size: 0.95rem;
+      color: #f0ad4e;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 Simulador de Partidas (ELO)</h1>
+
+  <form id="simulatorForm">
+    <label>ELO Jogador 1: <input type="number" name="player1Elo" required /></label>
+    <label>ELO Jogador 2: <input type="number" name="player2Elo" required /></label>
+    <label>Gols Jogador 1: <input type="number" name="player1Score" required /></label>
+    <label>Gols Jogador 2: <input type="number" name="player2Score" required /></label>
+    <label>Escanteios Jogador 1: <input type="number" name="player1Corners" required /></label>
+    <label>Escanteios Jogador 2: <input type="number" name="player2Corners" required /></label>
+    <label>Cartões Amarelos Jogador 1: <input type="number" name="player1Yellow" required /></label>
+    <label>Cartões Amarelos Jogador 2: <input type="number" name="player2Yellow" required /></label>
+    <label>Cartões Vermelhos Jogador 1: <input type="number" name="player1Red" required /></label>
+    <label>Cartões Vermelhos Jogador 2: <input type="number" name="player2Red" required /></label>
+
+    <button type="submit">Simular Partida</button>
+  </form>
+
+  <div class="result" id="result" style="display:none;"></div>
+  <div id="elo-difficulty" class="highlight"></div>
+
+  <script type="module">
+    function calculateElo({
+      player1Elo,
+      player2Elo,
+      player1Score,
+      player2Score,
+      player1Corners,
+      player2Corners,
+      player1Yellow,
+      player2Yellow,
+      player1Red,
+      player2Red
+    }) {
+      const eloDiff = Math.abs(player1Elo - player2Elo)
+      const baseChange = 20 + Math.min(Math.floor(eloDiff / 100), 20)
+
+      const result1 =
+        player1Score > player2Score ? 'win' :
+        player1Score < player2Score ? 'loss' : 'draw'
+
+      const expected1 = 1 / (1 + 10 ** ((player2Elo - player1Elo) / 400))
+      const expected2 = 1 - expected1
+
+      const score1 = result1 === 'win' ? 1 : result1 === 'draw' ? 0.5 : 0
+      const score2 = 1 - score1
+
+      let delta1 = Math.round(baseChange * (score1 - expected1))
+      let delta2 = Math.round(baseChange * (score2 - expected2))
+
+      // ⚽ Bonificação por diferença de gols
+      const goalDiff = Math.abs(player1Score - player2Score)
+      if (player1Score > player2Score) delta1 += goalDiff
+      if (player2Score > player1Score) delta2 += goalDiff
+
+      // 📊 Bonificação por escanteios
+      delta1 += player1Corners - player2Corners
+      delta2 += player2Corners - player1Corners
+
+      // 🚨 Penalização por cartões
+      delta1 -= player1Yellow * 1 + player1Red * 2
+      delta2 -= player2Yellow * 1 + player2Red * 2
+
+      // 💥 Multiplicador para vitória do underdog
+      if (result1 === 'win' && player1Elo < player2Elo && eloDiff >= 300) {
+        delta1 = Math.round(delta1 * 2)
+        delta2 = Math.round(delta2 * 2)
+      }
+
+      // ✨ Variação mínima
+      if (delta1 === 0 && score1 !== 0.5) delta1 = score1 > 0.5 ? 1 : -1
+      if (delta2 === 0 && score2 !== 0.5) delta2 = score2 > 0.5 ? 1 : -1
+
+      // ⚔️ Dificuldade para visual
+      let difficulty = 'Normal'
+      if (eloDiff >= 200 && result1 === 'win' && player1Elo < player2Elo) {
+        difficulty = 'Desafio ÉPICO ⚔️'
+      } else if (eloDiff >= 150) {
+        difficulty = 'Difícil ⚠️'
+      } else if (eloDiff >= 100) {
+        difficulty = 'Moderado ⚙️'
+      }
+
+      return {
+        player1EloNew: player1Elo + delta1,
+        player2EloNew: player2Elo + delta2,
+        delta1,
+        delta2,
+        difficulty
+      }
+    }
+
+    const form = document.getElementById('simulatorForm')
+    const resultBox = document.getElementById('result')
+    const difficultyBox = document.getElementById('elo-difficulty')
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      const formData = new FormData(form)
+      const values = Object.fromEntries(formData.entries())
+      for (let key in values) values[key] = parseInt(values[key])
+
+      const result = calculateElo(values)
+
+      resultBox.innerHTML = `
+        <h2>Resultado da Simulação</h2>
+        <div class="pair"><strong>Novo ELO Jogador 1:</strong> ${result.player1EloNew} (<em>${result.delta1 >= 0 ? '+' : ''}${result.delta1}</em>)</div>
+        <div class="pair"><strong>Novo ELO Jogador 2:</strong> ${result.player2EloNew} (<em>${result.delta2 >= 0 ? '+' : ''}${result.delta2}</em>)</div>
+      `
+      resultBox.style.display = 'block'
+      difficultyBox.textContent = `⚔️ Nível de Desafio: ${result.difficulty}`
+    })
+  </script>
+</body>
+</html>

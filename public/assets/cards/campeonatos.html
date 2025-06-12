@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cartão de Jogador</title>
+
+  <!-- Font Awesome (para os ícones via ::before no CSS) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- CSS específico desta página -->
+  <link rel="stylesheet" href="../../css/cards.css">
+
+</head>
+<body>
+  <div class="card-wrapper">
+    <div class="player-card">
+      <!-- 📸 Foto -->
+      <div class="photo">
+        <img id="player-photo" src="" alt="Foto do Jogador">
+      </div>
+      <!-- 💎 Nome -->
+      <div class="player-name" id="player-name">Carregando...</div>
+      <!-- 📊 Estatísticas -->
+      <div class="stats">
+        <span class="label">POSIÇÃO</span> <span id="posicao">-</span>
+        <span class="label">GOLS</span> <span id="gols">-</span>
+        <span class="label">VITÓRIAS</span> <span id="vitorias">-</span>
+        <span class="label">DERROTAS</span> <span id="derrotas">-</span>
+        <span class="label">SALDO</span> <span id="saldo">-</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS desta página -->
+  <script src="../../js/cards.js" defer></script>
+</body>
+</html>

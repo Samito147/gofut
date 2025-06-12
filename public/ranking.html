@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Ranking Global - GOFUT</title>
+
+  <!-- ✅ Anti-flash branco: fundo escuro inicial -->
+  <style>
+    html, body {
+      background-color: #0f0f0f;
+    }
+  </style>
+
+  <!-- Fonte e Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/menu.css"/>
+  <link rel="stylesheet" href="css/ranking.css"/>
+</head>
+<body>
+
+  <!-- Placeholder para o menu carregado via JS -->
+  <div id="menu-placeholder"></div>
+
+  <!-- Conteúdo principal (oculto inicialmente para sincronia com menu.js) -->
+  <main class="profile-page admin-page" style="visibility: hidden; opacity: 0;">
+    <h1>🏆 Ranking Global</h1>
+    <table id="ranking-table">
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Jogador</th>
+          <th>ELO</th>
+          <th>Classe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Conteúdo dinâmico via JS -->
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/menu.js" defer></script>
+  <script src="js/ranking.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Perfil</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/menu.css"/>
+  <link rel="stylesheet" href="css/perfil.css"/>
+</head>
+<body>
+  <div id="menu-placeholder"></div>
+
+  <main class="profile-page" style="visibility:hidden; opacity:0; transition: opacity 0.3s ease;">
+    <section class="profile-header">
+      <div class="avatar">
+        <img id="profile-avatar" src="https://i.pravatar.cc/150?img=3" alt="Avatar do Usuário"/>
+      </div>
+
+      <!-- 🔄 Agrupando info + status lado a lado -->
+      <div class="info-status-wrapper">
+        <div class="personal-info">
+          <h1 id="profile-nick">Nick do Usuário</h1>
+          <ul>
+            <li><i class="fas fa-user"></i> <span id="profile-name">Nome Completo</span></li>
+            <li><i class="fas fa-birthday-cake"></i> <span id="profile-age">00 anos</span></li>
+          </ul>
+        </div>
+
+        <div class="profile-status">
+          <ul>
+            <li><i class="fas fa-star"></i> ELO: <strong id="profile-elo">--</strong></li>
+            <li><i class="fas fa-medal"></i> Classe: <strong id="profile-class">--</strong></li>
+            <li><i class="fas fa-user-clock"></i> <span id="profile-member-since">Membro desde: --/--</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ✅ Bloco de eficiência com histórico integrado -->
+      <div class="efficiency-container">
+        <div class="efficiency-circle">
+          <svg>
+            <circle class="bg" r="40" cx="50%" cy="50%"></circle>
+            <circle class="fg" r="40" cx="50%" cy="50%"></circle>
+          </svg>
+          <span id="efficiency-text">0%</span>
+        </div>
+        <div class="match-history" id="match-history"></div>
+      </div>
+    </section>
+
+    <div class="tabs">
+      <button type="button" data-tab="stats" class="active">Estatísticas</button>
+      <button type="button" data-tab="history">Histórico</button>
+      <button type="button" data-tab="achievements">Conquistas</button>
+    </div>
+
+    <div class="tab-content">
+      <div id="stats" class="active">
+        <section class="stats-grid">
+          <div class="stat-card"><i class="fas fa-gamepad"></i><div><h2 id="stat-played">0</h2><p>Partidas Jogadas</p></div></div>
+          <div class="stat-card"><i class="fas fa-futbol"></i><div><h2 id="stat-goals">0</h2><p>Gols Feitos</p></div></div>
+          <div class="stat-card"><i class="fas fa-trophy"></i><div><h2 id="stat-victories">0</h2><p>Vitórias</p></div></div>
+          <div class="stat-card"><i class="fas fa-handshake"></i><div><h2 id="stat-draws">0</h2><p>Empates</p></div></div>
+          <div class="stat-card"><i class="fas fa-times-circle"></i><div><h2 id="stat-losses">0</h2><p>Derrotas</p></div></div>
+          <div class="stat-card"><i class="fas fa-chart-line"></i><div><h2 id="stat-corners">0.0</h2><p>Escanteios</p></div></div>
+          <div class="stat-card"><i class="fas fa-square"></i><div><h2 id="stat-yellow">0</h2><p>Amarelos</p></div></div>
+          <div class="stat-card"><i class="fas fa-book-dead"></i><div><h2 id="stat-red">0.0</h2><p>Vermelhos</p></div></div>
+        </section>
+
+        <!-- ✅ TABELA DE ESTATÍSTICAS DAS PARTIDAS -->
+        <section class="match-stats-table">
+          <h2 class="table-title">Resumo das Partidas</h2>
+          <div class="table-wrapper">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Resultado</th>
+                  <th>Gols</th>
+                  <th>Escanteios</th>
+                  <th>Cartões</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody id="stats-table-body">
+                <tr><td colspan="6" style="text-align:center;">🔄 Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div id="history" class="history-list">
+        <p style="text-align:center; color:#aaa;">Carregando histórico...</p>
+      </div>
+      <div id="achievements">
+        <p style="text-align:center; color:#aaa;">Nenhuma conquista registrada.</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast-error" class="toast error"></div>
+  <div id="toast-success" class="toast success"></div>
+
+  <script src="js/menu.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/countup.js@2.6.2/dist/countUp.umd.js" defer></script>
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js" defer></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.min.js" defer></script>
+  <script src="js/perfil.js" defer></script>
+</body>
+</html>

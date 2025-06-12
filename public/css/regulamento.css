@@ -1,0 +1,101 @@
+/* 0) GARANTE QUE NÃO HAJA ROLAGEM HORIZONTAL */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background: #0f0f0f !important;
+  width: 100%;
+}
+
+/* 1) RESET GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2) BODY – mantém apenas fonte e padding-top e corrige o background */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f !important; /* força o fundo escuro */
+  padding-top: 4rem; /* espaço para o menu fixo */
+  color: #e0e0e0;
+}
+
+/* 3) ANIMAÇÃO fadeInUp – escopo global */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 4) CONTEÚDO – aplicado só à .container e descendentes */
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.container h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+.container h1 i {
+  margin-right: 0.5rem;
+  font-size: 1em;
+  color: #00bcd4;
+}
+
+.container section { margin-bottom: 2rem; }
+.container h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+.container h2 i { margin-right: 0.5rem; color: #03dac6; }
+.container p { margin-bottom: 1rem; color: #e0e0e0; line-height: 1.6; }
+.container ul { margin-left: 1.5rem; margin-bottom: 1rem; color: #e0e0e0; }
+.container ul li { margin-bottom: 0.5rem; }
+.container .attention {
+  background: rgba(255, 59, 48, 0.1);
+  border-left: 4px solid #ff3b30;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.container .attention-blue {
+  background: rgba(3, 220, 198, 0.1);
+  border-left: 4px solid #03dac6;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.container .attention-cinza {
+  background: rgba(153, 153, 153, 0.1);
+  border-left: 4px solid #03dac6;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.collapsible-content { display: none; }
+section.open .collapsible-content { display: block; }
+
+/* MEDIA QUERIES PARA TELAS PEQUENAS */
+@media (max-width: 600px) {
+  .container { padding: 0 0.75rem; }
+  .container h1 { font-size: clamp(1.25rem, 8vw, 2rem); }
+  .container h2 { font-size: 1.5rem; }
+}

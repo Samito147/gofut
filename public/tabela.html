@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabela</title>
+
+  <!-- libs externas -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        rel="stylesheet"/>
+
+  <!-- CSS compartilhados -->
+  <link rel="stylesheet" href="/css/menu.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+  <div id="menu-placeholder"></div>
+
+  <div id="export-container">
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>JOGADOR</th><th>P</th><th>J</th><th>V</th><th>E</th>
+            <th>D</th><th>GP</th><th>GC</th><th>SG</th>
+            <th><span style="color: #e74c3c">V</span></th>
+          </tr>
+        </thead>
+        <tbody id="tabela-corpo"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- scripts de terceiros -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
+  <!-- seus scripts -->
+  <script src="/js/menu.js" defer></script>
+  <script src="/js/index.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+🗂️ CRONOGRAMA DETALHADO – PÁGINA DE PERFIL (VITRINE DO USUÁRIO)
+🔵 ETAPA 1 – BLOCO DE IDENTIFICAÇÃO E STATUS
+Exibição do topo com informações de perfil, ELO e Classe
+
+📌 Subetapas:
+1.1 – perfil.js: Criar estrutura lógica para exibir elo, classe e dataCadastro
+1.2 – perfil.html: Adicionar novo bloco HTML com layout visual fixo (sem dados dinâmicos ainda)
+1.3 – perfil.css: Estilizar o novo bloco de forma destacada e elegante (badge, bordas, cor por classe)
+1.4 – perfil.js: Preencher o bloco com dados reais puxados do Supabase
+1.5 – TESTE – Validação de visual, layout e responsividade desse bloco
+✅ Após teste positivo, seguimos para a próxima etapa
+
+🟣 ETAPA 2 – SISTEMA DE CONQUISTAS (BADGES)
+Ícones visuais de conquistas pessoais com base em estatísticas
+
+📌 Subetapas:
+2.1 – perfil.js: Criar função para verificar conquistas com base nas regras (invencibilidade, fair play etc.)
+2.2 – perfil.html: Criar seção visual abaixo do status para exibir conquistas
+2.3 – perfil.css: Estilizar ícones, tooltips e disposição responsiva
+2.4 – perfil.js: Preencher os badges dinâmicos com base no resultado das regras
+2.5 – TESTE – Validação das condições, exibição e comportamento visual
+
+🟢 ETAPA 3 – ESTATÍSTICAS AVANÇADAS
+Inserir nova seção com eficiência, escanteios, fair play e evolução
+
+📌 Subetapas:
+3.1 – perfil.js: Calcular estatísticas extras: eficiência %, escanteios/jogo, cartões por jogo
+3.2 – perfil.html: Adicionar bloco visual das estatísticas detalhadas
+3.3 – perfil.css: Estilizar essa seção com cards ou colunas de destaque
+3.4 – perfil.js: Integrar dados em tempo real e atualizar DOM
+3.5 – TESTE – Checar exibição de valores e funcionamento responsivo
+
+🟠 ETAPA 4 – GRÁFICOS DE DESEMPENHO
+Inserir visualizações gráficas que ajudem a comparar atributos
+
+📌 Subetapas:
+4.1 – perfil.html: Criar container para gráfico radar ou barra
+4.2 – perfil.js: Adicionar biblioteca Chart.js dinamicamente
+4.3 – perfil.js: Inserir dados do usuário e configurar gráfico
+4.4 – perfil.css: Ajustar responsividade e visual escuro
+4.5 – TESTE – Validar exibição, valores e reatividade
+
+🔴 ETAPA 5 – HISTÓRICO EXPANDIDO DE PARTIDAS
+Reforçar o histórico com detalhes extras e melhores estilos
+
+📌 Subetapas:
+5.1 – perfil.html: Reestruturar a lista para permitir mais dados por linha
+5.2 – perfil.js: Adicionar novos dados: escanteios, cartões, ELO antes/depois
+5.3 – perfil.css: Estilizar novo layout com contraste e responsividade
+5.4 – TESTE – Validar nova estrutura e legibilidade
+
+🟤 ETAPA 6 – BOTÕES DE COMPARTILHAMENTO
+Facilitar o orgulho competitivo e gerar desejo de compartilhamento
+
+📌 Subetapas:
+6.1 – perfil.html: Inserir botões “🔗 Compartilhar Perfil” e “📸 Gerar Imagem”
+6.2 – perfil.js: Implementar cópia de link com navigator.clipboard.writeText()
+6.3 – perfil.js: Integrar html2canvas para exportação em PNG
+6.4 – perfil.css: Estilizar botões com destaque
+6.5 – TESTE – Validar funcionalidade de link e imagem
+
+⚫ ETAPA FINAL – OTIMIZAÇÃO E SEGURANÇA
+Último pente-fino técnico antes do deploy final
+
+📌 Subetapas:
+F.1 – Revisar perfil.js para otimizar loops, funções e ordenações
+F.2 – Garantir que nenhum dado sensível seja exibido
+F.3 – Validar tokens e sessões de segurança
+F.4 – TESTE – Acessar a página com diferentes usuários (mocked) para checar isolamentos
+F.5 – Gerar SAVE POINT FINAL da página perfil.html, perfil.js, perfil.css
+

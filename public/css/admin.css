@@ -1,0 +1,333 @@
+/* Esconde o main da admin antes de qualquer script */
+.profile-page.admin-page {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Ajusta grid principal */
+.profile-page.admin-page {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "menu   content";
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+  align-items: start;
+}
+
+/* REMOVE limite fixo de largura */
+.admin-page {
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  color: #e0e0e0;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+.admin-page h1 {
+  grid-area: header;
+  justify-self: center;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 1rem 0;
+}
+
+.stats-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* BUSCA */
+.profile-page.admin-page > .form-group,
+.admin-content .search-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.profile-page.admin-page > .form-group label,
+.admin-content .search-group label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.profile-page.admin-page > .form-group input#player-search,
+.admin-content .search-group input#player-search {
+  width: 280px;
+  height: 2.5rem;
+  margin: 0;
+}
+
+.profile-page.admin-page > .form-group button#search-btn,
+.admin-content .search-group button#search-btn {
+  margin: 0 auto;
+}
+
+/* CARDS DE ESTATÍSTICAS */
+.stats-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.stats-card {
+  background: #1f1f1f;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  flex: 1 1 auto;
+}
+
+.stats-card label {
+  font-weight: 500;
+  color: #ccc;
+}
+.stats-card span.current {
+  font-weight: 600;
+  color: #00bcd4;
+}
+
+/* FORMULÁRIO */
+.form-group,
+.form-group-inline > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group-inline {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.form-group-inline > div {
+  flex: 1 1 auto;
+}
+
+label {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+input,
+select {
+  padding: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.btn {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background: #00bcd4;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: #0097a7;
+}
+
+.stats-form button[type="submit"] {
+  margin: 0 auto;
+  display: block;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  display: none;
+  width: max-content;
+  max-width: 90vw;
+}
+.toast.show {
+  display: inline-flex;
+  align-items: center;
+}
+.toast.error {
+  background: #f44336;
+  color: #fff;
+}
+.toast.success {
+  background: #4caf50;
+  color: #000;
+}
+
+/* BOTÃO DE BUSCA */
+#search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #00bcd4, #007c91);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.1s;
+}
+#search-btn:hover {
+  background: linear-gradient(135deg, #0097a7, #005f67);
+  transform: translateY(-1px);
+}
+#search-btn:active {
+  transform: translateY(1px);
+}
+
+/* GESTÃO DE USUÁRIOS */
+#admin-users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0;
+  width: 100%;
+}
+#admin-users h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.user-item {
+  background: #2a2a2a;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: transform 0.2s, background 0.2s;
+}
+.user-item:hover {
+  transform: translateY(-2px);
+  background: #333333;
+}
+.user-item .user-name,
+.user-item .user-full {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 45%;
+}
+.user-item .delete-user {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #e74c3c;
+  transition: color 0.2s;
+}
+.user-item .delete-user:hover {
+  color: #c0392b;
+}
+
+/* LAYOUT FLEX */
+.admin-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+.admin-menu {
+  width: 220px;
+  background: #1f1f1f;
+  padding: 1rem;
+  border-radius: 4px;
+  flex: 0 0 auto;
+}
+.admin-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.admin-menu li {
+  margin-bottom: 0.75rem;
+}
+.admin-menu button {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #e0e0e0;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-menu button:hover,
+.admin-menu button.active {
+  background: #00bcd4;
+  color: #000;
+}
+.admin-content {
+  flex: 1 1 auto;
+  width: 100%;
+  background: none;
+  min-width: 0;
+}
+
+/* RESULTADOS (match-tester integrado) */
+#match-tester-content {
+  width: 100%;
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  .admin-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .admin-menu {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .admin-content {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .profile-page.admin-page {
+    display: flex !important;
+    flex-direction: column;
+    margin: 2rem auto;
+  }
+}

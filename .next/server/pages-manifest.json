@@ -1,0 +1,11 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/api/session": "pages/api/session.js",
+  "/api/tabela": "pages/api/tabela.js",
+  "/api/users/by-id": "pages/api/users/by-id.js",
+  "/api/championships/player-stats": "pages/api/championships/player-stats.js",
+  "/api/profile": "pages/api/profile.js",
+  "/api/campeonatos": "pages/api/campeonatos.js"
+}

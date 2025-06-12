@@ -1,0 +1,51 @@
+📂 public/
+├── index.html                → Página inicial
+├── login.html                → Login do usuário
+├── cadastro.html             → Cadastro de usuário
+├── perfil.html               → Perfil do jogador (dados + conquistas + histórico)
+├── ranking.html              → Ranking global
+├── regulamento.html          → Regras e FAQ do campeonato
+├── resultados.html           → Feed de últimos resultados
+├── tabela.html               → Classificação do campeonato
+├── match-campeonato.html     → Registro de partidas de campeonato
+├── match-tester.html         → Página de teste de registro de partidas
+├── admin.html                → Painel de administração
+└── assets/                   → Imagens, avatares, ícones, logos
+
+
+📂 public/css/
+├── styles.css                → Estilo global da plataforma
+├── perfil.css                → Layout e estilo sofisticado do perfil
+├── ranking.css               → Visualização do ranking (classe, avatar)
+├── regulamento.css           → Estilo para a página de regulamento
+├── resultados.css            → Estilo para feed de resultados (cards de partidas)
+├── teste.css                 → Arquivo de testes (onde estava a frase secreta)
+└── ...                       → Animações, responsividade, detalhes visuais refinados
+
+
+📂 public/js/
+├── admin.js                  → Gerenciamento do painel admin
+├── cadastro.js               → Cadastro de usuário com validação
+├── match-campeonato.js       → Registro de partidas de campeonato (com players dinâmicos)
+├── match-tester.js           → Registro manual de partidas (para testes)
+├── matchmaking.js            → Controle de partidas livres (matchmaking)
+├── menu.js                   → Controle de navegação lateral
+├── perfil.js                 → Carregamento dinâmico de perfil: ELO, conquistas, histórico, eficiência
+├── ranking.js                → Carregamento do leaderboard global (ordenado por ELO)
+├── regulamento.js            → Controle de FAQ interativo
+├── resultados.js             → Feed dinâmico de resultados
+├── elo.js                    → Algoritmo customizado de cálculo de ELO
+└── utils/                    → Funções utilitárias (não mapeadas no ZIP mas em uso no código)
+
+
+users              → Dados do usuário (id, username, full_name, birth_date)
+user_stats         → Estatísticas dos jogadores (wins, losses, draws, gols, cartões, elo, classe)
+matches            → Partidas registradas (player1, player2, gols, cartões, posse, chutes, timestamp)
+championships      → Campeonatos ativos
+championship_players → Inscrições de jogadores por campeonato
+
+
+/api/profile.js          → Retorna dados do perfil + stats
+/api/match.js            → Recebe e registra uma partida + calcula ELO + atualiza stats
+/api/championships/match.js → Registra partida vinculada a um campeonato
+/api/championships/jogadores.js → Lista jogadores inscritos em campeonato

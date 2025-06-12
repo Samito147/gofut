@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Teste Manual de Partidas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/match-tester.css" />
+</head>
+<body>
+
+<h1>Manutenção de Partidas</h1>
+
+<form id="matchForm">
+  <!-- 🧍 Jogador 1 -->
+  <div class="player-column">
+    <label>Jogador 1:
+      <div class="input-group">
+        <input type="text" id="player1Search" placeholder="Nome do usuário" />
+        <button type="button" class="btn-search" onclick="searchUser(1)">🔍</button>
+      </div>
+      <div id="results1" class="results" style="display:none;"></div>
+      <input type="hidden" name="player1" id="player1Id" />
+    </label>
+
+    <label>Time:<input type="text" name="player1_team" required /></label>
+    <label>Gols:<input type="number" name="player1Score" required /></label>
+    <label>Chutes no gol:<input type="number" name="player1_kick_on_target" required /></label>
+    <label>Posse de bola:<input type="number" name="player1_possession" required /></label>
+    <label>Escanteios:<input type="number" name="player1Corners" required /></label>
+    <label>Amarelos:<input type="number" name="player1Yellow" required /></label>
+    <label>Vermelhos:<input type="number" name="player1Red" required /></label>
+  </div>
+
+  <!-- 🧍 Jogador 2 -->
+  <div class="player-column">
+    <label>Jogador 2:
+      <div class="input-group">
+        <input type="text" id="player2Search" placeholder="Nome do usuário" />
+        <button type="button" class="btn-search" onclick="searchUser(2)">🔍</button>
+      </div>
+      <div id="results2" class="results" style="display:none;"></div>
+      <input type="hidden" name="player2" id="player2Id" />
+    </label>
+
+    <label>Time:<input type="text" name="player2_team" required /></label>
+    <label>Gols:<input type="number" name="player2Score" required /></label>
+    <label>Chutes:<input type="number" name="player2_kick_on_target" required /></label>
+    <label>Posse de bola:<input type="number" name="player2_possession" required /></label>
+    <label>Escanteios:<input type="number" name="player2Corners" required /></label>
+    <label>Amarelos:<input type="number" name="player2Yellow" required /></label>
+    <label>Vermelhos:<input type="number" name="player2Red" required /></label>
+  </div>
+
+  <!-- ✅ Botão de envio -->
+  <button type="submit">Enviar Partida</button>
+
+  <!-- 📋 Log de retorno da API -->
+  <div class="log" id="log"></div>
+</form>
+
+<script src="../js/match-tester.js"></script>
+</body>
+</html>

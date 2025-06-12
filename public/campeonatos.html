@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Campeonatos</title>
+
+  <!-- 2) CSS do menu -->
+  <link rel="stylesheet" href="/css/menu.css"/>
+  
+  <!-- 1) CSS global do site (tema escuro, tipografia etc) -->
+  <link rel="stylesheet" href="/css/styles.css"/>
+
+
+  <!-- 3) CSS específico de Campeonatos -->
+  <link rel="stylesheet" href="/css/campeonatos.css"/>
+</head>
+<body>
+
+  <!-- 🔁 Menu dinâmico -->
+  <div id="menu-placeholder"></div>
+
+  <!-- 🎯 Conteúdo principal da página -->
+  	  <p>&nbsp;</p>
+  <main class="championships-page" style="visibility: hidden; opacity: 0; transition: opacity 0.3s ease;">
+    <!-- 🔽 Lista dinâmica de campeonatos -->
+    <section id="campeonatos-lista" class="campeonatos-container">
+      <!-- Campeonatos disponíveis serão inseridos aqui pelo JS -->
+    </section>
+  </main>
+
+<!-- seu JS separado -->
+ <script src="/js/menu.js"></script>
+<script type="module" src="/js/campeonatos.js"></script>
+
+</body>
+</html>

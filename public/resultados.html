@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Resultados</title>
+
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- CSS do menu -->
+  <link rel="stylesheet" href="css/menu.css">
+  <!-- CSS global -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- CSS específico desta página -->
+  <link rel="stylesheet" href="css/resultados.css">
+
+  <!-- html2canvas (global) -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- placeholder do menu -->
+  <div id="menu-placeholder"></div>
+  <script src="js/menu.js" defer></script>
+
+  <div class="container">
+    <h1><i class="fas fa-check-circle"></i> Partidas finalizadas</h1>
+    <div class="score-grid">
+
+      <!-- Card 1 -->
+      <div class="scoreboard" data-team1-score="2" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="../assets/fotos/Samuel.png" alt="Samuel">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Samuel</div>
+          </div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">2</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Vinicius">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Vinicius</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>58% / 42%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>5 / 4</div>
+          <div class="stat"><i class="fas fa-flag"></i>7 / 3</div>
+        </div>
+        <i class="fas fa-share-alt share-icon"></i>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="scoreboard" data-team1-score="3" data-team2-score="4">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/21.jpg" alt="Fernando">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Fernando</div>
+          </div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">3</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">4</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Douglas">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Douglas</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>46% / 54%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>8 / 10</div>
+          <div class="stat"><i class="fas fa-flag"></i>4 / 5</div>
+        </div>
+        <i class="fas fa-share-alt share-icon"></i>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="scoreboard" data-team1-score="1" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Danilo A">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Danilo A</div>
+          </div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">1</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Michel">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Michel</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>50% / 50%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>6 / 6</div>
+          <div class="stat"><i class="fas fa-flag"></i>5 / 5</div>
+        </div>
+        <i class="fas fa-share-alt share-icon"></i>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="scoreboard" data-team1-score="3" data-team2-score="1">
+        <div class="team-block team1">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Ericles">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Ericles</div>
+          </div>
+        </div>
+        <div class="middle">
+          <div class="scores">
+            <div class="score team1-score">3</div>
+            <div class="vs">VS</div>
+            <div class="score team2-score">1</div>
+          </div>
+        </div>
+        <div class="team-block team2">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/24.jpg" alt="Wagner">
+          <div class="team-info">
+            <span class="team-rank">–</span>
+            <div class="team-name">Wagner</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><i class="fas fa-chart-pie"></i>62% / 38%</div>
+          <div class="stat"><i class="fas fa-futbol"></i>10 / 4</div>
+          <div class="stat"><i class="fas fa-flag"></i>6 / 2</div>
+        </div>
+        <i class="fas fa-share-alt share-icon"></i>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/resultados.js" defer></script>
+</body>
+</html>

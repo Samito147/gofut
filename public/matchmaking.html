@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Matchmaking • GOFUT</title>
+
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- CSS global do menu -->
+  <link rel="stylesheet" href="css/menu.css"/>
+  <!-- CSS da página -->
+  <link rel="stylesheet" href="css/matchmaking.css"/>
+</head>
+<body>
+
+  <!-- ✅ Menu injetado dinamicamente -->
+  <div id="menu-placeholder"></div>
+
+  <!-- CONTEÚDO principal -->
+  <div class="container-matchmaking">
+    <main class="matchmaking-page main-page">
+
+      <!-- 📊 Painel do jogador -->
+      <section id="playerPanel" class="panel player">
+        <h2><i class="fa-solid fa-user"></i> Seu Desempenho</h2>
+        <div class="stats">
+          <div><span id="playerElo">–</span><small>ELO</small></div>
+          <div><span id="playerClass">–</span><small>Classe</small></div>
+        </div>
+        <button id="searchBtn" class="btn-primary">
+          <i class="fa-solid fa-magnifying-glass"></i> Buscar Partida
+        </button>
+        <!-- 🔁 Mensagem de busca -->
+        <p id="searchStatus" class="status hidden">⏳ Buscando oponente…</p>
+      </section>
+
+      <!-- 🎮 Fila ao vivo -->
+      <section class="panel queue">
+        <h2><i class="fa-solid fa-bolt"></i> Jogadores na Fila</h2>
+        <ul id="queueList" class="list"></ul>
+        <p id="emptyQueue" class="empty">Nenhum jogador na fila agora.</p>
+      </section>
+
+      <!-- 🏆 Ranking TOP 10 -->
+      <section class="panel ranking">
+        <h2><i class="fa-solid fa-trophy"></i> Ranking (TOP 10)</h2>
+        <ol id="rankingList" class="list ordered"></ol>
+      </section>
+
+      <!-- ⏱️ Últimas 5 partidas -->
+      <section class="panel history">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Últimas 5 partidas</h2>
+        <ul id="historyList" class="list"></ul>
+        <p id="noHistory" class="empty">Ainda sem partidas registradas.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- 🔔 Toast de erro -->
+  <div id="toast-alert" class="toast hidden">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span id="toast-msg">Mensagem de erro</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/menu.js" defer></script>
+  <script type="module" src="js/matchmaking.js"></script>
+</body>
+</html>
