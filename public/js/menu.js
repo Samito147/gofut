@@ -8,7 +8,7 @@
   // 1️⃣ Verifica sessão
   async function fetchSession() {
     try {
-      const res  = await fetch('/api/session', { credentials: 'include' });
+      const res  = await fetch('../api/session', { credentials: 'include' });
       const json = await res.json();
       const isLoggedIn = Boolean(json.isLoggedIn);
       const user       = json.user || null;
@@ -24,7 +24,7 @@
   const role = user?.role || null;
 
   try {
-    const resHtml = await fetch('menu.html');
+    const resHtml = await fetch('public/menu.html');
     const html    = await resHtml.text();
     const parser  = new DOMParser();
     const doc     = parser.parseFromString(html, 'text/html');
