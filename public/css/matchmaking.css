@@ -1,0 +1,181 @@
+/* 1) Força tema escuro global */
+body {
+  background: #0f0f0f !important;
+  color: #e0e0e0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 2) Grid centralizado e responsivo */
+.matchmaking-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  animation: fadeInUp .6s ease both;
+}
+
+/* 3) Painéis reutilizáveis */
+.panel {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,.4);
+}
+
+.panel h2 {
+  font-size: 1.2rem;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* 4) Botão buscar */
+.btn-primary {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: .8rem 1rem;
+  font: 600 1rem 'Poppins', sans-serif;
+  color: #fff;
+  background: var(--primary, #007bff);
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark, #0056b3);
+}
+
+/* 5) Listas */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li {
+  background: #242424;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: .8rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .6rem;
+}
+.list li:last-child {
+  margin-bottom: 0;
+}
+.ordered {
+  counter-reset: rank;
+}
+.ordered li {
+  counter-increment: rank;
+}
+.ordered li::before {
+  content: counter(rank) ".";
+  margin-right: .75rem;
+  color: var(--primary, #007bff);
+  font-weight: 600;
+}
+
+/* 6) Status fixo */
+.status {
+  margin-top: .8rem;
+  font-size: .9rem;
+  color: #aaa;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+/* 6.1) Esconder status de forma suave */
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* 7) Painel do jogador – valores grandes */
+.stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.stats div {
+  background: #242424;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+  padding: .75rem 0;
+}
+.stats span {
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: block;
+}
+.stats small {
+  font-size: .8rem;
+  color: #aaa;
+}
+
+/* 8) Animação de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 9) Responsividade extra p/ telas <480px */
+@media (max-width: 480px) {
+  .matchmaking-page {
+    margin-top: 0;
+  }
+}
+
+/* 10) Toast de alerta */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: .75rem 1.25rem;
+  border-radius: 8px;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  font-size: 0.95rem;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+  pointer-events: auto;
+}
+
+.toast i {
+  color: #f39c12;
+}
+
+.toast.hidden {
+  display: none;
+}

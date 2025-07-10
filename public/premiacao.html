@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premiação</title>
+  <link rel="stylesheet" href="/css/regulamento.css" />
+  <!-- Font Awesome para ícones -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+  <h2><i class="fas fa-award"></i><p>&nbsp;</p>PREMIAÇÃO OFICIAL<p>&nbsp;</p><p>&nbsp;</p><i class="fas fa-award"></i></h2>
+
+  <!-- 🥇 Primeiro colocado -->
+  <section>
+    <h2><i class="fas fa-medal" style="color: #ffd700;"></i>
+      <strong class="premio-titulo">1º Lugar — 🥇 R$ 1.500,00</strong>
+    </h2>
+    <div class="section-content">
+      <p>Premio será pago em <strong>PIX</strong> para o <strong>CPF</strong> do usuário cadastrado!</p>
+    </div>
+  </section>
+
+  <!-- 🥈 Segundo colocado -->
+  <section>
+    <h2><i class="fas fa-medal" style="color: #c0c0c0;"></i>
+      <strong class="premio-titulo">2º Lugar — 🥈 R$ 350,00</strong>
+    </h2>
+    <div class="section-content">
+      <p>Premio será pago em <strong>PIX</strong> para o <strong>CPF</strong> do usuário cadastrado!</p>
+    </div>
+  </section>
+
+  <!-- 🥉 Terceiro colocado -->
+  <section>
+    <h2><i class="fas fa-medal" style="color: #cd7f32;"></i>
+      <strong class="premio-titulo">3º Lugar — 🥉 R$ 150,00</strong>
+    </h2>
+    <div class="section-content">
+      <p>Premio será pago em <strong>PIX</strong> para o <strong>CPF</strong> do usuário cadastrado!</p>
+    </div>
+  </section>
+
+  <!-- ⚽️ Artilheiro -->
+  <section>
+    <h2><i class="fas fa-futbol" style="color: #00e676;"></i>
+      <strong class="premio-titulo">Artilheiro — R$ 150,00</strong>
+    </h2>
+    <div class="section-content">
+      <p>Premio será pago ao usuário com mais gols feitos ao final do campeonato, independente de sua posição/classificação ao decorrer dos jogos.</p>
+    </div>
+  </section>
+
+  <!-- 🎁 Sorteio -->
+  <section>
+    <h2><i class="fas fa-gift" style="color: #ff4081;"></i>
+      <strong class="premio-titulo">Bolão das FINAIS — R$ 300,00</strong>
+    </h2>
+    <div class="section-content">
+      <p>
+        Ao término da fase de classificação para as <strong>Oitavas de Final</strong>, todos os jogadores que forem <strong>ELIMINADOS</strong> terão a oportunidade de participar do <strong>Bolão das Finais</strong>.
+      </p>
+      <p>
+        O prêmio de <strong>R$ 300,00</strong> será entregue ao participante que acertar com precisão as <strong>3 perguntas chave</strong> sobre a grande final:
+      </p>
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>1️⃣ Qual será o confronto da Final?</strong></li>
+        <li><strong>2️⃣ Quem marcará o primeiro gol da Final?</strong></li>
+        <li><strong>3️⃣ Qual o placar exato da Grande Final?</strong></li>
+      </ul>
+      <p><strong>Regras importantes:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ Jogadores eliminados poderão enviar seus palpites após a definição das Oitavas.</li>
+        <li>✅ Palpites iguais entre diferentes jogadores serão permitidos.</li>
+        <li>✅ Para vencer, o participante deverá acertar as <strong>3 perguntas</strong> com total precisão.</li>
+      </ul>
+      <p>
+        <strong>Observação:</strong> Caso ninguém acerte as <strong>3 perguntas</strong> necessárias para ganhar o prêmio total, o valor será <strong>sorteado AO VIVO</strong> após a grande final. O sorteio será feito de forma eletrônica através do <strong>site oficial do campeonato</strong>.
+      </p>
+    </div>
+  </section>
+</div>
+
+<!-- Script para abrir/fechar sections -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('section h2').forEach(h2 => {
+      h2.addEventListener('click', () => {
+        h2.parentElement.classList.toggle('open');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

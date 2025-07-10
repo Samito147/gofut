@@ -1,0 +1,301 @@
+/* === BASE === */
+#campeonatos-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem 2rem;
+  animation: fadeInUp 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;
+  margin: 1.5rem 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* === FORMULÁRIO GERAL === */
+form {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* ✅ MOBILE – mantém estrutura inline-block */
+.player-column {
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+/* 💻 DESKTOP – colunas lado a lado */
+@media (min-width: 768px) {
+  .players-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .player-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* === LABELS E CAMPOS === */
+label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border-color: #00bfff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+}
+
+/* === BOTÃO DE ENVIO === */
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.button-wrapper button {
+  padding: 0.75rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 400px;
+}
+
+.button-wrapper button:hover {
+  background: #1e7e34;
+}
+
+/* === CAMPEONATO === */
+.championship-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+#campeonatos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-campeonato {
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 1rem;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  min-width: 140px;
+  max-width: 100%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.card-campeonato:hover {
+  border-color: #ffcc00;
+  background-color: #2a2a2a;
+}
+
+.card-campeonato.selecionado {
+  border-color: #00ff88;
+  background-color: #003322;
+}
+
+.card-campeonato i {
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.card-campeonato .titulo {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* === TOAST === */
+.toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 0.9rem 1.3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  font-size: 0.95rem;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  max-width: 90vw;
+  width: fit-content;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.hidden {
+  display: none !important;
+}
+
+/* === GERAL === */
+body {
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+main.match-campeonato-container {
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* === SELECT DOS JOGADORES === */
+select#player1,
+select#player2 {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #333;
+  border-radius: 8px;
+  appearance: none;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+select#player1:hover,
+select#player2:hover {
+  border-color: #00bcd4;
+}
+
+select#player1:focus,
+select#player2:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+}
+
+/* Opcional: seta de dropdown personalizada para consistência */
+select#player1,
+select#player2 {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23e0e0e0' viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 1rem;
+}
+
+/* Desativa setas extras em navegadores antigos */
+select#player1::-ms-expand,
+select#player2::-ms-expand {
+  display: none;
+}
+.btn-reset {
+  padding: 0.6rem 1.2rem;
+  background: #dc3545;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+.btn-reset:hover {
+  background: #a71d2a;
+}
+.btn-reset-icon {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+.btn-reset-icon:hover {
+  color: #f87171; /* vermelho suave */
+}
+.championship-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
