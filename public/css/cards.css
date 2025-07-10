@@ -1,0 +1,264 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 120vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.card-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: none;
+  padding: 16px;
+  overflow: visible; /* 🔧 evita corte no PNG */
+  box-sizing: border-box;
+}
+
+.player-card {
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  background: linear-gradient(145deg, #1f1f1f, #2d2d2d);
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.7);
+  overflow: hidden;
+  color: #f1f1f1;
+  text-align: center;
+  border: 2px solid #ffd70080;
+  animation: blinkBorder 2.5s infinite;
+  display: flex;
+  flex-direction: column;
+  max-height: auto;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* 🎯 Botões de ação no topo */
+.card-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.card-controls button {
+  pointer-events: auto;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 15px; /* ⬅️ Reduzido de 22px para ~30% menor */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.card-controls button i {
+  font-size: 15px !important; /* ⬅️ Reduzido de 22px para ~30% menor */
+}
+
+.card-controls .close-button:hover {
+  color: #ff4d4d;
+}
+
+.card-controls .share-button:hover {
+  color: #ffd700;
+}
+
+/* 📸 Oculta botões durante captura PNG */
+@media screen {
+  .hide-during-capture {
+    display: none !important;
+  }
+}
+
+.photo {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fadeInPhoto 1s ease-out 0.3s forwards;
+  transition: transform .5s ease;
+}
+
+@media (max-width: 480px) {
+  .photo img {
+    max-height: 340px;
+    object-fit: cover;
+  }
+
+  .card-wrapper {
+    padding: 12px;
+  }
+
+  .card-controls {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+}
+
+.player-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 49px;
+  font-weight: 800;
+  padding: 4px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(2px);
+  padding: 18px 24px;
+  opacity: 0;
+  animation: fadeInStats 1s ease-out .5s forwards;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.3s;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.stat-label {
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.stat-label i {
+  color: #ffd700;
+  margin-right: 8px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.stat-row:hover .stat-label i {
+  color: #fff8b0;
+}
+
+.stat-row:hover .stat-label {
+  color: #fff;
+}
+
+@media (max-width: 360px) {
+  .player-name { font-size: 43px; }
+  .stats { padding: 14px 16px; gap: 10px; }
+  .stat-row { font-size: 20px; }
+  .stat-label i { font-size: 16px; }
+}
+
+@keyframes fadeInPhoto {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInStats {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blinkBorder {
+  0%, 100% { border-color: #ffd70080; }
+  50%      { border-color: #ffd700cc; }
+}
+
+/* 🔵 Histórico de partidas */
+.history-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 18px auto 12px auto;
+  padding: 0;
+}
+
+.history-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Removido o border antigo */
+}
+
+.history-dot.green {
+  background: radial-gradient(circle at center, #10b981 0%, #065f46 100%);
+  box-shadow: 0 0 12px #10b981cc;
+}
+
+.history-dot.red {
+  background: radial-gradient(circle at center, #dc2626 0%, #7f1d1d 100%);
+  box-shadow: 0 0 12px #dc2626cc;
+}
+
+.history-dot.gray {
+  background: radial-gradient(circle at center, #6b7280 0%, #4b5563 100%);
+  color: #eee;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+
+.history-dot:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+}
+#history {
+  display: flex;
+  flex-direction: row-reverse; /* ✅ mais recente à direita */
+  justify-content: center;
+  gap: 6px;
+}
