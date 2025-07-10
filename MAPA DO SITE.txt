@@ -1,0 +1,125 @@
+**🧭 MAPA DA ARQUITETURA DO PROJETO GOFut**
+
+---
+
+### 🧱 ESTRUTURA GERAL DO PROJETO
+
+```
+GOFut/
+├── .env.local                → Chaves Supabase e configurações sensíveis
+├── next.config.js           → Configurações do Next.js
+├── package.json             → Lista de dependências (JS/Node)
+├── lib/
+│   └── elo.js               → Lógica central de cálculo ELO competitivo
+├── pages/api/               → Backend (rotas REST)
+│   ├── login.js             → Autenticação de login
+│   ├── signup.js            → Cadastro de novo usuário
+│   ├── match.js             → Registro de partidas e cálculo de ELO
+│   ├── profile.js           → Coleta e retorno de dados de perfil
+│   ├── ranking.js           → Retorna lista global de ranking
+│   ├── session.js           → Verificação de sessão ativa via JWT
+│   └── championships/       → Controle de torneios (index.js, register.js)
+├── public/                  → Páginas e assets acessíveis diretamente
+│   ├── admin.html           → Painel de administração
+│   ├── cadastro.html        → Formulário de cadastro
+│   ├── login.html           → Formulário de login
+│   ├── perfil.html          → Página de perfil do jogador
+│   ├── ranking.html         → Página de classificação global
+│   ├── match-simulator.html→ Simulador manual de partidas
+│   └── js/, css/            → Scripts e estilos do frontend
+```
+
+---
+
+### 🔌 BANCO DE DADOS SUPABASE
+
+#### 🗃️ Tabelas existentes:
+
+* **users** → dados básicos do usuário (id, username, full\_name, birth\_date)
+* **user\_stats** → dados competitivos (elo, wins, draws, losses, goals, corners, cards)
+* **matches** → histórico completo de partidas (players, score, timestamp, escanteios)
+* **championships** → gerenciamento de torneios
+
+#### 🔑 Autenticação
+
+* Realizada via JWT
+* Proteção de rotas `profile.js`, `match.js`, etc.
+
+---
+
+### 🔁 FLUXO FRONT → BACK → BANCO
+
+#### Exemplo: Registro de uma partida
+
+1. Front envia POST para `/api/match` com:
+
+   * player1, player2, scores, escanteios, cartões
+2. Rota `match.js`:
+
+   * Valida sessão
+   * Calcula novo ELO via `lib/elo.js`
+   * Atualiza `user_stats`
+   * Registra `match`
+3. Supabase grava os dados no banco
+
+#### Exemplo: Acesso ao perfil
+
+1. Front chama `/api/profile`
+2. API retorna `users` + `user_stats` + `matches`
+3. Front monta visual com SVG, histórico e eficiência
+
+---
+
+### 🎨 COMPONENTES VISUAIS
+
+#### Destaques por página:
+
+* **perfil.html**
+
+  * Círculo de eficiência (vitórias, empates, derrotas)
+  * Lista de últimas partidas com nomes centralizados
+* **ranking.html**
+
+  * Lista global ordenada por ELO com destaques de posição
+* **admin.html**
+
+  * Menu lateral dinâmico + conteúdo injetado (via template JS)
+  * Inclusão de simulador de partidas como aba "Resultados"
+
+---
+
+### 📊 FUNÇÕES DE CÁLCULO COMPETITIVO
+
+#### `lib/elo.js`
+
+* ELO baseado em diferença de pontuação esperada vs. real
+* Bônus de escanteios e gols marcados
+* Penalidades por cartões amarelos/vermelhos
+* Multiplicador para "underdogs"
+* Garante variação mínima
+
+---
+
+### 🏁 TESTES & VALIDAÇÃO
+
+* Página `match-simulator.html` permite testes manuais das regras de ELO
+* Frontend preparado para simular partidas e registrar no banco
+* Feedback visual instantâneo no navegador
+
+---
+
+### 🏆 ESTRATÉGIA DE EXPANSÃO
+
+* Sistema de Temporadas (em implantação)
+* Rankings sazonais
+* Conquistas visuais (badges)
+* Histórico evolutivo por jogador
+
+---
+
+### 🧠 CONCLUSÃO
+
+GOFut é um sistema altamente modular e competitivo, com base sólida para evoluir para uma plataforma de eSports. O código está estruturado para permitir adições seguras, com rota protegida, componentes reutilizáveis e clara separação de responsabilidades entre camadas (API, lógica e visual).
+
+Desenvolvedor: Samito ⚙️
+Arquiteto de IA: ChatGPT 🤖

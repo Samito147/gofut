@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Configurações de Perfil</title>
+
+  <!-- 🎨 Estilo visual -->
+  <link rel="stylesheet" href="css/alterarfoto.css" />
+
+  <!-- 📦 Ícones FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+
+<body>
+
+  <!-- 📦 Envolve toda a página com fundo escuro -->
+  <main class="main-config-wrapper">
+    <div class="configuracoes-container">
+
+      <!-- 🧍 Foto de Perfil -->
+      <section class="foto-section">
+        <h2><i class="fas fa-user-circle"></i> Alterar Foto de Perfil</h2>
+        
+        <form id="fotoForm" class="form-upload" enctype="multipart/form-data">
+          <div class="foto-preview">
+            <img id="previewImg" src="assets/fotos/default.png" alt="Preview da Foto de Perfil" />
+          </div>
+          
+          <label for="foto">
+            Selecione uma nova imagem:
+            <input type="file" name="foto" id="foto" accept="image/*" required />
+          </label>
+
+          <button type="submit"><i class="fas fa-save"></i> Salvar Foto</button>
+        </form>
+
+        <div id="statusMsg" class="status"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 🔔 Toast de feedback -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- 🧠 Scripts -->
+  <script src="js/alterarfoto.js" defer></script>
+</body>
+</html>

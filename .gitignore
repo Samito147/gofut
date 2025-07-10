@@ -1,0 +1,14 @@
+# Ignorar node_modules
+node_modules/
+
+# Ignorar build temporário
+.next/
+dist/
+build/
+
+# Ignorar logs
+*.log
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db

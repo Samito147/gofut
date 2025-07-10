@@ -1,0 +1,236 @@
+/* resultados.css — estilos específicos da página “Resultados” */
+
+/* 1) BODY */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f !important;
+  padding-top: 4rem;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* 2) ANIMAÇÃO fadeInUp */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 3) CONTAINER PRINCIPAL */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* 4) TÍTULO */
+.container h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.container h1 i {
+  margin-right: 0.5rem;
+  color: #00bcd4;
+}
+
+/* 5) GRID DE CARDS */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  justify-items: center;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .score-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 6) SCOREBOARD */
+.scoreboard {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 20px 0;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* 7) POSICIONAMENTO DAS ÁREAS */
+.team-block.team1 { grid-column: 1; grid-row: 1; }
+.middle           { grid-column: 2; grid-row: 1; }
+.team-block.team2 { grid-column: 3; grid-row: 1; }
+.stats            { grid-column: 1 / 4; grid-row: 2; }
+
+/* 8) BLOCOS DE TIME E ÁREA CENTRAL */
+.team-block,
+.middle {
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 20px;
+  min-width: 0;
+}
+.team-block, .score-grid, .scoreboard, .middle {
+  min-width: 0;
+}
+
+/* 9) AVATAR (IMG ou CANVAS) */
+.avatar,
+canvas.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  margin-bottom: 10px;
+  transition: transform .3s, border-color .3s;
+  display: block;
+}
+.avatar:hover {
+  transform: scale(1.05);
+}
+
+/* 10) INFORMAÇÕES DO TIME */
+.team-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+.team-name {
+  color: #eee;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* 11) RANKING DO TIME */
+.team-rank {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 24px;
+  background: #00bcd4;
+  color: #0f0f0f;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.team-rank.rank-top    { background: #2E7D32 !important; color: #fff !important; }
+.team-rank.rank-mid    { background: #B0BEC5 !important; color: #000 !important; }
+.team-rank.rank-bottom { background: #C62828 !important; color: #fff !important; }
+
+/* 12) SCORES */
+.scores {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 2.8rem;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+  min-width: 0;
+}
+.vs {
+  font-size: 1.3rem;
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* 13) ESTATÍSTICAS */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 12px;
+  color: #fff;
+  font-size: 0.9rem;
+}
+.stats .stat i {
+  margin-right: 4px;
+  color: #00bcd4;
+}
+
+/* 14) DESTAQUES DINÂMICOS */
+.avatar.winner,
+canvas.avatar.winner {
+  border-color: #0f0 !important;
+}
+.avatar.loser,
+canvas.avatar.loser {
+  border-color: #f00 !important;
+}
+.avatar.draw,
+canvas.avatar.draw {
+  border-color: #888 !important;
+}
+.score.winner {
+  color: #0f0;
+  text-shadow: 0 0 8px #0f0;
+}
+.score.loser {
+  color: #f00;
+  text-shadow: 0 0 8px #f00;
+}
+.score.draw {
+  color: #888;
+}
+
+/* 15) RESPONSIVO PARA MOBILE */
+@media (max-width: 600px) {
+  .avatar,
+  canvas.avatar {
+    width: 80px;
+    height: 80px;
+  }
+  .scores {
+    font-size: 2.2rem;
+    gap: 12px;
+  }
+  .vs {
+    font-size: 1rem;
+  }
+  .team-name {
+    font-size: 1rem;
+  }
+  .team-info {
+    margin-top: 0.4rem;
+  }
+  .team-rank {
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+    line-height: 20px;
+  }
+}
+
+/* 16) ÍCONE DE COMPARTILHAR */
+.share-icon {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform .2s;
+}
+.share-icon:hover {
+  transform: translateX(-50%) scale(1.1);
+}
