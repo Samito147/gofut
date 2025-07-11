@@ -4,14 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loja de GPs</title>
-  <link rel="stylesheet" href="/css/styles.css"/>
   <link rel="stylesheet" href="/css/menu.css"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <link rel="stylesheet" href="/css/loja.css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- ⏳ Regra: oculta conteúdo até menu carregar -->
+<!-- ⏳ Regra: oculta conteúdo até menu carregar -->
+<style>
+  body:not(.menu-ready) main.loja-page {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  body.menu-ready main.loja-page {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.4s ease-in-out;
+  }
+</style>
+
 </head>
 <body>
+  <!-- 🔽 Menu carregado dinamicamente -->
   <div id="menu-placeholder"></div>
 
+  <!-- 🔒 Conteúdo principal só aparece após menu -->
   <main class="loja-page">
     <!-- 💰 SALDO ATUAL DO USUÁRIO -->
     <section class="saldo-section">
