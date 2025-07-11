@@ -203,6 +203,10 @@ function atualizarSelects() {
 // ✅ 5️⃣ Inicializa a tela COM VERIFICAÇÃO DE ADMIN
 document.addEventListener('DOMContentLoaded', () => {
   verificarAdmin(() => {
+    // ✅ Exibe a página após verificação bem-sucedida
+    document.body.classList.remove('invisible-until-verified');
+    document.body.classList.add('visible-after-verification');
+
     // 🔓 Executado SOMENTE se for ADMIN
     carregarCampeonatos();
 
