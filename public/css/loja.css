@@ -1,74 +1,99 @@
-/* loja.css – Estilo exclusivo da página LOJA */
+/* loja.css – Estilo moderno, sofisticado e responsivo */
+
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 .loja-page {
-  padding: 2rem;
-  max-width: 900px;
+  padding: 2rem 1rem;
+  max-width: 1000px;
   margin: auto;
-  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .saldo-section,
 .depositar-section,
 .mercado-section {
-  background: #1e1e1e;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.saldo-section:hover,
+.depositar-section:hover {
+  transform: translateY(-3px);
 }
 
 .saldo-section h1,
 .depositar-section h2,
 .mercado-section h2 {
-  color: #00bcd4;
-  margin-bottom: 1rem;
+  color: #00e5ff;
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 #gp-saldo {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: bold;
   color: #ffd700;
+  text-shadow: 1px 1px 3px #000;
 }
 
+/* 🟦 Cards de pacotes */
 .pacotes {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
   margin-top: 1rem;
 }
 
 .pacotes button {
   background: #00bcd4;
   color: #0f0f0f;
-  padding: 0.75rem 1.25rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+  min-width: 220px;
+  text-align: center;
 }
 
 .pacotes button:hover {
   background: #02aab2;
+  transform: translateY(-2px);
 }
 
+/* ℹ️ Informações sobre mercado */
 .mercado-section p {
   color: #bbb;
   font-style: italic;
+  font-size: 0.95rem;
 }
 
-/* 🌟 TOASTS ESTILIZADOS */
+/* ✅ TOASTS Estilizados */
 .toast {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-150%);
   padding: 1rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
@@ -128,4 +153,104 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* 📱 Responsividade completa */
+@media (max-width: 768px) {
+  .loja-page {
+    padding: 1rem;
+  }
+
+  .pacotes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pacotes button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  #gp-saldo {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  .saldo-section h1,
+  .depositar-section h2 {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+    body:not(.menu-ready) main.loja-page {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.menu-ready main.loja-page {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    /* 🔹 Estilo do botão de info */
+    .info-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #ffd700;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* 🔹 Card flutuante */
+    #gp-info-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      background: #1e1e1e;
+      color: #fff;
+      border: 1px solid #444;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      border-radius: 12px;
+      padding: 1.5rem;
+      z-index: 9999;
+      display: none;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    #gp-info-card iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      border-radius: 8px;
+    }
+
+    #gp-info-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+/* 🔲 Fundo escurecido para o modal */
+#gp-info-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Escurecimento real */
+  z-index: 9998;
+  display: none;
+  transition: opacity 0.3s ease;
 }
