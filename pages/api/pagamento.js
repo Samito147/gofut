@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         {
           title: "Pacote de 150 GPs",
           quantity: 1,
-          unit_price: 7.5,
+          unit_price: 0.1,
           currency_id: "BRL"
         }
       ],
