@@ -1,5 +1,3 @@
-// /api/payments/notify.js
-
 import mercadopago from 'mercadopago';
 import { createClient } from '@supabase/supabase-js';
 
@@ -50,13 +48,14 @@ export default async function handler(req, res) {
     const payment = result.body;
     const status = payment.status;
     const userId = payment.metadata?.user_id;
+    const quantidade = payment.metadata?.quantidade;
 
-    console.log("📦 Pagamento status:", status, "| userId:", userId);
+    console.log("📦 Pagamento status:", status, "| userId:", userId, "| quantidade:", quantidade);
 
-    if (status === 'approved' && userId) {
+    if (status === 'approved' && userId && quantidade) {
       const { error } = await supabase.rpc('add_gps_to_user', {
         uid: userId,
-        quantidade: 150
+        quantidade
       });
 
       if (error) {
@@ -68,7 +67,7 @@ export default async function handler(req, res) {
       return res.status(200).send('GPs creditados');
     }
 
-    console.warn("⚠️ Pagamento não aprovado ou user_id ausente");
+    console.warn("⚠️ Pagamento não aprovado ou dados incompletos");
     return res.status(200).send('Pagamento não aprovado');
 
   } catch (error) {
