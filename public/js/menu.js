@@ -1,5 +1,3 @@
-// js/menu.js
-
 (async () => {
   const placeholder = document.getElementById('menu-placeholder');
   placeholder.style.visibility = 'hidden';
@@ -81,6 +79,7 @@
             { text: 'Campeonatos', href: 'match-campeonato.html', icon: 'fas fa-trophy' }
           ] : []),
           { text: 'Perfil', href: 'perfil.html', icon: 'fas fa-id-badge' },
+          { text: 'Carteira', href: 'carteira.html', icon: 'fas fa-wallet' }, // 🆕 Adicionado submenu da carteira
           { text: 'Sair', href: 'sair.html', icon: 'fas fa-sign-out-alt' }
         ];
 
