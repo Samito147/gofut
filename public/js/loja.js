@@ -206,7 +206,7 @@ async function abrirModalGP() {
   modal.appendChild(fechar);
 
   try {
-    const res = await fetch('GPS.html');
+    const res = await fetch('gps.html');
     const html = await res.text();
     const conteudo = document.createElement('div');
     conteudo.innerHTML = html;
