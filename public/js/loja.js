@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   await carregarSaldo();
-  verificarStatusPagamento(); // ✅ Nova função adicionada
 });
 
 // 🔄 Buscar saldo atual do usuário
@@ -41,12 +40,15 @@ async function comprarGP(quantidade) {
       return;
     }
 
-    // ✅ CORRIGIDO: adicionado body para evitar erro 405
+    // 💵 Calcula valor em reais (1 GP = R$1.00)
+    const valor = quantidade;
+
+    // ✅ Envia quantidade e valor para o backend
     const res = await fetch('/api/pagamento', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
+      body: JSON.stringify({ quantidade, valor })
     });
 
     if (!res.ok) {
@@ -89,36 +91,6 @@ function showToast(mensagem, tipo = "success") {
     toast.classList.remove("show");
     setTimeout(() => document.body.removeChild(toast), 500);
   }, 3000);
-}
-
-// 🔁 Detectar parâmetro de status de pagamento e exibir toast correspondente
-function verificarStatusPagamento() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get("status");
-
-  if (status) {
-    let mensagem = "";
-    let tipo = "info";
-
-    if (status === "success") {
-      mensagem = "✅ Pagamento aprovado! Seus GPs foram creditados.";
-      tipo = "success";
-    } else if (status === "failure") {
-      mensagem = "❌ Pagamento não foi aprovado. Tente novamente.";
-      tipo = "error";
-    } else if (status === "pending") {
-      mensagem = "⏳ Pagamento pendente. Aguarde confirmação.";
-      tipo = "warning";
-    }
-
-    if (mensagem) {
-      showToast(mensagem, tipo);
-    }
-
-    // ✂️ Limpa o status da URL
-    const cleanUrl = window.location.origin + window.location.pathname;
-    window.history.replaceState({}, document.title, cleanUrl);
-  }
 }
 
 // 💠 Estilo da animação spinner (injetado se não existir)
