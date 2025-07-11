@@ -44,7 +44,11 @@
     }
 
     // 3️⃣ Inicializa submenu
-    initProfileMenu(isLoggedIn, role, user?.id);
+    await initProfileMenu(isLoggedIn, role, user?.id);
+
+    // ✅ Dispara evento indicando que o menu foi totalmente carregado
+    dispatchEvent(new Event('menu:ready'));
+    document.body.classList.add('menu-ready');
 
   } catch (err) {
     console.error('Erro ao carregar menu:', err);
@@ -55,6 +59,10 @@
       main.style.visibility = 'visible';
       main.style.opacity = '1';
     }
+
+    // 🔄 Mesmo com erro, ainda dispara o evento para não travar páginas dependentes
+    dispatchEvent(new Event('menu:ready'));
+    document.body.classList.add('menu-ready');
   }
 
   // 🧩 Submenu com exibição de saldo adaptativa
