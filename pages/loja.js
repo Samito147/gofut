@@ -1,37 +1,16 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 
 export default function Loja() {
-  const [saldo, setSaldo] = useState('Carregando...');
-
-  useEffect(() => {
-    async function carregarSaldo() {
-      try {
-        const res = await fetch('/api/wallet', { credentials: 'include' });
-        const data = await res.json();
-        const valor = data?.balance_gp ?? 0;
-        setSaldo(`${valor} GPs`);
-      } catch (e) {
-        console.error("Erro ao carregar saldo:", e);
-        setSaldo("Erro ao carregar.");
-        if (window?.showToast) {
-          window.showToast("Erro ao carregar saldo.", "error");
-        }
-      }
-    }
-
-    carregarSaldo();
-  }, []);
-
   return (
     <>
       <Head>
         <title>Loja de GPs</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/css/styles.css" />
+        {/* CSS externos */}
         <link rel="stylesheet" href="/css/menu.css" />
+        <link rel="stylesheet" href="/css/styles.css" />
         <link rel="stylesheet" href="/css/loja.css" />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -39,30 +18,60 @@ export default function Loja() {
         />
       </Head>
 
+      {/* 🔽 Menu carregado dinamicamente */}
       <div id="menu-placeholder"></div>
 
+      {/* 🔲 Fundo escurecido para modal */}
+      <div id="gp-info-overlay" onClick={() => fecharInfoGP()}></div>
+
+      {/* 🔒 Conteúdo principal só aparece após menu */}
       <main className="loja-page">
-        <section className="saldo-section">
+        {/* 💰 SALDO ATUAL DO USUÁRIO */}
+        <section className="saldo-section" style={{ position: 'relative' }} id="gp-card">
           <h1><i className="fas fa-coins"></i> Saldo Atual</h1>
-          <div id="gp-saldo">{saldo}</div>
+          {/* ✅ Ícone no canto superior direito */}
+          <button className="info-btn" onClick={() => abrirInfoGP()} title="Sobre os GPs">
+            <i className="fas fa-circle-info"></i>
+          </button>
+          <div id="gp-saldo">Carregando...</div>
         </section>
 
+        {/* 💳 COMPRA DE GPs */}
         <section className="depositar-section">
-          <h2><i className="fas fa-credit-card"></i> Comprar GPs</h2>
+          <h2><i className="fas fa-credit-card"></i> Depositar GPs</h2>
           <div className="pacotes">
-            <button onClick={() => window.comprarGP?.(150)}>R$7,50 → 150 GPs</button>
+            <button onClick={() => comprarGP(150)}>150 GPs</button>
+            <button onClick={() => comprarGP(300)}>300 GPs</button>
+            <button onClick={() => comprarGP(500)}>500 GPs</button>
           </div>
-        </section>
-
-        <section className="mercado-section">
-          <h2><i className="fas fa-store"></i> Mercado (em breve)</h2>
-          <p>Itens especiais poderão ser comprados aqui usando seus GPs acumulados.</p>
         </section>
       </main>
 
+      {/* 🔳 CARD FLUTUANTE COM CONTEÚDO DE GPS.html */}
+      <div id="gp-info-card">
+        <button id="gp-info-close" onClick={() => fecharInfoGP()} title="Fechar">
+          <i className="fas fa-times"></i>
+        </button>
+        <iframe src="GPS.html" title="Informações sobre GPs"></iframe>
+      </div>
+
+      {/* 📦 SCRIPTS EXTERNOS */}
       <Script src="/js/menu.js" strategy="afterInteractive" />
       <Script src="/js/loja.js" strategy="afterInteractive" />
 
+      {/* 📘 Lógica JS inline para fallback de funções */}
+      <Script id="gp-modal-fallback" strategy="afterInteractive">
+        {`
+          function abrirInfoGP() {
+            if (typeof abrirModalGP === "function") abrirModalGP();
+          }
+          function fecharInfoGP() {
+            if (typeof fecharModalGP === "function") fecharModalGP();
+          }
+        `}
+      </Script>
+
+      {/* 🚫 Fallback para JS desativado */}
       <noscript>
         <style>{`main { display: none; }`}</style>
         <div className="no-js-warning">
