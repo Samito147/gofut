@@ -1,7 +1,19 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import { useEffect } from 'react';
 
 export default function Loja() {
+  useEffect(() => {
+    const tentar = () => {
+      if (typeof window !== 'undefined' && typeof window.carregarSaldo === 'function') {
+        window.carregarSaldo();
+      } else {
+        setTimeout(tentar, 100);
+      }
+    };
+    tentar();
+  }, []);
+
   return (
     <>
       <Head>
