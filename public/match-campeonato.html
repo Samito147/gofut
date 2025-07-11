@@ -13,6 +13,17 @@
 
   <!-- 🎨 FontAwesome para ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <!-- 🌑 CSS para controle visual de verificação -->
+  <style>
+    body.invisible-until-verified {
+      visibility: hidden;
+    }
+    body.visible-after-verification {
+      visibility: visible;
+      transition: visibility 0.3s ease-in-out;
+    }
+  </style>
 </head>
 <body class="invisible-until-verified">
 
@@ -120,6 +131,6 @@
   </main>
 
   <!-- 🧠 Scripts -->
-  <script src="js/match-campeonato.js" defer></script>
+  <script src="js/match-campeonato.js" type="module" defer></script>
 </body>
 </html>
