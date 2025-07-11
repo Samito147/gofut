@@ -13,27 +13,39 @@
   <div id="menu-placeholder"></div>
 
   <main class="loja-page">
+    <!-- 💰 SALDO ATUAL DO USUÁRIO -->
     <section class="saldo-section">
       <h1><i class="fas fa-coins"></i> Saldo Atual</h1>
       <div id="gp-saldo">Carregando...</div>
     </section>
 
+    <!-- 💳 COMPRA DE GPs -->
     <section class="depositar-section">
-      <h2><i class="fas fa-credit-card"></i> Comprar GPs</h2>
+      <h2><i class="fas fa-credit-card"></i> Depositar GPs</h2>
       <div class="pacotes">
-        <button onclick="comprarGP(150)">R$7,50 → 150 GPs</button>
-      </div>
-    </section>
+        <!-- 🆕 Pacote 1 -->
+        <button onclick="comprarGP(150)">
+          150 GPs
+        </button>
 
-    <section class="mercado-section">
-      <h2><i class="fas fa-store"></i> Mercado (em breve)</h2>
-      <p>Itens especiais poderão ser comprados aqui usando seus GPs acumulados.</p>
+        <!-- 🆕 Pacote 2 -->
+        <button onclick="comprarGP(300)">
+          300 GPs
+        </button>
+
+        <!-- 🆕 Pacote 3 -->
+        <button onclick="comprarGP(500)">
+          500 GPs
+        </button>
+      </div>
     </section>
   </main>
 
+  <!-- 📦 SCRIPTS -->
   <script src="/js/menu.js" defer></script>
   <script src="/js/loja.js" defer></script>
 
+  <!-- 🚫 Fallback se JS estiver desativado -->
   <noscript>
     <style>
       main { display: none; }
