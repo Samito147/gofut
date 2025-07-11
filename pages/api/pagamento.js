@@ -1,5 +1,3 @@
-// /pages/api/pagamento.js
-
 const mercadopago = require('mercadopago');
 const { parse } = require('cookie');
 const { verify } = require('jsonwebtoken');
@@ -47,18 +45,30 @@ export default async function handler(req, res) {
 
     console.log("🧠 ID do usuário autenticado:", userId);
 
-    // 🧾 Cria a preferência de pagamento com os dados
+    // 🧾 Lê valores enviados pelo frontend
+    const { quantidade, valor } = req.body;
+
+    if (!quantidade || !valor) {
+      console.warn("⚠️ Dados de pagamento ausentes:", req.body);
+      return res.status(400).json({ error: 'Dados de pagamento inválidos' });
+    }
+
+    console.log(`🛒 Gerando preferência para ${quantidade} GPs por R$${valor}, usuário: ${userId}`);
+
+    // 🧾 Cria a preferência de pagamento com os dados dinâmicos
     const preference = {
       items: [
         {
-          title: "Pacote de 150 GPs",
+          title: `Pacote de ${quantidade} GPs`,
           quantity: 1,
-          unit_price: 0.1,
+          unit_price: valor,
           currency_id: "BRL"
         }
       ],
       metadata: {
-        user_id: userId
+        user_id: userId,
+        quantidade,
+        valor
       },
       back_urls: {
         success: "https://gofut.vercel.app/loja?status=success",
